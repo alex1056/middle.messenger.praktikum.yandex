@@ -1,0 +1,26 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "Реализация чата SPA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "./node_modules/.bin/parcel index.html",
+    "build": "./node_modules/.bin/parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex1056/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "Alexander B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex1056/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/alex1056/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "parcel-bundler": "^1.12.5"
+  },
+  "dependencies": {}
+}
