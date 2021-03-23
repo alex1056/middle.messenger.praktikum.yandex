@@ -24,7 +24,7 @@
     box-sizing: border-box;
     transition: background 0.1s linear, border 0.1s linear;
     // background: url('../../../img/add-user.svg') no-repeat;
-    background: url('../img/add-user.svg') no-repeat;
+    background: url('../../../img/add-user.svg') no-repeat;
   }
   &:hover {
     opacity: 1;
@@ -59,7 +59,7 @@
     z-index: 1;
     box-sizing: border-box;
     transition: background 0.1s linear, border 0.1s linear;
-    background: url('../img/arrow-right.svg') no-repeat;
+    background: url('../../../img/arrow-right.svg') no-repeat;
   }
   &:hover {
     opacity: 1;

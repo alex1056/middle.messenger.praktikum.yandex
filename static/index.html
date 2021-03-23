@@ -86,8 +86,52 @@
             ></div> -->
           </div>
         </div>
-        <div class="messages">
-          <h1 class="title">Выберите чат чтобы отправить сообщение</h1>
+        <div class="msgs">
+          <!-- <h1 class="msgs__title">Выберите чат чтобы отправить сообщение</h1> -->
+          <div class="msgs__container">
+            <div class="msgs__head">
+              <div class="msgs__avatar-nick-cont">
+                <img src="./img/test.png" alt="аватар пользователя" />
+                <span class="msgs__nick-name-text">Андрей</span>
+              </div>
+            </div>
+            <div class="msgs__feed">
+              <p class="msgs__date">19 июня</p>
+              <div class="msgs__msg-cont">
+                <p class="msgs__msg-text">
+                  Привет! Смотри, тут всплыл интересный кусок лунной космической
+                  истории — НАСА в какой-то момент попросила Хассельблад
+                  адаптировать модель SWC для полетов на Луну. Сейчас мы все
+                  знаем что астронавты летали с моделью 500 EL — и к слову
+                  говоря, все тушки этих камер все еще находятся на поверхности
+                  Луны, так как астронавты с собой забрали только кассеты с
+                  пленкой.
+                </p>
+                <p class="msgs__msg-text">
+                  Хассельблад в итоге адаптировал SWC для космоса, но что-то
+                  пошло не так и на ракету они так никогда и не попали. Всего их
+                  было произведено 25 штук, одну из них недавно продали на
+                  аукционе за 45000 евро.
+                </p>
+                <span class="msgs__msg-time">10:19</span>
+              </div>
+              <div class="msgs__msg-img">
+                <img src="./img/test2.jpg" alt="изображение от пользователя" />
+                <span class="msgs__msg-time msgs__msg-time_img">10:19</span>
+              </div>
+              <div class="msgs__answer-cont">
+                <p class="msgs__msg-text">Круто!</p>
+                <div class="msgs__answer-time-cont">
+                  <span class="time-status">11:44</span>
+                </div>
+              </div>
+            </div>
+            <div class="msgs__footer">
+              <div class="msgs__attache"></div>
+              <input type="text" class="msgs__input" placeholder="Сообщение" />
+              <button class="msgs__send-msg-btn"></button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
