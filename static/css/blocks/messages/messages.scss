@@ -1,0 +1,14 @@
+.messages {
+  width: calc(100% - 310px);
+  height: 100vh;
+  /* background-color: cadetblue; */
+  display: flex;
+}
+
+.title {
+  display: flex;
+  margin: auto;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 500;
+}

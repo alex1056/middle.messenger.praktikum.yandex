@@ -1,0 +1,71 @@
+.chats-list {
+  width: 310px;
+  position: relative;
+  height: calc(100vh - 17px);
+  background-color: aquamarine;
+  border-right: 1px solid #eaeaea;
+  // padding: 17px 10px 0 10px;
+  /* overflow-y: auto; */
+  /* overflow: auto; */
+  overflow: hidden;
+
+  &__wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 1000px;
+    padding: 17px 10px 0 10px;
+    /* overflow: hidden; */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  &__top-buttons {
+    width: 290px;
+    display: flex;
+    height: 20px;
+    background-color: bisque;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.btn {
+  position: relative;
+  margin: 0;
+  padding-left: 28px;
+  // height: 22px;
+  display: block;
+  padding-top: 4px;
+  font-size: 12px;
+  line-height: 12px;
+  color: #999999;
+
+  &_add-new-chat:before {
+    // margin-top: 2px;
+    // margin-left: 14px;
+    background: url('../../../img/add-user.svg') no-repeat;
+  }
+
+  // &_disk-space:before {
+  //   // margin-top: 2px;
+  //   margin-left: 14px;
+  //   background: url('./icons/disk-img.svg') no-repeat;
+  // }
+}
+
+.btn:before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-size: 24px 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  transition: background 0.1s linear, border 0.1s linear;
+}
