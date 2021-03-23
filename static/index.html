@@ -7,8 +7,8 @@
     <title>Chat Главная страницы</title>
     <meta name="author" content="Александр Бесов" />
     <meta name="description" content="Функциональность чата" />
-    <link rel="stylesheet" href="./css/index.css" />
-    <!-- <link rel="stylesheet" href="./css/style.scss" /> -->
+    <!-- <link rel="stylesheet" href="./css/index.css" /> -->
+    <link rel="stylesheet" href="./css/style.scss" />
   </head>
 
   <body class="body">
@@ -17,8 +17,73 @@
         <div class="chats-list">
           <div class="chats-list__wrapper">
             <div class="chats-list__top-buttons">
-              <div class="btn btn_add-new-chat">Новый чат</div>
+              <div class="btn-new-chat">Новый чат</div>
+              <div class="btn-profile">Профиль</div>
             </div>
+            <div class="input">
+              <input type="text" class="input-element" />
+              <div class="input__wrapper">
+                <div class="input__wrapper-loop">
+                  <div class="input__loop-text">Поиск</div>
+                </div>
+              </div>
+            </div>
+            <div class="user">
+              <div class="user__cont-1">
+                <img src="./img/test.png" alt="аватар пользователя" />
+              </div>
+              <div class="user__cont-2">
+                <div class="user__top-wrapper">
+                  <p class="user__nick-name">Андрей</p>
+                  <div class="user__date-wrapper">
+                    <div class="user__date">1 мая 2020</div>
+                    <p class="user__delete-icon">+</p>
+                  </div>
+                </div>
+                <div class="user__bottom-wrapper">
+                  <p class="user__last-message">
+                    Друзья, у меня для вас особенный выпуск новостей!...
+                  </p>
+                  <div class="user__unread-mess-numb">
+                    <div class="circle-unread">
+                      <div class="circle-unread__wrapper">
+                        <span class="circle-unread__text">7</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  -->
+            <div class="user">
+              <div class="user__cont-1">
+                <img src="./img/test.png" alt="аватар пользователя" />
+              </div>
+              <div class="user__cont-2">
+                <div class="user__top-wrapper">
+                  <p class="user__nick-name">Андрей</p>
+                  <div class="user__date-wrapper">
+                    <div class="user__date">1 мая 2020</div>
+                    <p class="user__delete-icon">+</p>
+                  </div>
+                </div>
+                <div class="user__bottom-wrapper">
+                  <p class="user__last-message">
+                    Друзья, у меня для вас особенный выпуск новостей!...
+                  </p>
+                  <div class="user__unread-mess-numb">
+                    <div class="circle-unread">
+                      <div class="circle-unread__wrapper">
+                        <span class="circle-unread__text">7</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div
+              style="width: 100%; height: 800px; background-color: aquamarine"
+            ></div> -->
           </div>
         </div>
         <div class="messages">
