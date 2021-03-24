@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/.bin/parcel static/index.html",
-    "build": "./node_modules/.bin/parcel build static/index.html"
+    "build": "./node_modules/.bin/parcel build static/index.html",
+    "start": "node ./server.js"
   },
   "repository": {
     "type": "git",
