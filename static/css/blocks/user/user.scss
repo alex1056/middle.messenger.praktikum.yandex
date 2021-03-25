@@ -30,6 +30,7 @@
   &__cont-1 {
     width: 47px;
     display: flex;
+    font-size: 10px;
 
     img {
       width: 47px;
@@ -80,6 +81,7 @@
     transform: rotate(-45deg);
     padding-left: 6px;
     padding-top: 2px;
+    text-decoration: none;
   }
   &__bottom-wrapper {
     width: 100%;
