@@ -25,7 +25,7 @@
               </div>
               <span class="profile__name">Иван</span>
 
-              <form class="pform">
+              <form class="pform" id="form">
                 <div class="pform__fset">
                   <label for="password" class="pform__label"
                     >Старый пароль</label
@@ -75,7 +75,7 @@
                   </div>
                 </div> -->
                 <div class="pform__btn-cont">
-                  <button class="btn pform__btn-save">
+                  <button type="submit" id="submit" class="btn pform__btn-save">
                     <span class="btn__text">Сохранить</span>
                   </button>
                 </div>
@@ -85,6 +85,6 @@
         </div>
       </div>
     </div>
-    <!-- <script src="<%= htmlWebpackPlugin.files.js %>" type="module"></script> -->
+    <script src="../src/index.js"></script>
   </body>
 </html>

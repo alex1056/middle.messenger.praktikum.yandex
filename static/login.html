@@ -15,7 +15,7 @@
     <div class="page">
       <div class="main">
         <div class="login-reg login-reg_login">
-          <form class="login-form">
+          <form class="login-form" id="form">
             <div class="login-form__cont">
               <h1 class="login-form__title">Вход</h1>
 
@@ -41,19 +41,22 @@
               </div>
             </div>
             <div class="login-form__btn-cont">
-              <button class="btn login-form__btn">
+              <button type="submit" id="submit" class="btn login-form__btn">
                 <span class="btn__text">Авторизоваться</span>
               </button>
-              <button class="btn login-form__btn login-form__btn_white">
+              <a
+                class="btn login-form__btn login-form__btn_white"
+                href="./registr.html"
+              >
                 <span class="btn__text login-form__btn-text"
                   >Нет аккаунта?</span
                 >
-              </button>
+              </a>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <!-- <script src="<%= htmlWebpackPlugin.files.js %>" type="module"></script> -->
+    <script src="../src/index.js"></script>
   </body>
 </html>

@@ -15,7 +15,7 @@
     <div class="page">
       <div class="main">
         <div class="login-reg">
-          <form class="login-form">
+          <form class="login-form" id="form">
             <h1 class="login-form__title">Регистрация</h1>
             <div class="login-form__fset">
               <label for="email" class="login-form__label">Почта</label>
@@ -95,17 +95,21 @@
             <p class="login-form__err-message">Пароли не совпадают</p>
 
             <div class="login-form__btn-cont">
-              <button class="btn login-form__btn">
+              <button type="submit" id="submit" class="btn login-form__btn">
                 <span class="btn__text">Зарегистрироваться</span>
               </button>
-              <button class="btn login-form__btn login-form__btn_white">
+
+              <a
+                class="btn login-form__btn login-form__btn_white"
+                href="./login.html"
+              >
                 <span class="btn__text login-form__btn-text">Войти</span>
-              </button>
+              </a>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <!-- <script src="<%= htmlWebpackPlugin.files.js %>" type="module"></script> -->
+    <script src="../src/index.js"></script>
   </body>
 </html>
