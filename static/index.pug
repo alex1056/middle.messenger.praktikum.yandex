@@ -1,9 +1,39 @@
 doctype html
-html(lang="en")
+html(lang="ru")
   head
-    // ...
-    link(rel="stylesheet", href="./css/style.css")
-  body
-    h1 Hello
-
-    //- script(src="index.js")
+    meta(charset="UTF-8")/
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")/
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")/
+    title Chat Главная страницы
+    meta(name="author" content="Александр Бесов")/
+    meta(name="description" content="Функциональность чата")/
+    link(rel="stylesheet", href="./css/style.scss")
+  body(class="body")
+    div(class="page")
+      div(class="main")      
+        div(class="chats-list")
+          div(class="chats-list__wrapper")
+            div(class="chats-list__top-buttons")
+              a(class="btn-new-chat" href="./index-add-user.html") Новый чат
+              a(class="btn-profile" href="./profile.html") Профиль
+            div(class="input")
+              input(type="text" class="input-element")/
+              div(class="input__wrapper")
+                div(class="input__wrapper-loop")
+                  span(class="input__loop-text") Поиск
+            div(class="user")
+              div(class="user__cont-1")
+                img(src="./img/test.png" alt="аватар пользователя")
+              div(class="user__cont-2")
+                div(class="user__top-wrapper")
+                  p(class="user__nick-name") Андрей 
+                  div(class="user__date-wrapper")
+                    span(class="user__date") 1 мая 2020
+                    a(class="user__delete-icon" href="./index-delete-user.html") +
+                div(class="user__bottom-wrapper")
+                  p(class="user__last-message") Друзья, у меня для вас особенный выпуск новостей!...
+                  div(class="user__unread-mess-numb")
+                    div(class="circle-unread")
+                      div(class="circle-unread__wrapper")
+                        span(class="circle-unread__text")
+    //- script(src="../src/index.js")

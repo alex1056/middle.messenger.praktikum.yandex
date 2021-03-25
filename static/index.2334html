@@ -26,7 +26,7 @@
               <input type="text" class="input-element" />
               <div class="input__wrapper">
                 <div class="input__wrapper-loop">
-                  <div class="input__loop-text">Поиск</div>
+                  <span class="input__loop-text">Поиск</span>
                 </div>
               </div>
             </div>
@@ -38,7 +38,7 @@
                 <div class="user__top-wrapper">
                   <p class="user__nick-name">Андрей</p>
                   <div class="user__date-wrapper">
-                    <div class="user__date">1 мая 2020</div>
+                    <span class="user__date">1 мая 2020</span>
                     <!-- <p class="user__delete-icon">+</p> -->
                     <a class="user__delete-icon" href="./index-delete-user.html"
                       >+</a
