@@ -138,30 +138,47 @@
       </div>
       <div class="popup popup_visible">
         <div class="popup__body">
-          <div class="popup__text-cont">
-            <p class="popup__action-title">Добавить пользователя</p>
-            <div class="popup__fset">
-              <label for="newuser" class="popup__label">Логин</label>
-              <input
-                type="text"
-                id="newuser"
-                class="popup__input"
-                value=""
-                placeholder="Введите логин или email"
-              />
+          <form id="form">
+            <div class="popup__text-cont">
+              <p class="popup__action-title">Добавить пользователя</p>
+              <div class="popup__fset">
+                <label for="newuser" class="popup__label">Логин</label>
+                <input
+                  type="text"
+                  id="newuser"
+                  class="popup__input"
+                  value=""
+                  placeholder="Введите логин или email"
+                />
+              </div>
             </div>
-          </div>
-          <div class="popup__btn-cont">
-            <button class="btn popup__btn popup__btn_small popup__btn_white">
+
+            <div class="popup__btn-cont">
+              <a
+                href="#"
+                class="btn popup__btn popup__btn_small popup__btn_white"
+              >
+                <span class="btn__text popup__btn-text">Отмена</span>
+              </a>
+              <!-- <button
+                type="text"
+                id="nosubmit"
+                class="btn popup__btn popup__btn_small popup__btn_white"
+              >
               <span class="btn__text popup__btn-text">Отмена</span>
-            </button>
-            <button class="btn popup__btn popup__btn_small">
-              <span class="btn__text">Сохранить</span>
-            </button>
-          </div>
+              </button> -->
+              <button
+                type="submit"
+                id="submit"
+                class="btn popup__btn popup__btn_small"
+              >
+                <span class="btn__text">Добавить</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    <!-- <script src="<%= htmlWebpackPlugin.files.js %>" type="module"></script> -->
+    <script src="../src/index.js"></script>
   </body>
 </html>
