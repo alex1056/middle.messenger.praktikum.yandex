@@ -2,6 +2,8 @@
 
 - [Макеты проекта](https://www.figma.com/file/tvVRobUvTiGSkECLTFEmES/Chat-with-Additions)
 
+- [Ссылка Netlify](https://suspicious-morse-807137.netlify.app/)
+
 Планируется реализация чата с минимально достаточными функциями:
 
 - Регистрация/авторизация
