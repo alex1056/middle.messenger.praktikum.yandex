@@ -39,7 +39,10 @@
                   <p class="user__nick-name">Андрей</p>
                   <div class="user__date-wrapper">
                     <div class="user__date">1 мая 2020</div>
-                    <p class="user__delete-icon">+</p>
+                    <!-- <p class="user__delete-icon">+</p> -->
+                    <a class="user__delete-icon" href="./index-delete-user.html"
+                      >+</a
+                    >
                   </div>
                 </div>
                 <div class="user__bottom-wrapper">
@@ -66,7 +69,10 @@
                   <p class="user__nick-name">Андрей</p>
                   <div class="user__date-wrapper">
                     <div class="user__date">1 мая 2020</div>
-                    <p class="user__delete-icon">+</p>
+                    <!-- <p class="user__delete-icon">+</p> -->
+                    <a class="user__delete-icon" href="./index-delete-user.html"
+                      >+</a
+                    >
                   </div>
                 </div>
                 <div class="user__bottom-wrapper">
@@ -95,6 +101,8 @@
               <div class="msgs__avatar-nick-cont">
                 <img src="./img/test.png" alt="аватар пользователя" />
                 <span class="msgs__nick-name-text">Андрей</span>
+                <a href="./login.html"></a>
+                <a href="./registr.html"></a>
               </div>
             </div>
             <div class="feed">
@@ -129,56 +137,22 @@
               </div>
             </div>
             <div class="msgs__footer">
-              <div class="msgs__attache"></div>
+              <!-- <div class="msgs__attache"></div> -->
+              <a href="./index-add-media.html" class="msgs__attache"></a>
               <input type="text" class="msgs__input" placeholder="Сообщение" />
               <button class="msgs__send-msg-btn"></button>
             </div>
           </div>
         </div>
       </div>
-      <div class="popup popup_visible">
-        <div class="popup__body">
-          <form id="form">
-            <div class="popup__text-cont">
-              <p class="popup__action-title">Добавить пользователя</p>
-              <div class="popup__fset">
-                <label for="newuser" class="popup__label">Логин</label>
-                <input
-                  type="text"
-                  id="newuser"
-                  class="popup__input"
-                  value=""
-                  placeholder="Введите логин или email"
-                />
-              </div>
-            </div>
-
-            <div class="popup__btn-cont">
-              <a
-                href="#"
-                class="btn popup__btn popup__btn_small popup__btn_white"
-              >
-                <span class="btn__text popup__btn-text">Отмена</span>
-              </a>
-              <!-- <button
-                type="text"
-                id="nosubmit"
-                class="btn popup__btn popup__btn_small popup__btn_white"
-              >
-              <span class="btn__text popup__btn-text">Отмена</span>
-              </button> -->
-              <button
-                type="submit"
-                id="submit"
-                class="btn popup__btn popup__btn_small"
-              >
-                <span class="btn__text">Добавить</span>
-              </button>
-            </div>
-          </form>
+      <div class="popup popup_visible popup_msg">
+        <div class="popup__body popup__body_msg">
+          <p class="add-media">Фото или Видео</p>
+          <p class="add-media add-media_file">Файл</p>
+          <p class="add-media add-media_location">Локация</p>
         </div>
       </div>
     </div>
-    <script src="../src/index.js"></script>
+    <!-- <script src="<%= htmlWebpackPlugin.files.js %>" type="module"></script> -->
   </body>
 </html>

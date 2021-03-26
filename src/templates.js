@@ -215,3 +215,22 @@ div(class="login-reg")
                     span(class="btn__text") Зарегистрироваться
                 a(class="btn login-form__btn login-form__btn_white" href="./login.html")
                     span(class="btn__text login-form__btn-text") Войти`;
+
+export const tmplDeleteUser = `
+div(class="popup popup_visible")
+    div(class="popup__body")
+        p(class="popup__exclam") Вы уверены что хотите удалить пользователя и всю переписку?
+        p(class="popup__user-to-delete") Пользователь:
+            span(class="popup__user-to-delete") &nbsp;Андрей
+        div(class="popup__btn-cont")
+            button(class="btn popup__btn popup__btn_small popup__btn_white" href="#")
+                span(class="btn__text popup__btn-text") Отмена
+            button(class="btn popup__btn popup__btn_small")
+                span(class="btn__text") Сохранить`;
+
+export const tmplAddMedia = `
+div(class="popup popup_visible popup_msg")
+    div(class="popup__body popup__body_msg")
+        p(class="add-media") Фото или Видео
+        p(class="add-media add-media_file") Файл
+        p(class="add-media add-media_location") Локация`;
