@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "./node_modules/.bin/parcel static/index.html",
-    "build": "./node_modules/.bin/parcel build static/*.pug",
+    "dev": "./node_modules/.bin/parcel static/index.html static/*.html",
+    "build": "./node_modules/.bin/parcel build static/*.html",
     "start": "npm run build && node ./server.js"
   },
   "repository": {

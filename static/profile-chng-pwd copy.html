@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat Главная страницы</title>
+    <meta name="author" content="Александр Бесов" />
+    <meta name="description" content="Функциональность чата" />
+    <!-- <link rel="stylesheet" href="./css/index.css" /> -->
+    <link rel="stylesheet" href="./css/style.scss" />
+  </head>
+
+  <body class="body">
+    <div class="page">
+      <div class="main">
+        <div class="profile">
+          <div class="profile__back">
+            <a class="btn-circle" href="./index.html"></a>
+          </div>
+          <div class="profile__info-cont">
+            <div class="profile__info">
+              <div class="profile__avatar-cont">
+                <a class="profile__avatar" href="#"></a>
+              </div>
+              <span class="profile__name">Иван</span>
+
+              <form class="pform" id="form">
+                <div class="pform__fset">
+                  <label for="password" class="pform__label"
+                    >Старый пароль</label
+                  >
+                  <input
+                    type="password"
+                    id="password"
+                    class="pform__input"
+                    value="karabas@yandex.ru"
+                  />
+                </div>
+                <div class="pform__fset">
+                  <label for="new-password" class="pform__label"
+                    >Новый пароль</label
+                  >
+                  <input
+                    type="password"
+                    id="new-password"
+                    class="pform__input"
+                    value="karabas@yandex.ru"
+                  />
+                </div>
+
+                <div class="pform__fset">
+                  <label for="password-again" class="pform__label"
+                    >Повторите пароль</label
+                  >
+                  <input
+                    type="password"
+                    id="password-again"
+                    class="pform__input"
+                    value="karabas@yandex.ru"
+                  />
+                </div>
+
+                <!-- <div class="pform__btn-cont">
+                  <div class="pform__fset">
+                    <a class="pform__btn-link" href="#">Изменить данные</a>
+                  </div>
+                  <div class="pform__fset">
+                    <a class="pform__btn-link" href="#">Изменить пароль</a>
+                  </div>
+                  <div class="pform__fset pform__fset_no-border">
+                    <a class="pform__btn-link pform__btn-link_exit" href="#"
+                      >Выйти</a
+                    >
+                  </div>
+                </div> -->
+                <div class="pform__btn-cont">
+                  <button type="submit" id="submit" class="btn pform__btn-save">
+                    <span class="btn__text">Сохранить</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="../src/index.js"></script> -->
+  </body>
+</html>

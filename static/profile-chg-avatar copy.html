@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat Главная страницы</title>
+    <meta name="author" content="Александр Бесов" />
+    <meta name="description" content="Функциональность чата" />
+    <!-- <link rel="stylesheet" href="./css/index.css" /> -->
+    <link rel="stylesheet" href="./css/style.scss" />
+  </head>
+
+  <body class="body">
+    <div class="page">
+      <div class="main">
+        <div class="profile">
+          <div class="profile__back">
+            <a class="btn-circle" href="./index.html"></a>
+          </div>
+          <div class="profile__info-cont">
+            <div class="profile__info">
+              <div class="profile__avatar-cont">
+                <a class="profile__avatar" href="#"></a>
+              </div>
+              <span class="profile__name">Иван</span>
+
+              <form class="pform" id="form">
+                <div class="pform__fset">
+                  <label for="email" class="pform__label">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="pform__input"
+                    value="karabas@yandex.ru"
+                  />
+                </div>
+                <div class="pform__fset">
+                  <label for="login" class="pform__label">Логин</label>
+                  <input
+                    type="text"
+                    id="login"
+                    class="pform__input"
+                    value="KarabasAE"
+                  />
+                </div>
+                <div class="pform__fset">
+                  <label for="name" class="pform__label">Имя</label>
+                  <input
+                    type="text"
+                    id="name"
+                    class="pform__input"
+                    value="Андрей"
+                  />
+                </div>
+                <div class="pform__fset">
+                  <label for="nick" class="pform__label">Имя в чате</label>
+                  <input
+                    type="text"
+                    id="nick"
+                    class="pform__input"
+                    value="Андрей К"
+                  />
+                </div>
+                <div class="pform__fset">
+                  <label for="pnone" class="pform__label">Телефон</label>
+                  <input
+                    type="text"
+                    id="pnone"
+                    class="pform__input"
+                    value="+7 (909) 967 30 30"
+                  />
+                </div>
+
+                <div class="pform__btn-cont">
+                  <div class="pform__fset">
+                    <a class="pform__btn-link" href="./profile-chng-data.html"
+                      >Изменить данные</a
+                    >
+                  </div>
+                  <div class="pform__fset">
+                    <a class="pform__btn-link" href="./profile-chng-pwd.html"
+                      >Изменить пароль</a
+                    >
+                  </div>
+                  <div class="pform__fset pform__fset_no-border">
+                    <a class="pform__btn-link pform__btn-link_exit" href="#"
+                      >Выйти</a
+                    >
+                  </div>
+                </div>
+                <!-- <div class="pform__btn-cont">
+                  <button class="btn pform__btn-save">
+                    <span class="btn__text">Сохранить</span>
+                  </button>
+                </div> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="popup popup_visible">
+        <div class="popup__body">
+          <div class="popup__text-cont">
+            <p class="popup__action-title">Загрузите файл</p>
+            <p class="popup__description">Выбрать файл на компьютере</p>
+          </div>
+          <button class="btn popup__btn">
+            <span class="btn__text">Сохранить</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="../src/index.js"></script> -->
+  </body>
+</html>

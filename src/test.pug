@@ -1,0 +1,31 @@
+div(class="login-reg")
+    form(class="login-form" id="form")
+        div(class="login-form__cont")
+            h1(class="login-form__title") Регистрация
+            div(class="login-form__fset")
+                label(for="email" class="login-form__label") Почта
+                input(type="email" id="email" class="login-form__input" value="karabas@yandex.ru" placeholder="")/
+            div(class="login-form__fset")
+                label(for="login" class="login-form__label") Логин
+                input(type="text" id="login" class="login-form__input" value="KarabasAE" placeholder="")/
+            div(class="login-form__fset")
+                label(for="name" class="login-form__label") Имя
+                input(type="text" id="name" class="login-form__input" value="Артур" placeholder="")/
+            div(class="login-form__fset")
+                label(for="surname" class="login-form__label") Фамилия
+                input(type="text" id="surname" class="login-form__input" value="Благородный" placeholder="")/
+            div(class="login-form__fset")
+                label(for="phone" class="login-form__label") Телефон
+                input(type="phone" id="phone" class="login-form__input" value="+7 (965) 1234567" placeholder="")/
+            div(class="login-form__fset")
+                label(for="password" class="login-form__label") Пароль
+                input(type="password" id="password" class="login-form__input" value="1234567" placeholder="")/
+            div(class="login-form__fset")
+                label(for="password-confirm" class="login-form__label") Пароль (еще раз)
+                input(type="password" id="password-confirm" class="login-form__input" value="1234567" placeholder="")/
+            p(class="login-form__err-message") Пароли не совпадают
+            div(class="login-form__btn-cont")
+                button(type="submit" id="submit" class="btn login-form__btn")
+                    span(class="btn__text") Зарегистрироваться
+                a(class="btn login-form__btn login-form__btn_white" href="./login.html")
+                    span(class="btn__text login-form__btn-text") Войти             

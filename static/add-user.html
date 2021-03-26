@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat Главная страницы</title>
+    <meta name="author" content="Александр Бесов" />
+    <meta name="description" content="Функциональность чата" />
+    <!-- <link rel="stylesheet" href="./css/index.css" /> -->
+    <link rel="stylesheet" href="./css/style.scss" />
+  </head>
+
+  <body class="body">
+    <div class="page">
+      <div class="popup popup_visible">
+        <div class="popup__body">
+          <form id="form">
+            <div class="popup__text-cont">
+              <p class="popup__action-title">Добавить пользователя</p>
+              <div class="popup__fset">
+                <label for="newuser" class="popup__label">Логин</label>
+                <input
+                  type="text"
+                  id="newuser"
+                  class="popup__input"
+                  value=""
+                  placeholder="Введите логин или email"
+                />
+              </div>
+            </div>
+
+            <div class="popup__btn-cont">
+              <a
+                href="#"
+                class="btn popup__btn popup__btn_small popup__btn_white"
+              >
+                <span class="btn__text popup__btn-text">Отмена</span>
+              </a>
+              <button
+                type="submit"
+                id="submit"
+                class="btn popup__btn popup__btn_small"
+              >
+                <span class="btn__text">Добавить</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="../src/pages/add-user.js"></script>
+  </body>
+</html>
