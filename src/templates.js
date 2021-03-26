@@ -234,3 +234,15 @@ div(class="popup popup_visible popup_msg")
         p(class="add-media") Фото или Видео
         p(class="add-media add-media_file") Файл
         p(class="add-media add-media_location") Локация`;
+
+export const tmpl404 = `
+div(class="err-page")
+   h1(class="err-page__title") Error 404
+   p(class="err-page__description") Упс... Похоже данная страница не существует
+   a(class="err-page__link" href="./index.html") Перейти к чатам`;
+
+export const tmpl500 = `
+div(class="err-page")
+   h1(class="err-page__title") Error 500
+   p(class="err-page__description err-page__description_500") Что-то пошло не так, мы уже фиксим
+   a(class="err-page__link" href="./index.html") Перейти к чатам`;
