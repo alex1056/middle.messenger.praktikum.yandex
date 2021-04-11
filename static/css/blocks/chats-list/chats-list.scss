@@ -2,10 +2,8 @@
   width: 310px;
   position: relative;
   height: 100vh;
-  // background-color: aquamarine;
   background-color: #fbfbfb;
   border-right: 1px solid #eaeaea;
-  // padding: 17px 10px 0 10px;
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -13,8 +11,8 @@
     position: absolute;
     left: 0;
     top: 0;
-
     padding: 17px 10px 0 10px;
+
     /* overflow: hidden; */
     overflow-y: auto;
     display: flex;
@@ -26,8 +24,6 @@
     width: 290px;
     display: flex;
     height: 20px;
-    // background-color: bisque;
-    display: flex;
     justify-content: space-between;
   }
 }

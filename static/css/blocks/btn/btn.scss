@@ -8,15 +8,17 @@
   cursor: pointer;
   display: flex;
   text-decoration: none;
-
   transition: background-color 0.1s linear;
+
   &:focus {
     outline: none;
   }
+
   &:hover {
     background-color: #2253cd;
     transition: background-color 0.1s linear;
   }
+
   &__text {
     color: #fff;
     font-weight: 500;

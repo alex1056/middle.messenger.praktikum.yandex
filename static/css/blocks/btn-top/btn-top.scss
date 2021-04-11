@@ -13,10 +13,11 @@
   text-decoration: none;
 
   &:before {
-    content: '';
+    content: "";
     display: block;
     width: 20px;
     height: 20px;
+    background: url("../../../img/add-user.svg") no-repeat;
     background-size: 20px 20px;
     position: absolute;
     top: 0;
@@ -24,9 +25,8 @@
     z-index: 1;
     box-sizing: border-box;
     transition: background 0.1s linear, border 0.1s linear;
-    // background: url('../../../img/add-user.svg') no-repeat;
-    background: url('../../../img/add-user.svg') no-repeat;
   }
+
   &:hover {
     opacity: 1;
     transition: opacity 0.2s linear;
@@ -49,10 +49,11 @@
   text-decoration: none;
 
   &:after {
-    content: '';
+    content: "";
     display: block;
     width: 6px;
     height: 10px;
+    background: url("../../../img/arrow-right.svg") no-repeat;
     background-size: 6px 10px;
     position: absolute;
     top: 0;
@@ -61,8 +62,8 @@
     z-index: 1;
     box-sizing: border-box;
     transition: background 0.1s linear, border 0.1s linear;
-    background: url('../../../img/arrow-right.svg') no-repeat;
   }
+
   &:hover {
     opacity: 1;
     transition: opacity 0.2s linear;

@@ -1,7 +1,6 @@
 .msgs {
   width: calc(100% - 310px);
   height: 100vh;
-  /* background-color: cadetblue; */
   display: flex;
 
   &__title {
@@ -15,12 +14,12 @@
   &__container {
     width: 100%;
     height: 100%;
-    // background-color: aquamarine;
     padding: 0 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
+
   &__head {
     width: 100%;
     height: 54px;
@@ -35,6 +34,7 @@
     padding-bottom: 10px;
     display: flex;
     align-items: center;
+
     img {
       width: 34px;
       height: 34px;
@@ -70,7 +70,7 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background-image: url('../../../img/attache.svg');
+    background-image: url("../../../img/attache.svg");
     opacity: 0.5;
     transition: opacity 0.1s linear;
 
@@ -87,13 +87,15 @@
     border: none;
     margin-top: 2px;
     cursor: pointer;
-    background: url('../../../img/send-msg.svg') no-repeat;
+    background: url("../../../img/send-msg.svg") no-repeat;
     transition: background 0.1s linear;
+
     &:focus {
       outline: none;
     }
+
     &:hover {
-      background: url('../../../img/send-msg-hover.svg') no-repeat;
+      background: url("../../../img/send-msg-hover.svg") no-repeat;
       transition: background 0.1s linear;
     }
   }
@@ -110,14 +112,15 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 12px;
-    color: #999999;
+    color: #999;
 
     &::placeholder {
       font-weight: 500;
       font-size: 12px;
       line-height: 12px;
-      color: #999999;
+      color: #999;
     }
+
     &:focus {
       outline: none;
     }
