@@ -36,10 +36,15 @@
     font-size: 9px;
     line-height: 9px;
     color: #999;
+    opacity: 1;
+
+    &_hide {
+      opacity: 0;
+    }
   }
 
   &__err-message {
-    margin-top: 0;
+    margin-top: -5px;
     padding: 0;
     height: 13px;
     font-weight: 500;

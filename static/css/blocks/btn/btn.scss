@@ -9,6 +9,11 @@
   display: flex;
   text-decoration: none;
   transition: background-color 0.1s linear;
+  opacity: 1;
+
+  &_disabled {
+    opacity: 0.5;
+  }
 
   &:focus {
     outline: none;

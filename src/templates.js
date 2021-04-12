@@ -178,11 +178,15 @@ main(class="main")
             div(class="login-form__cont")
                 h1(class="login-form__title") Вход
                 div(class="login-form__fset")
-                    label(for="login" class="login-form__label") Логин
-                    input(type="text" id="login" class="login-form__input" value="karabas@yandex.ru" placeholder="")/
+                    label(for="login" class="login-form__label login-form__label_hide" id="labellogin") Логин
+                    input(type="email" id="login" class="login-form__input" value="" placeholder="Логин")/
+                div(class="login-form__err-message")
+                    span(id="errorlogin")
                 div(class="login-form__fset")
-                    label(for="password" class="login-form__label") Пароль
-                    input(type="password" id="password" class="login-form__input" value="123456" placeholder="")/
+                    label(for="password" class="login-form__label login-form__label_hide" id="labelpassword") Пароль
+                    input(type="password" id="password" class="login-form__input" value="" placeholder="Пароль")/
+                div(class="login-form__err-message")
+                    span(id="errorpassword")
                 div(class="login-form__btn-cont")
                     button(type="submit" id="submit" class="btn login-form__btn")
                         span(class="btn__text") Авторизоваться
