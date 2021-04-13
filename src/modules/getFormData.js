@@ -1,10 +1,10 @@
 export const getFormData = (form) => {
   const inputs = Array.from(form.elements);
-  const submit = form.querySelector('#submit');
+  const submit = form.querySelector("#submit");
 
-  const inputsData = inputs.reduce((acc, item) => {
-    if (item.id && item.id !== submit.id) {
-      return { ...acc, [item.id]: item.value };
+  const inputsData = inputs.reduce((acc, { id, value }) => {
+    if (id && id !== submit.id) {
+      return { ...acc, [id]: value };
     }
     return acc;
   }, {});

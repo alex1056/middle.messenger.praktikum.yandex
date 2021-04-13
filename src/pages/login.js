@@ -23,4 +23,5 @@ form.setEventListeners();
 const currentForm = document.body.querySelector("#form");
 
 const formValidator = new Validator(currentForm);
+formValidator.setHandleLabels(true);
 form.setFormValidator(formValidator);

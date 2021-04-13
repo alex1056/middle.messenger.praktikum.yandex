@@ -1,32 +1,40 @@
 type Nullable<T> = T | null;
 
 export default class Form {
-  _validateForm: any;
-  _validateInputElement: any;
-  _handlerFormOpen: any;
-  form: HTMLFormElement;
-  _submit: HTMLButtonElement;
-  _popup: HTMLDivElement;
+  private validateForm: Function;
+  private validateInputElement: Function;
+  private handlerFormOpen: Function;
+  private form: HTMLFormElement;
+  private submit: HTMLButtonElement;
+  private popup: HTMLDivElement;
+  private handlers: { [handlerName: string]: Function[] };
 
   constructor() {
-    this._handlerFormOpen = null;
+    //this.handlerFormOpen = null;
     // this._sessionHandler = null;
     // this._header = null;
+    this.handlers = {};
   }
   setFormValidator(validator: {
     validateForm(): boolean;
     validateInputElement(): boolean;
   }) {
-    this._validateForm = validator.validateForm.bind(validator);
-    this._validateInputElement = validator.validateInputElement.bind(validator);
+    this.validateForm = validator.validateForm.bind(validator);
+    this.validateInputElement = validator.validateInputElement.bind(validator);
+  }
+  setHandlers(handlerName: string, callback: Function) {
+    if (!this.handlers[handlerName]) {
+      this.handlers[handlerName] = [];
+    }
+    this.handlers[handlerName].push(callback);
+    // console.log(this.handlers);
   }
 
   setPopup(popupElem: HTMLDivElement) {
     // this.popupObj = popupObj;
-    this._popup = popupElem;
-    this.form = popupElem.querySelector(".form") as HTMLFormElement;
-    this._submit = popupElem.querySelector("#submit") as HTMLButtonElement;
-    // console.log(this._submit);
+    this.popup = popupElem;
+    this.form = popupElem.querySelector("#form") as HTMLFormElement;
+    this.submit = popupElem.querySelector("#submit") as HTMLButtonElement;
   }
 
   // setApi(apiObj) {
@@ -41,150 +49,75 @@ export default class Form {
   //   this._header = headerObj;
   // }
 
-  //   _validateInputElement(element) {
-  //     const errorElement = document.querySelector(`#error${element.id}`);
-  //     console.log(element, errorElement);
-  //     if (element.value.length) {
-  //       const labelElement = document.querySelector(`#label${element.id}`);
-  //       labelElement.classList.remove("login-form__label_hide");
-  //     } else {
-  //       const labelElement = document.querySelector(`#label${element.id}`);
-  //       labelElement.classList.add("login-form__label_hide");
-  //     }
-  //     if (element.type !== "email" && !element.value.length) {
-  //       errorElement.textContent = this._validationHelpWords.validationLenght;
-  //       return false;
-  //     }
-  //     if (element.type === "email") {
-  //       if (!validatorModule.isEmail(element.value)) {
-  //         errorElement.textContent = this._validationHelpWords.validationEmailPresent;
-  //         return false;
-  //       }
-  //     } else if (element.value.length < 2 || element.value.length > 30) {
-  //       errorElement.textContent = this._validationHelpWords.validationLenght;
-  //       return false;
-  //     }
-  //     errorElement.textContent = "";
-  //     return true;
-  //   }
-
-  //   _validateForm(event) {
-  //     event.preventDefault();
-  //     const form = this._popup.querySelector("#form");
-  //     console.log(form);
-  //     const submit = form.querySelector("#submit");
-  //     const inputs = Array.from(form.elements);
-  //     let isValidForm = true;
-  //     inputs.forEach((elem) => {
-  //       if (elem.id && elem.id !== submit.id) {
-  //         if (!this._validateInputElement(elem)) {
-  //           isValidForm = false;
-  //         }
-  //       }
-  //     });
-  //     return isValidForm;
-  //   }
-
   setEventListeners() {
-    this._handlerFormOpen = this._formHandler.bind(this);
-    let form: Nullable<HTMLFormElement> = this._popup.querySelector("#form");
-    // console.log(form);
+    this.handlerFormOpen = this.formHandler.bind(this);
+    let form: Nullable<HTMLFormElement> = this.popup.querySelector("#form");
     if (form) {
       const inputs = Array.from(form.elements);
       inputs.forEach((elem) => {
-        // console.log(elem.id);
-        switch (elem.id) {
-          case "email":
-            elem.addEventListener("input", this._handlerFormOpen);
-            break;
-          case "password":
-            elem.addEventListener("input", this._handlerFormOpen);
-            break;
-          case "login":
-            elem.addEventListener("input", this._handlerFormOpen);
-            break;
+        if (elem.id !== "submit") {
+          elem.addEventListener(
+            "focus",
+            this.handlerFormOpen as EventListener
+            //  true
+          );
+          elem.addEventListener(
+            "blur",
+            this.handlerFormOpen as EventListener
+            //  true
+          );
         }
       });
-      form.addEventListener("submit", this._handlerFormOpen);
-      //   console.log("Eventlistrs установлены!");
+      form.addEventListener(
+        "submit",
+        this.handlerFormOpen as EventListener
+        // true
+      );
       return;
     }
-    //   let currentForm = this._popup.querySelector('#formLogin');
-    //   if (currentForm) {
-    //     const inputEmail = this._popup.querySelector('#email');
-    //     inputEmail.addEventListener('input', this._handlerFormOpen);
-    //     const inputPassword = this._popup.querySelector('#password');
-    //     inputPassword.addEventListener('input', this._handlerFormOpen);
-    //     const form = this._popup.querySelector('.form');
-    //     form.addEventListener('submit', this._handlerFormOpen);
-    //     return;
-    //   }
-    //   currentForm = this._popup.querySelector('#formRegister');
-    //   if (currentForm) {
-    //     const inputEmail = this._popup.querySelector('#email');
-    //     inputEmail.addEventListener('input', this._handlerFormOpen);
-    //     const inputPassword = this._popup.querySelector('#password');
-    //     inputPassword.addEventListener('input', this._handlerFormOpen);
-    //     const inputName = this._popup.querySelector('#name');
-    //     inputName.addEventListener('input', this._handlerFormOpen);
-    //     const form = this._popup.querySelector('.form');
-    //     form.addEventListener('submit', this._handlerFormOpen);
-    //   }
   }
 
   removeEventListeners() {
-    let form = this._popup.querySelector("#form") as HTMLFormElement;
+    let form = this.popup.querySelector("#form") as HTMLFormElement;
     if (form) {
       const inputs = Array.from(form.elements) as HTMLInputElement[];
       inputs.forEach((elem) => {
-        elem.removeEventListener("input", this._handlerFormOpen);
+        elem.removeEventListener(
+          "focus",
+          this.handlerFormOpen as EventListener
+        );
+        elem.removeEventListener("blur", this.handlerFormOpen as EventListener);
       });
-      form.removeEventListener("submit", this._handlerFormOpen);
+      form.removeEventListener("submit", this.handlerFormOpen as EventListener);
     }
     return;
-
-    // let currentForm = this._popup.querySelector("#formLogin");
-    // if (currentForm) {
-    //   const inputEmail = this._popup.querySelector("#email");
-    //   inputEmail.removeEventListener("input", this._handlerFormOpen);
-    //   const inputPassword = this._popup.querySelector("#password");
-    //   inputPassword.removeEventListener("input", this._handlerFormOpen);
-    //   const form = this._popup.querySelector(".form");
-    //   form.removeEventListener("submit", this._handlerFormOpen);
-    //   return;
-    // }
-
-    // currentForm = this._popup.querySelector("#formRegister");
-    // if (currentForm) {
-    //   const inputEmail = this._popup.querySelector("#email");
-    //   inputEmail.removeEventListener("input", this._handlerFormOpen);
-    //   const inputPassword = this._popup.querySelector("#password");
-    //   inputPassword.removeEventListener("input", this._handlerFormOpen);
-    //   const inputName = this._popup.querySelector("#name");
-    //   inputName.removeEventListener("input", this._handlerFormOpen);
-    //   const form = this._popup.querySelector(".form");
-    //   form.removeEventListener("submit", this._handlerFormOpen);
-    // }
   }
 
   renderButton(isValidForm: boolean) {
     if (!isValidForm) {
-      this._submit.classList.add("btn_disabled");
-      this._submit.setAttribute("disabled", "disabled");
+      this.submit.classList.add("btn_disabled");
+      this.submit.setAttribute("disabled", "disabled");
     } else {
-      this._submit.classList.remove("btn_disabled");
-      this._submit.removeAttribute("disabled");
+      this.submit.classList.remove("btn_disabled");
+      this.submit.removeAttribute("disabled");
     }
   }
 
-  _formHandler(event: any): void {
-    const isValidForm = this._validateForm(event);
+  formHandler(event: any): void {
+    const isValidForm = this.validateForm(event);
     this.renderButton(isValidForm);
+    if (event.type === "submit") {
+      if (this.handlers.submit) {
+        this.handlers.submit.forEach((callback) => {
+          callback(this.form);
+        });
+      }
+    }
 
     // if (event.type === "submit" && event.target.closest("#formLogin")) {
     //   if (isValidForm) {
-    //     const inputEmail = this._popup.querySelector("#email");
-    //     const inputPassword = this._popup.querySelector("#password");
+    //     const inputEmail = this.popup.querySelector("#email");
+    //     const inputPassword = this.popup.querySelector("#password");
     //     const credentials = {
     //       email: inputEmail.value,
     //       password: inputPassword.value,
@@ -218,9 +151,9 @@ export default class Form {
     // }
     // if (event.type === "submit" && event.target.closest("#formRegister")) {
     //   if (isValidForm) {
-    //     const inputEmail = this._popup.querySelector("#email");
-    //     const inputPassword = this._popup.querySelector("#password");
-    //     const inputName = this._popup.querySelector("#name");
+    //     const inputEmail = this.popup.querySelector("#email");
+    //     const inputPassword = this.popup.querySelector("#password");
+    //     const inputName = this.popup.querySelector("#name");
     //     const credentials = {
     //       email: inputEmail.value,
     //       password: inputPassword.value,
@@ -261,4 +194,18 @@ export default class Form {
   //   const errorElement = document.querySelector("#formerrmessage");
   //   errorElement.textContent = message;
   // }
+  getFormData() {
+    const inputs = Array.from(this.form.elements);
+    const submit = this.form.querySelector("#submit") as HTMLDivElement;
+
+    const inputsData = inputs.reduce((acc, item: HTMLInputElement) => {
+      const { id, value } = item;
+      if (id && id !== submit.id) {
+        return { ...acc, [id]: value };
+      }
+      return acc;
+    }, {});
+
+    return inputsData;
+  }
 }

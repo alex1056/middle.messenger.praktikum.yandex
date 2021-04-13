@@ -70,7 +70,7 @@ main(class="main")
                 div(class="popup__btn-cont")
                     a(class="btn popup__btn popup__btn_small popup__btn_white" href="#")
                         span(class="btn__text popup__btn-text") Отмена
-                    button(type="submit" id="submit" class="btn popup__btn popup__btn_small")
+                    button(type="submit" id="submit" disabled class="btn popup__btn popup__btn_small btn_disabled")
                         span(class="btn__text") Добавить`;
 
 export const tmplProfile = `
@@ -86,19 +86,29 @@ main(class="main")
                 form(class="pform" id="form")
                     div(class="pform__fset")
                         label(for="email" class="pform__label") Email
-                        input(type="email" id="email" class="pform__input" value="karabas@yandex.ru")/
+                        input(type="email" id="email" disabled class="pform__input" value="karabas@yandex.ru")/
+                        div(class="pform__err-message")
+                            span(id="erroremail")
                     div(class="pform__fset")
                         label(for="login" class="pform__label") Логин
-                        input(type="text" id="login" class="pform__input" value="KarabasAE")/
+                        input(type="text" id="login" disabled class="pform__input" value="KarabasAE")/
+                        div(class="pform__err-message")
+                            span(id="errorlogin")
                     div(class="pform__fset")
                         label(for="name" class="pform__label") Имя
-                        input(type="text" id="name" class="pform__input" value="Андрей")/
+                        input(type="text" id="name" disabled class="pform__input" value="Андрей")/
+                        div(class="pform__err-message")
+                            span(id="errorename") 
                     div(class="pform__fset")
                         label(for="nick" class="pform__label") Имя в чате
-                        input(type="text" id="nick" class="pform__input" value="Андрей К")/
+                        input(type="text" id="nick" disabled class="pform__input" value="Андрей К")/
+                        div(class="pform__err-message")
+                            span(id="errornick") 
                     div(class="pform__fset")
                         label(for="pnone" class="pform__label") Телефон
-                        input(type="text" id="pnone" class="pform__input" value="+7 (909) 967 30 30")/
+                        input(type="text" id="pnone" disabled class="pform__input" value="+7 (909) 967 30 30")/
+                        div(class="pform__err-message")
+                            span(id="errorpnone") 
                     div(class="pform__btn-cont")
                         div(class="pform__fset")
                             a(class="pform__btn-link" href="./profile-chng-data.html") Изменить данные
@@ -131,20 +141,30 @@ main(class="main")
                     div(class="pform__fset")
                         label(for="email" class="pform__label") Email
                         input(type="email" id="email" class="pform__input" value="karabas@yandex.ru")/
+                        div(class="pform__err-message")
+                            span(id="erroremail") 
                     div(class="pform__fset")
                         label(for="login" class="pform__label") Логин
                         input(type="text" id="login" class="pform__input" value="KarabasAE")/
+                        div(class="pform__err-message")
+                            span(id="errorlogin") 
                     div(class="pform__fset")
                         label(for="name" class="pform__label") Имя
                         input(type="text" id="name" class="pform__input" value="Андрей")/
+                        div(class="pform__err-message")
+                            span(id="errorname") 
                     div(class="pform__fset")
                         label(for="nick" class="pform__label") Имя в чате
                         input(type="text" id="nick" class="pform__input" value="Андрей К")/
+                        div(class="pform__err-message")
+                            span(id="errornick") 
                     div(class="pform__fset")
                         label(for="pnone" class="pform__label") Телефон
                         input(type="text" id="pnone" class="pform__input" value="+7 (909) 967 30 30")/
+                        div(class="pform__err-message")
+                            span(id="errorpnone") 
                     div(class="pform__btn-cont")
-                        button(type="submit" id="submit" class="btn pform__btn-save")
+                        button(type="submit" id="submit" disabled class="btn pform__btn-save btn_disabled")
                             span(class="btn__text") Сохранить`;
 
 export const tmplProfileChngPwd = `
@@ -161,14 +181,20 @@ main(class="main")
                     div(class="pform__fset")
                         label(for="password" class="pform__label") Старый пароль
                         input(type="password" id="password" class="pform__input" value="karabas@yandex.ru")/
+                        div(class="pform__err-message")
+                            span(id="errorpassword")
                     div(class="pform__fset")
-                        label(for="new-password" class="pform__label") Новый пароль
-                        input(type="password" id="new-password" class="pform__input" value="KarabasAE")/
+                        label(for="newpassword" class="pform__label") Новый пароль
+                        input(type="password" id="newpassword" class="pform__input" value="KarabasAE")/
+                        div(class="pform__err-message")
+                            span(id="errornewpassword")
                     div(class="pform__fset")
-                        label(for="password-again" class="pform__label") Повторите пароль
-                        input(type="password" id="password-again" class="pform__input" value="KarabasAE")/
+                        label(for="passwordconfirm" class="pform__label") Повторите пароль
+                        input(type="password" id="passwordconfirm" class="pform__input" value="KarabasAE")/
+                        div(class="pform__err-message")
+                            span(id="errorpasswordconfirm")
                     div(class="pform__btn-cont")
-                        button(type="submit" id="submit" class="btn pform__btn-save")
+                        button(type="submit" id="submit" disabled class="btn pform__btn-save btn_disabled")
                             span(class="btn__text") Сохранить`;
 
 export const tmplLogin = `
@@ -188,7 +214,7 @@ main(class="main")
                 div(class="login-form__err-message")
                     span(id="errorpassword")
                 div(class="login-form__btn-cont")
-                    button(type="submit" id="submit" class="btn login-form__btn")
+                    button(type="submit" id="submit" disabled class="btn login-form__btn btn_disabled")
                         span(class="btn__text") Авторизоваться
                     a(class="btn login-form__btn login-form__btn_white" href="./registr.html")
                         span(class="btn__text login-form__btn-text") Нет аккаунта?`;
@@ -200,29 +226,42 @@ main(class="main")
             div(class="login-form__cont")
                 h1(class="login-form__title") Регистрация
                 div(class="login-form__fset")
-                    label(for="email" class="login-form__label") Почта
-                    input(type="email" id="email" class="login-form__input" value="karabas@yandex.ru" placeholder="")/
+                    label(for="email" class="login-form__label login-form__label_hide" id="labelemail") Почта
+                    input(type="email" id="email" class="login-form__input" value="" placeholder="Почта")/
+                div(class="login-form__err-message")
+                    span(id="erroremail")
                 div(class="login-form__fset")
-                    label(for="login" class="login-form__label") Логин
-                    input(type="text" id="login" class="login-form__input" value="KarabasAE" placeholder="")/
+                    label(for="login" class="login-form__label login-form__label_hide" id="labellogin") Логин
+                    input(type="text" id="login" class="login-form__input" value="" placeholder="Логин")/
+                div(class="login-form__err-message")
+                    span(id="errorlogin")    
                 div(class="login-form__fset")
-                    label(for="name" class="login-form__label") Имя
-                    input(type="text" id="name" class="login-form__input" value="Артур" placeholder="")/
+                    label(for="name" class="login-form__label login-form__label_hide" id="labelname") Имя
+                    input(type="text" id="name" class="login-form__input" value="" placeholder="Имя")/
+                div(class="login-form__err-message")
+                    span(id="errorname")
                 div(class="login-form__fset")
-                    label(for="surname" class="login-form__label") Фамилия
-                    input(type="text" id="surname" class="login-form__input" value="Благородный" placeholder="")/
+                    label(for="surname" class="login-form__label login-form__label_hide" id="labelsurname") Фамилия
+                    input(type="text" id="surname" class="login-form__input" value="" placeholder="Фамилия")/
+                div(class="login-form__err-message")
+                    span(id="errorsurname")
                 div(class="login-form__fset")
-                    label(for="phone" class="login-form__label") Телефон
-                    input(type="phone" id="phone" class="login-form__input" value="+7 (965) 1234567" placeholder="")/
+                    label(for="phone" class="login-form__label login-form__label_hide" id="labelphone") Телефон
+                    input(type="phone" id="phone" class="login-form__input" value="" placeholder="Телефон")/
+                div(class="login-form__err-message")
+                    span(id="errorphone")
                 div(class="login-form__fset")
-                    label(for="password" class="login-form__label") Пароль
-                    input(type="password" id="password" class="login-form__input" value="1234567" placeholder="")/
+                    label(for="password" class="login-form__label login-form__label_hide" id="labelpassword") Пароль
+                    input(type="password" id="password" class="login-form__input" value="" placeholder="Пароль")/
+                div(class="login-form__err-message")
+                    span(id="errorpassword")
                 div(class="login-form__fset")
-                    label(for="password-confirm" class="login-form__label") Пароль (еще раз)
-                    input(type="password" id="password-confirm" class="login-form__input" value="1234567" placeholder="")/
-                p(class="login-form__err-message") Пароли не совпадают
+                    label(for="passwordconfirm" class="login-form__label login-form__label_hide" id="labelpasswordconfirm") Пароль (еще раз)
+                    input(type="password" id="passwordconfirm" class="login-form__input" value="" placeholder="Пароль (еще раз)")/
+                div(class="login-form__err-message")
+                    span(id="errorpasswordconfirm")
                 div(class="login-form__btn-cont")
-                    button(type="submit" id="submit" class="btn login-form__btn")
+                    button(type="submit" id="submit" disabled class="btn login-form__btn btn_disabled")
                         span(class="btn__text") Зарегистрироваться
                     a(class="btn login-form__btn login-form__btn_white" href="./login.html")
                         span(class="btn__text login-form__btn-text") Войти`;
