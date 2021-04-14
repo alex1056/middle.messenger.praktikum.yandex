@@ -67,13 +67,9 @@ export class Block {
   }
 
   _componentDidUpdate(oldProps: TProps, newProps: TProps) {
-    // console.log('_CDU')
-    //console.log('oldProps, newProps', oldProps, newProps)
     this.props = this._makePropsProxy(newProps);
-    //console.log('this.props=',this.props);
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
-      // значит ок с новыми пропсами
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }

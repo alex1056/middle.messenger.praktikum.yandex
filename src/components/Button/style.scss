@@ -1,0 +1,78 @@
+.btn {
+  width: 280px;
+  height: 37px;
+  padding: 0;
+  border: none;
+  background-color: #3369f3;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+  transition: background-color 0.1s linear;
+  opacity: 1;
+
+  &_small {
+    width: 97px;
+  }
+
+  &_white {
+    background-color: #fff;
+
+    .btn__text {
+      color: #3369f3;
+    }
+
+    &:hover {
+      background-color: rgba(114, 145, 245, 0.262) !important;
+
+      .btn__text {
+        color: #3369f3;
+      }
+    }
+  }
+
+  &__type-std {
+    width: 100%;
+
+    &_white {
+      height: auto;
+      background-color: #fff;
+      margin-top: 14px;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.262);
+
+        .login-form__btn-text {
+          color: #6485da;
+          transition: color 0.1s linear;
+        }
+      }
+    }
+  }
+
+  &_hide {
+    display: none;
+  }
+
+  &_disabled {
+    opacity: 0.6;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: #2253cd;
+    transition: background-color 0.1s linear;
+  }
+
+  &__text {
+    color: #fff;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    display: flex;
+    margin: auto;
+  }
+}

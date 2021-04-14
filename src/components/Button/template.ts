@@ -1,2 +1,2 @@
-export const btnTmpl = `button(type="submit" id="submit" disabled class="btn login-form__btn btn_disabled")
-        span(class="btn__text") Авторизоваться`;
+export const btnTmpl = `button(type="submit" id="submit" disabled= disabled ? '' : null class="btn" class=className)
+        span(class="btn__text") #{buttonText}`;

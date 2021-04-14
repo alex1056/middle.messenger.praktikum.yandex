@@ -6,6 +6,10 @@
   border-right: 1px solid #eaeaea;
   overflow-y: auto;
   overflow-x: hidden;
+  &__user-list {
+    margin: 0;
+    padding: 0;
+  }
 
   &__wrapper {
     position: absolute;

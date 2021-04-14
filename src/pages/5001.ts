@@ -1,5 +1,5 @@
 import { Page500 } from "../components/500";
-import { render } from "../utils/render";
+import { renderDOM } from "../utils/render-dom";
 
 const page500 = new Page500();
-render(".page", page500.getContent());
+renderDOM(".page", page500.getContent());

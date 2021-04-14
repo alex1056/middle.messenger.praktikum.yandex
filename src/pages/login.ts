@@ -1,13 +1,13 @@
 import { Form } from "../modules/form";
 import { Validator } from "../modules/validator";
 
-import { LoginForm } from "../components/login-form";
-import { render } from "../utils/render";
+import { LoginForm } from "../components/Login-form";
+import { renderDOM } from "../utils/render-DOM";
 import { onSubmitHandlerLogin } from "../modules/form/onSubmitHandlers";
 
 const loginForm = new LoginForm();
 const form = new Form();
-render(".page", loginForm.getContent());
+renderDOM(".page", loginForm.getContent());
 
 form.setPopup(document.body as HTMLDivElement);
 form.setEventListeners();

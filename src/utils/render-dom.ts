@@ -1,4 +1,4 @@
-export function render(query: string, block: HTMLElement): HTMLElement {
+export function renderDOM(query: string, block: HTMLElement): HTMLElement {
   const root = document.querySelector(query);
   if (root) {
     root.appendChild(block);
