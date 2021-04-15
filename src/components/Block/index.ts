@@ -1,5 +1,4 @@
-import { EventBus } from "../EventBus";
-const pug = require("pug");
+import { EventBus } from '../EventBus';
 
 type Nullable<T> = T | null;
 type TProps = { [propName: string]: any };
@@ -11,19 +10,21 @@ type TEventBus = {
 
 export class Block {
   props: TProps;
+
   eventBus: Function;
 
   public static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_RENDER: "flow:render",
-    FLOW_CDU: "flow:component-did-update",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_RENDER: 'flow:render',
+    FLOW_CDU: 'flow:component-did-update',
   };
 
   private _element: Nullable<HTMLElement> = null;
+
   private _meta: { tagName: string; props: TProps };
 
-  constructor(tagName = "div", props = {}) {
+  constructor(tagName = 'div', props = {}) {
     const eventBus = new EventBus();
     // console.log(props);
     this._meta = {
@@ -62,20 +63,21 @@ export class Block {
   }
 
   // Может переопределять пользователь, необязательно трогать
-  componentDidMount(oldProps?: TProps): boolean {
+  componentDidMount(): boolean {
+    // args = oldProps: TProps
     return true;
   }
 
   _componentDidUpdate(oldProps: TProps, newProps: TProps) {
     this.props = this._makePropsProxy(newProps);
-    const response = this.componentDidUpdate(oldProps, newProps);
+    const response = this.componentDidUpdate();
     if (response) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  // Может переопределять пользователь, необязательно трогать
-  componentDidUpdate(oldProps: TProps, newProps: TProps) {
+  componentDidUpdate() {
+    // args = oldProps: TProps, newProps: TProps
     return true;
   }
 
@@ -92,14 +94,14 @@ export class Block {
   }
 
   _render() {
-    let block: string = "";
+    let block: string = '';
     if (this.render()) {
       block = this.render() as string;
     }
 
     if (this._element) {
-      const template = document.createElement("template");
-      template.insertAdjacentHTML("afterbegin", block);
+      const template = document.createElement('template');
+      template.insertAdjacentHTML('afterbegin', block);
       this._element.appendChild(template.firstElementChild as HTMLElement);
     }
   }
@@ -110,23 +112,23 @@ export class Block {
   getContent(): HTMLDivElement {
     if (this.element) {
       return this.element.firstElementChild as HTMLDivElement;
-    } else {
-      throw new Error("Рендеренный элементы = null");
     }
+    throw new Error('Рендеренный элементы = null');
   }
 
   _makePropsProxy(props: TProps) {
     const proxyData = new Proxy(props, {
       get(target, prop: string) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop: string, value) {
         target[prop] = value;
         return true;
       },
-      deleteProperty(target, prop) {
-        throw new Error("Нет доступа");
+      deleteProperty() {
+        // args = target, prop
+        throw new Error('Нет доступа');
       },
     });
 
@@ -138,10 +140,10 @@ export class Block {
   }
 
   show() {
-    this.getContent().style.display = "block";
+    this.getContent().style.display = 'block';
   }
 
   hide() {
-    this.getContent().style.display = "none";
+    this.getContent().style.display = 'none';
   }
 }

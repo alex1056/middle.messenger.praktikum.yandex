@@ -1,1 +1,1 @@
-export { PopupAddMedia } from "./popup-add-media";
+export { PopupAddMedia } from './popup-add-media';

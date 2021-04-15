@@ -1,1 +1,1 @@
-export { ProfileFormCtrls } from "./profile-form-ctrls";
+export { ProfileFormCtrls } from './profile-form-ctrls';

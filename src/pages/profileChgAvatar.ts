@@ -1,8 +1,8 @@
-//import { Form } from "../modules/form";
+// import { Form } from "../modules/form";
 // import { Validator } from "../modules/validator";
 
-import { PopupChngAvatar } from "../components/Popup-chng-avatar";
-import { renderDOM } from "../utils/render-dom";
+import { PopupChngAvatar } from '../components/Popup-chng-avatar';
+import { renderDOM } from '../utils/render-dom';
 // import { onSubmitHandlerLogin } from "../modules/form/onSubmitHandlers";
 
 const popupChngAvatar = new PopupChngAvatar({
@@ -10,7 +10,7 @@ const popupChngAvatar = new PopupChngAvatar({
   // disabledAttr: "disabled",
 });
 // const form = new Form();
-renderDOM(".page", popupChngAvatar.getContent());
+renderDOM('.page', popupChngAvatar.getContent());
 
 // form.setPopup(document.body as HTMLDivElement);
 // form.setEventListeners();

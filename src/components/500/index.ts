@@ -1,1 +1,1 @@
-export { Page500 } from "./page500";
+export { Page500 } from './page500';

@@ -1,1 +1,1 @@
-export { PopupChngAvatar } from "./popup-chng-avatar";
+export { PopupChngAvatar } from './popup-chng-avatar';

@@ -3,7 +3,6 @@ export function renderDOM(query: string, block: HTMLElement): HTMLElement {
   if (root) {
     root.appendChild(block);
     return root as HTMLElement;
-  } else {
-    throw new Error("Root элемент не найден!");
   }
+  throw new Error('Root элемент не найден!');
 }

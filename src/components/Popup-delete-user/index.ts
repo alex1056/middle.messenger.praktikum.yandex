@@ -1,1 +1,1 @@
-export { PopupDeleteUser } from "./popup-delete-user";
+export { PopupDeleteUser } from './popup-delete-user';

@@ -36,4 +36,4 @@ main(class="main")
                             span(id="errorpnone") 
                     div(class="pform__btn-cont")
                     != ctrls
-                    != buttonsubmit`
+                    != buttonsubmit`;

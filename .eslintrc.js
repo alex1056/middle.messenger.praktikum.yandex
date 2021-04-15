@@ -12,6 +12,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'import/no-unresolved': [2, { commonjs: true, amd: true, ignore: ['.jpeg$', '.jpg$', '.png$'] }],
+    'import/prefer-default-export': 'off',
     'max-len': [2, 1000],
     '@typescript-eslint/no-unused-vars': 2,
     'no-console': 'off',
@@ -33,8 +35,19 @@ module.exports = {
       'error',
       'ignorePackages',
       {
-        js: 'ignorePackages',
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
       },
     ],
   },
-};
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', '/src'],
+      },
+    },
+  },
+}

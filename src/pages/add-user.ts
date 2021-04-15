@@ -1,12 +1,12 @@
-import { PopupAddUser } from "../components/Popup-add-user";
-import { renderDOM } from "../utils/render-dom";
+import { PopupAddUser } from '../components/Popup-add-user';
+import { renderDOM } from '../utils/render-dom';
 
 const popupAddUser = new PopupAddUser({
   // className: "pform__btn-save btn_hide",
   // disabledAttr: "disabled",
 });
 // const form = new Form();
-renderDOM(".page", popupAddUser.getContent());
+renderDOM('.page', popupAddUser.getContent());
 
 // form.setPopup(document.body as HTMLDivElement);
 // form.setEventListeners();

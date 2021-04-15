@@ -1,1 +1,1 @@
-export { RegistrForm } from "./registr-form";
+export { RegistrForm } from './registr-form';

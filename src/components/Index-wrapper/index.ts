@@ -1,1 +1,1 @@
-export { IndexWrapper } from "./index-wrapper";
+export { IndexWrapper } from './index-wrapper';

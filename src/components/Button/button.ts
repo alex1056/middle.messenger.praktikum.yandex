@@ -1,15 +1,16 @@
-import { Block } from "../Block";
-import { btnTmpl } from "./template";
-import "./style.scss";
-import { captureRejectionSymbol } from "events";
-const pug = require("pug");
+import { Block } from '../Block';
+import { btnTmpl } from './template';
+import './style.scss';
 
-type TProps = { [propName: string]: any };
+const pug = require('pug');
+
+type TProps = { [propName: string]: any }
 
 export class Btn extends Block {
-  props: TProps;
+  props: TProps
+
   constructor(props?: TProps) {
-    super("div", props);
+    super('div', props);
   }
 
   render() {

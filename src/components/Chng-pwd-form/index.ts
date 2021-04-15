@@ -1,1 +1,1 @@
-export { ChngPwdForm } from "./chng-pwd-form";
+export { ChngPwdForm } from './chng-pwd-form';

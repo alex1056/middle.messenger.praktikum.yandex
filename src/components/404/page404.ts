@@ -1,13 +1,15 @@
-import { Block } from "../Block";
-import { tmpl404 } from "./template";
-const pug = require("pug");
+import { Block } from '../Block';
+import { tmpl404 } from './template';
+
+const pug = require('pug');
 
 type TProps = { [propName: string]: any };
 
 export class Page404 extends Block {
   props: TProps;
+
   constructor(props?: TProps) {
-    super("div", props);
+    super('div', props);
   }
 
   render(): string {
