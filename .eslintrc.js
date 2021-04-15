@@ -5,11 +5,15 @@ module.exports = {
     node: true,
   },
   extends: 'airbnb-base',
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
   parserOptions: {
     ecmaVersion: 11,
     sourceType: 'module',
   },
   rules: {
+    'max-len': [2, 1000],
+    '@typescript-eslint/no-unused-vars': 2,
     'no-console': 'off',
     'consistent-return': 'off',
     'class-methods-use-this': 'off',

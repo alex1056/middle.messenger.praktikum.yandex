@@ -5,11 +5,12 @@ export default class Form {
     this._header = null;
     // TODO убрать в константы
     this._validationHelpWords = {
-      validationLenght: "Должно быть от 2 до 30 символов",
-      validationEmailPresent: "Некорректный формат email",
+      validationLenght: 'Должно быть от 2 до 30 символов',
+      validationEmailPresent: 'Некорректный формат email',
     };
     // end TODO
   }
+
   setFormValidator(validator) {
     this._validateForm = validator.validateForm.bind(validator);
     this._validateInputElement = validator.validateInputElement.bind(validator);
@@ -18,8 +19,8 @@ export default class Form {
   setPopup(popupElem, popupObj = {}) {
     this.popupObj = popupObj;
     this._popup = popupElem;
-    this.form = popupElem.querySelector(".form");
-    this._submit = popupElem.querySelector("#submit");
+    this.form = popupElem.querySelector('.form');
+    this._submit = popupElem.querySelector('#submit');
     // console.log(this._submit);
   }
 
@@ -81,27 +82,26 @@ export default class Form {
 
   setEventListeners() {
     this._handlerFormOpen = this._formHandler.bind(this);
-    let form = this._popup.querySelector("#form");
+    const form = this._popup.querySelector('#form');
     // console.log(form);
     if (form) {
       const inputs = Array.from(form.elements);
       inputs.forEach((elem) => {
         // console.log(elem.id);
         switch (elem.id) {
-          case "email":
-            elem.addEventListener("input", this._handlerFormOpen);
+          case 'email':
+            elem.addEventListener('input', this._handlerFormOpen);
             break;
-          case "password":
-            elem.addEventListener("input", this._handlerFormOpen);
+          case 'password':
+            elem.addEventListener('input', this._handlerFormOpen);
             break;
-          case "login":
-            elem.addEventListener("input", this._handlerFormOpen);
+          case 'login':
+            elem.addEventListener('input', this._handlerFormOpen);
             break;
         }
       });
-      form.addEventListener("submit", this._handlerFormOpen);
+      form.addEventListener('submit', this._handlerFormOpen);
       //   console.log("Eventlistrs установлены!");
-      return;
     }
     //   let currentForm = this._popup.querySelector('#formLogin');
     //   if (currentForm) {
@@ -127,15 +127,14 @@ export default class Form {
   }
 
   removeEventListeners() {
-    let form = this._popup.querySelector("#form");
+    const form = this._popup.querySelector('#form');
     if (form) {
       const inputs = Array.from(form.elements);
       inputs.forEach((elem) => {
-        elem.removeEventListener("input", this._handlerFormOpen);
+        elem.removeEventListener('input', this._handlerFormOpen);
       });
-      form.removeEventListener("submit", this._handlerFormOpen);
+      form.removeEventListener('submit', this._handlerFormOpen);
     }
-    return;
 
     // let currentForm = this._popup.querySelector("#formLogin");
     // if (currentForm) {
@@ -163,11 +162,11 @@ export default class Form {
 
   renderButton(isValidForm) {
     if (!isValidForm) {
-      this._submit.classList.add("btn_disabled");
-      this._submit.setAttribute("disable", true);
+      this._submit.classList.add('btn_disabled');
+      this._submit.setAttribute('disable', true);
     } else {
-      this._submit.classList.remove("btn_disabled");
-      this._submit.removeAttribute("disable");
+      this._submit.classList.remove('btn_disabled');
+      this._submit.removeAttribute('disable');
     }
   }
 
@@ -237,22 +236,20 @@ export default class Form {
   }
 
   _sendForm() {
-    if (this.form.id === "formLogin") {
+    if (this.form.id === 'formLogin') {
       return this._api.login();
     }
     return this._sleep(1000);
   }
 
   _sleep(ms) {
-    return new Promise((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, ms)
-    );
+    return new Promise((resolve) => setTimeout(() => {
+      resolve();
+    }, ms));
   }
 
   _showErrorMessage(message) {
-    const errorElement = document.querySelector("#formerrmessage");
+    const errorElement = document.querySelector('#formerrmessage');
     errorElement.textContent = message;
   }
 }
