@@ -6,14 +6,14 @@ import { Feed } from '../Feed';
 import { SendForm } from '../Send-form';
 
 // import "./style.scss";
-import { localsIndexPage } from '../../locals';
+import { localsIndexPage } from '../../Locals';
 
 const pug = require('pug');
 
-type TProps = { [propName: string]: any }
+type TProps = { [propName: string]: any };
 
 export class Msgs extends Block {
-  props: TProps
+  props: TProps;
 
   constructor(props?: TProps) {
     super('div', {
