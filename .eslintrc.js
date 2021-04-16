@@ -12,6 +12,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
     'import/no-unresolved': [2, { commonjs: true, amd: true, ignore: ['.jpeg$', '.jpg$', '.png$'] }],
     'import/prefer-default-export': 'off',
     'max-len': [2, 1000],
@@ -50,4 +52,4 @@ module.exports = {
       },
     },
   },
-}
+};
