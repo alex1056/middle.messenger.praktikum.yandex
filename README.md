@@ -1,7 +1,7 @@
 ### Проектная работа «Мессенджер»
 
 - [Макеты проекта](https://www.figma.com/file/tvVRobUvTiGSkECLTFEmES/Chat-with-Additions)
-- [Ссылка Netlify](https://suspicious-morse-807137.netlify.app/)
+- [Ссылка Netlify](https://gifted-franklin-967a84.netlify.app/)
 - [Ссылка на реопзиторий](https://github.com/alex1056/middle.messenger.praktikum.yandex/tree/main)
 
 Планируется реализация чата с минимально достаточными функциями:
