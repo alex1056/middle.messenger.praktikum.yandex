@@ -1,10 +1,7 @@
 import { Block } from '../Block';
-// import { Btn } from "../Button";
-// import { ProfileFormCtrls } from "../Profile-form-ctrls";
 import { tmplFeed } from './template';
 import './style.scss';
-
-const pug = require('pug');
+import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
@@ -17,7 +14,7 @@ export class Feed extends Block {
 
   render(): string {
     // console.log({ ...this.props });
-    const compiled = pug.compile(tmplFeed);
+    const compiled = compile(tmplFeed);
     const html = compiled(this.props);
     return html;
   }

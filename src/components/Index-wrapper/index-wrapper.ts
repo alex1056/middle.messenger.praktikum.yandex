@@ -1,11 +1,10 @@
 import { Block } from '../Block';
 import { ChatsList } from '../Chats-list';
 import { Msgs } from '../Msgs';
+import { compile } from 'pug';
 
 import { tmplIndexWrapper } from './template';
 import './style.scss';
-
-const pug = require('pug');
 
 type TProps = { [propName: string]: any };
 
@@ -20,7 +19,7 @@ export class IndexWrapper extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplIndexWrapper);
+    const compiled = compile(tmplIndexWrapper);
     const html = compiled({
       chatsList: this.props.chatsList.render(),
       msgs: this.props.msgs.render(),

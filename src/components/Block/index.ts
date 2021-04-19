@@ -26,7 +26,6 @@ export class Block {
 
   constructor(tagName = 'div', props = {}) {
     const eventBus = new EventBus();
-    // console.log(props);
     this._meta = {
       tagName,
       props,
@@ -64,7 +63,6 @@ export class Block {
 
   // Может переопределять пользователь, необязательно трогать
   componentDidMount(): boolean {
-    // args = oldProps: TProps
     return true;
   }
 
@@ -77,7 +75,6 @@ export class Block {
   }
 
   componentDidUpdate() {
-    // args = oldProps: TProps, newProps: TProps
     return true;
   }
 

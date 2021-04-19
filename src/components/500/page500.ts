@@ -1,7 +1,6 @@
 import { Block } from '../Block';
 import { tmpl500 } from './template';
-
-const pug = require('pug');
+import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
@@ -13,7 +12,7 @@ export class Page500 extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmpl500);
+    const compiled = compile(tmpl500);
     const html = compiled({});
     return html;
   }

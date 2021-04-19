@@ -1,7 +1,6 @@
 import { Block } from '../Block';
 import { tmpl404 } from './template';
 import { compile } from 'pug';
-// const pug = require('pug');
 
 type TProps = { [propName: string]: any };
 
@@ -13,7 +12,6 @@ export class Page404 extends Block {
   }
 
   render(): string {
-    // const compiled = pug.compile(tmpl404);
     const compiled = compile(tmpl404);
     const html = compiled({});
     return html;
