@@ -2,8 +2,7 @@ import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplRegistr } from './template';
 import './style.scss';
-
-const pug = require('pug');
+import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
@@ -22,7 +21,7 @@ export class RegistrForm extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplRegistr);
+    const compiled = compile(tmplRegistr);
     const html = compiled({
       buttonsubmit: this.props.buttonsubmit.render(),
     });

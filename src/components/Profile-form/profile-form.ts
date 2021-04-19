@@ -3,13 +3,12 @@ import { Btn } from '../Button';
 import { ProfileFormCtrls } from '../Profile-form-ctrls';
 import { tmplProfile } from './template';
 import './style.scss';
+import { compile } from 'pug';
 
-const pug = require('pug');
-
-type TProps = { [propName: string]: any }
+type TProps = { [propName: string]: any };
 
 export class ProfileForm extends Block {
-  props: TProps
+  props: TProps;
 
   constructor(props?: TProps) {
     super('div', {
@@ -20,7 +19,7 @@ export class ProfileForm extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplProfile);
+    const compiled = compile(tmplProfile);
     const html = compiled({
       ...this.props,
       buttonsubmit: this.props.buttonsubmit.render(),

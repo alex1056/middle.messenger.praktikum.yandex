@@ -2,8 +2,7 @@ import { Block } from '../Block';
 // import { Btn } from "../Button";
 import { tmplSendForm } from './template';
 import './style.scss';
-
-const pug = require('pug');
+import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
@@ -15,7 +14,7 @@ export class SendForm extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplSendForm);
+    const compiled = compile(tmplSendForm);
     const html = compiled({});
     return html;
   }

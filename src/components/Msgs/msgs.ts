@@ -1,19 +1,14 @@
 import { Block } from '../Block';
-// import { Btn } from "../Button";
-// import { ProfileFormCtrls } from "../Profile-form-ctrls";
 import { tmplMsgs } from './template';
 import { Feed } from '../Feed';
 import { SendForm } from '../Send-form';
-
-// import "./style.scss";
 import { localsIndexPage } from '../../locals';
+import { compile } from 'pug';
 
-const pug = require('pug');
-
-type TProps = { [propName: string]: any }
+type TProps = { [propName: string]: any };
 
 export class Msgs extends Block {
-  props: TProps
+  props: TProps;
 
   constructor(props?: TProps) {
     super('div', {
@@ -23,7 +18,7 @@ export class Msgs extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplMsgs);
+    const compiled = compile(tmplMsgs);
     const html = compiled({
       ...localsIndexPage,
       sendForm: this.props.sendForm.render(),

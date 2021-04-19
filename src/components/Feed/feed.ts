@@ -13,7 +13,6 @@ export class Feed extends Block {
   }
 
   render(): string {
-    // console.log({ ...this.props });
     const compiled = compile(tmplFeed);
     const html = compiled(this.props);
     return html;
