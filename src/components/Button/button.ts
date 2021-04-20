@@ -1,7 +1,7 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { btnTmpl } from './template';
 import './style.scss';
-import { compile } from 'pug';
 
 type TProps =
   | {

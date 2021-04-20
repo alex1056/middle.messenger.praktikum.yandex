@@ -1,7 +1,7 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { tmplAddMedia } from './template';
 import './style.scss';
-import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 

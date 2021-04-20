@@ -1,9 +1,9 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { ProfileFormCtrls } from '../Profile-form-ctrls';
 import { tmplProfile } from './template';
 import './style.scss';
-import { compile } from 'pug';
 
 type TProps = {
   className?: string;

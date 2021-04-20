@@ -1,7 +1,7 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { UserList } from '../User-list';
 import { tmplChatsList } from './template';
-import { compile } from 'pug';
 
 type TPropsChatsList = {
   [propName: string]: any;

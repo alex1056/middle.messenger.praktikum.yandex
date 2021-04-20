@@ -1,7 +1,7 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { tmplUserList } from './template';
 import './style.scss';
-import { compile } from 'pug';
 
 type TPropsUserList = {
   userListData: {

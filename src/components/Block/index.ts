@@ -7,8 +7,6 @@ type TEventBus = {
   emit: Function;
 };
 
-type TProps = { [propName: string]: any } | {};
-
 enum EVENTS {
   INIT = 'init',
   FLOW_CDM = 'flow:component-did-mount',
@@ -18,6 +16,7 @@ enum EVENTS {
 
 export class Block<TProps> {
   props: TProps;
+
   eventBus: TEventBus;
 
   private _element: Nullable<HTMLElement> = null;

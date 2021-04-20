@@ -1,9 +1,9 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { tmplMsgs } from './template';
 import { Feed } from '../Feed';
 import { SendForm } from '../Send-form';
 import { localsIndexPage } from '../../LocalsData';
-import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 

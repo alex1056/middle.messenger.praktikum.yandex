@@ -1,8 +1,8 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplRegistr } from './template';
 import './style.scss';
-import { compile } from 'pug';
 
 type TProps = {
   [propName: string]: any;

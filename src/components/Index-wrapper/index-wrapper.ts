@@ -1,7 +1,7 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { ChatsList } from '../Chats-list';
 import { Msgs } from '../Msgs';
-import { compile } from 'pug';
 import { tmplIndexWrapper } from './template';
 import './style.scss';
 import { localsIndexPage } from '../../LocalsData';
