@@ -4,7 +4,7 @@ function queryParams(params: any = {}) {
     .join('&');
 }
 
-function withQuery(url: string, params: any = {}) {
+function withQuery(url: string, params: any = {}): string {
   const queryString = queryParams(params);
   return queryString ? url + (url.indexOf('?') === -1 ? '?' : '&') + queryString : url;
 }
@@ -62,8 +62,13 @@ type Options = {
 };
 
 export class HTTPTransport {
-  get = (url: string, options: Options = {}): Promise<RequestResult> =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+  get = (url: string, options: Options = {}): Promise<RequestResult> => {
+    const { data } = options;
+    if (data) {
+      return this.request(withQuery(url, data), { ...options, method: METHODS.GET }, options.timeout);
+    }
+    return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+  };
 
   post = (url: string, options: Options = {}): Promise<RequestResult> =>
     this.request(url, { ...options, method: METHODS.POST }, options.timeout);
@@ -93,11 +98,7 @@ export class HTTPTransport {
         console.log('Ошибка во время установки заголовков', err);
       }
 
-      if (method === METHODS.GET && data) {
-        xhr.open(method, withQuery(url, data));
-      } else if (method) {
-        xhr.open(method, url);
-      }
+      xhr.open(method as string, url);
 
       xhr.onload = () => {
         resolve(parseXHRResult(xhr));

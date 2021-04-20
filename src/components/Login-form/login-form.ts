@@ -5,6 +5,9 @@ import './style.scss';
 import { compile } from 'pug';
 
 type TProps = {
+  buttonText?: string;
+  className?: string;
+  disabled?: boolean;
   [propName: string]: any;
 };
 
@@ -14,9 +17,6 @@ export class LoginForm extends Block<TProps> {
     super('div', {
       buttonsubmit: new Btn({
         ...props,
-        buttonText: 'Аворизоваться',
-        className: 'btn_disabled',
-        disabled: true,
       }),
     });
   }
