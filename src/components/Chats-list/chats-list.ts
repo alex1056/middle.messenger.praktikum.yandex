@@ -1,24 +1,32 @@
 import { Block } from '../Block';
 import { UserList } from '../User-list';
 import { tmplChatsList } from './template';
-import { localsIndexPage } from '../../locals';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TPropsChatsList = {
+  [propName: string]: any;
+  userListData: {
+    imgSrc: string;
+    name: string;
+    lastMsg: string;
+    lastMsgdate: string;
+    unreadMsg: number;
+  }[];
+};
 
-export class ChatsList extends Block<TProps> {
-  props: TProps;
+export class ChatsList extends Block<TPropsChatsList> {
+  props: TPropsChatsList;
 
-  constructor(props?: TProps) {
+  constructor(props: TPropsChatsList) {
     super('div', {
-      userList: new UserList({ ...props, ...localsIndexPage }),
+      ...props,
+      userList: new UserList(props),
     });
   }
 
   render(): string {
     const compiled = compile(tmplChatsList);
     const html = compiled({
-      ...localsIndexPage,
       userList: this.props.userList.render(),
     });
     return html;

@@ -18,8 +18,6 @@ enum EVENTS {
 
 export class Block<TProps> {
   props: TProps;
-
-  //   eventBus: Function;
   eventBus: TEventBus;
 
   private _element: Nullable<HTMLElement> = null;
@@ -35,7 +33,6 @@ export class Block<TProps> {
 
     this.props = this._makePropsProxy(props);
 
-    // this.eventBus = () => eventBus;
     this.eventBus = eventBus;
 
     this._registerEvents(eventBus);
@@ -57,13 +54,11 @@ export class Block<TProps> {
   init() {
     this._createResources();
     this.eventBus.emit(EVENTS.FLOW_CDM);
-    // this.eventBus().emit(EVENTS.FLOW_CDM);
   }
 
   _componentDidMount() {
     this.componentDidMount();
     this.eventBus.emit(EVENTS.FLOW_RENDER);
-    // this.eventBus().emit(EVENTS.FLOW_RENDER);
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -75,7 +70,6 @@ export class Block<TProps> {
     this.props = this._makePropsProxy(newProps);
     const response = this.componentDidUpdate();
     if (response) {
-      //   this.eventBus().emit(EVENTS.FLOW_RENDER);
       this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
   }
@@ -89,7 +83,6 @@ export class Block<TProps> {
       return;
     }
     this.eventBus.emit(EVENTS.FLOW_CDU, this.props, nextProps);
-    // this.eventBus().emit(EVENTS.FLOW_CDU, this.props, nextProps);
     Object.assign(this.props, nextProps);
   };
 
