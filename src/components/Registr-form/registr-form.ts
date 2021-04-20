@@ -4,9 +4,11 @@ import { tmplRegistr } from './template';
 import './style.scss';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps = {
+  [propName: string]: any;
+};
 
-export class RegistrForm extends Block {
+export class RegistrForm extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {

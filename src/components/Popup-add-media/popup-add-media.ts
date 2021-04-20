@@ -5,10 +5,10 @@ import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
-export class PopupAddMedia extends Block {
+export class PopupAddMedia extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
+  constructor(props: TProps) {
     super('div', props);
   }
 

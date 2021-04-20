@@ -4,12 +4,13 @@ import { tmplLogin } from './template';
 import './style.scss';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps = {
+  [propName: string]: any;
+};
 
-export class LoginForm extends Block {
-  props: TProps;
-
+export class LoginForm extends Block<TProps> {
   constructor(props?: TProps) {
+    //
     super('div', {
       buttonsubmit: new Btn({
         ...props,

@@ -3,9 +3,14 @@ import { tmplUserList } from './template';
 import './style.scss';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps =
+  | {
+      userList: Object[];
+      [propName: string]: any;
+    }
+  | undefined;
 
-export class UserList extends Block {
+export class UserList extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {

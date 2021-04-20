@@ -2,18 +2,18 @@ import { Block } from '../Block';
 import { tmpl404 } from './template';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps = {};
 
-export class Page404 extends Block {
+export class Page404 extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
-    super('div', props);
+  constructor(props: TProps) {
+    super('div', (props = {}));
   }
 
   render(): string {
     const compiled = compile(tmpl404);
-    const html = compiled({});
+    const html = compiled();
     return html;
   }
 }

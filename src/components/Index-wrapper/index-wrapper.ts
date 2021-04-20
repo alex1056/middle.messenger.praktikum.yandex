@@ -8,7 +8,7 @@ import './style.scss';
 
 type TProps = { [propName: string]: any };
 
-export class IndexWrapper extends Block {
+export class IndexWrapper extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {

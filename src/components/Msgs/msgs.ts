@@ -7,12 +7,12 @@ import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
-export class Msgs extends Block {
+export class Msgs extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
+  constructor(props: TProps = {}) {
     super('div', {
-      sendForm: new SendForm({ ...props, ...localsIndexPage }),
+      sendForm: new SendForm(),
       feedComponent: new Feed({ ...props, ...localsIndexPage }),
     });
   }

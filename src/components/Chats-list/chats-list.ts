@@ -6,7 +6,7 @@ import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
-export class ChatsList extends Block {
+export class ChatsList extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {

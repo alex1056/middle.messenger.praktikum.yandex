@@ -3,12 +3,14 @@ import { tmplProfileCtrls } from './template';
 import './style.scss';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps = {
+  [propName: string]: any;
+};
 
-export class ProfileFormCtrls extends Block {
+export class ProfileFormCtrls extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
+  constructor(props: TProps) {
     super('div', props);
   }
 

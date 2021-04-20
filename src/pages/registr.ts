@@ -15,6 +15,5 @@ const currentForm = document.body.querySelector('#form') as HTMLFormElement;
 
 const formValidator = new Validator(currentForm);
 formValidator.setHandleLabels(true);
-// console.log(formValidator);
 form.setFormValidator(formValidator as any);
 form.setHandlers('submit', onSubmitHandlerLogin);

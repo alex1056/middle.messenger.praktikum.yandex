@@ -1,14 +1,15 @@
 import { EventBus } from '../EventBus';
 
 type Nullable<T> = T | null;
-type TProps = { [propName: string]: any };
 type TEventBus = {
   on: Function;
   off: Function;
   emit: Function;
 };
 
-export class Block {
+type TProps = { [propName: string]: any } | {};
+
+export class Block<TProps> {
   props: TProps;
 
   eventBus: Function;
@@ -24,7 +25,7 @@ export class Block {
 
   private _meta: { tagName: string; props: TProps };
 
-  constructor(tagName = 'div', props = {}) {
+  constructor(tagName = 'div', props: TProps) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -113,8 +114,8 @@ export class Block {
     throw new Error('Рендеренный элементы = null');
   }
 
-  _makePropsProxy(props: TProps) {
-    const proxyData = new Proxy(props, {
+  _makePropsProxy(props: TProps): TProps {
+    const proxyData = new Proxy(props as any, {
       get(target, prop: string) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;

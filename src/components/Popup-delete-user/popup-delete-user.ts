@@ -6,7 +6,7 @@ import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
-export class PopupDeleteUser extends Block {
+export class PopupDeleteUser extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {

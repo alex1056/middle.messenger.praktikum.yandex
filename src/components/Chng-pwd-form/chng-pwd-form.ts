@@ -4,9 +4,11 @@ import { tmplChngPwd } from './template';
 import './style.scss';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps = {
+  [propName: string]: any;
+};
 
-export class ChngPwdForm extends Block {
+export class ChngPwdForm extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {

@@ -3,9 +3,18 @@ import { btnTmpl } from './template';
 import './style.scss';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps =
+  | {
+      buttonText?: string;
+      className?: string;
+      disabled?: boolean;
+      restProps?: {
+        [x: string]: any;
+      };
+    }
+  | undefined;
 
-export class Btn extends Block {
+export class Btn extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {

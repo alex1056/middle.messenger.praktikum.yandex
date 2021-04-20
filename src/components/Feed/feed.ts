@@ -3,12 +3,17 @@ import { tmplFeed } from './template';
 import './style.scss';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps =
+  | {
+      feed: Object;
+      [propName: string]: any;
+    }
+  | {};
 
-export class Feed extends Block {
+export class Feed extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
+  constructor(props: TProps = {}) {
     super('div', props);
   }
 

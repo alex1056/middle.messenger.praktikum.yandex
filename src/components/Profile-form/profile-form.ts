@@ -5,12 +5,17 @@ import { tmplProfile } from './template';
 import './style.scss';
 import { compile } from 'pug';
 
-type TProps = { [propName: string]: any };
+type TProps = {
+  className?: string;
+  disabled?: boolean;
+  [propName: string]: any;
+};
 
-export class ProfileForm extends Block {
+export class ProfileForm extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
+  constructor(props: TProps) {
+    //
     super('div', {
       ...props,
       buttonsubmit: new Btn({ ...props, buttonText: 'Сохранить' }),

@@ -25,6 +25,4 @@ main(class="main")
                         div(class="pform__err-message")
                             span(id="errorpasswordconfirm")
                     div(class="pform__btn-cont")
-                        != buttonsubmit
-                        a(class="btn pform__btn pform__btn_white" href="./login.html")
-                            span(class="btn__text pform__btn-text") Войти`;
+                        != buttonsubmit`;

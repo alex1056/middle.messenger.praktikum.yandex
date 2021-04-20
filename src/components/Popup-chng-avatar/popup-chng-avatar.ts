@@ -6,7 +6,7 @@ import { compile } from 'pug';
 
 type TProps = { [propName: string]: any };
 
-export class PopupChngAvatar extends Block {
+export class PopupChngAvatar extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {
