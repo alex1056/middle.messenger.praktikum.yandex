@@ -9,17 +9,18 @@ type TEventBus = {
 
 type TProps = { [propName: string]: any } | {};
 
+enum EVENTS {
+  INIT = 'init',
+  FLOW_CDM = 'flow:component-did-mount',
+  FLOW_RENDER = 'flow:render',
+  FLOW_CDU = 'flow:component-did-update',
+}
+
 export class Block<TProps> {
   props: TProps;
 
-  eventBus: Function;
-
-  public static EVENTS = {
-    INIT: 'init',
-    FLOW_CDM: 'flow:component-did-mount',
-    FLOW_RENDER: 'flow:render',
-    FLOW_CDU: 'flow:component-did-update',
-  };
+  //   eventBus: Function;
+  eventBus: TEventBus;
 
   private _element: Nullable<HTMLElement> = null;
 
@@ -34,17 +35,18 @@ export class Block<TProps> {
 
     this.props = this._makePropsProxy(props);
 
-    this.eventBus = () => eventBus;
+    // this.eventBus = () => eventBus;
+    this.eventBus = eventBus;
 
     this._registerEvents(eventBus);
-    eventBus.emit(Block.EVENTS.INIT);
+    eventBus.emit(EVENTS.INIT);
   }
 
   _registerEvents(eventBus: TEventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(EVENTS.INIT, this.init.bind(this));
+    eventBus.on(EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+    eventBus.on(EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
   _createResources() {
@@ -54,12 +56,14 @@ export class Block<TProps> {
 
   init() {
     this._createResources();
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this.eventBus.emit(EVENTS.FLOW_CDM);
+    // this.eventBus().emit(EVENTS.FLOW_CDM);
   }
 
   _componentDidMount() {
     this.componentDidMount();
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    this.eventBus.emit(EVENTS.FLOW_RENDER);
+    // this.eventBus().emit(EVENTS.FLOW_RENDER);
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -71,7 +75,8 @@ export class Block<TProps> {
     this.props = this._makePropsProxy(newProps);
     const response = this.componentDidUpdate();
     if (response) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      //   this.eventBus().emit(EVENTS.FLOW_RENDER);
+      this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
   }
 
@@ -83,7 +88,8 @@ export class Block<TProps> {
     if (!nextProps) {
       return;
     }
-    this.eventBus().emit(Block.EVENTS.FLOW_CDU, this.props, nextProps);
+    this.eventBus.emit(EVENTS.FLOW_CDU, this.props, nextProps);
+    // this.eventBus().emit(EVENTS.FLOW_CDU, this.props, nextProps);
     Object.assign(this.props, nextProps);
   };
 
