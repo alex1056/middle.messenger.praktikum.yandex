@@ -1,14 +1,12 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-// import { ProfileFormCtrls } from "../Profile-form-ctrls";
 import { tmplPopupChngAvatar } from './template';
 import './style.scss';
 
-const pug = require('pug');
-
 type TProps = { [propName: string]: any };
 
-export class PopupChngAvatar extends Block {
+export class PopupChngAvatar extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {
@@ -19,7 +17,7 @@ export class PopupChngAvatar extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplPopupChngAvatar);
+    const compiled = compile(tmplPopupChngAvatar);
     const html = compiled({
       ...this.props,
       buttonChange: this.props.buttonChange.render(),

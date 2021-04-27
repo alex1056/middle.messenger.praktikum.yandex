@@ -1,17 +1,21 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { ProfileFormCtrls } from '../Profile-form-ctrls';
 import { tmplProfile } from './template';
 import './style.scss';
 
-const pug = require('pug');
+type TProps = {
+  className?: string;
+  disabled?: boolean;
+  [propName: string]: any;
+};
 
-type TProps = { [propName: string]: any }
+export class ProfileForm extends Block<TProps> {
+  props: TProps;
 
-export class ProfileForm extends Block {
-  props: TProps
-
-  constructor(props?: TProps) {
+  constructor(props: TProps) {
+    //
     super('div', {
       ...props,
       buttonsubmit: new Btn({ ...props, buttonText: 'Сохранить' }),
@@ -20,7 +24,7 @@ export class ProfileForm extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplProfile);
+    const compiled = compile(tmplProfile);
     const html = compiled({
       ...this.props,
       buttonsubmit: this.props.buttonsubmit.render(),

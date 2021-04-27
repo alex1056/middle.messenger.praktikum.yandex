@@ -3,5 +3,6 @@
   "rules": {
     "selector-pseudo-element-colon-notation": "single",
     "no-descending-specificity": null
-  }
+  },
+  "ignoreFiles": ["build/*", "dist/*"]
 }

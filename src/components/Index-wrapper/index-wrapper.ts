@@ -1,26 +1,25 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { ChatsList } from '../Chats-list';
 import { Msgs } from '../Msgs';
-
 import { tmplIndexWrapper } from './template';
 import './style.scss';
-
-const pug = require('pug');
+import { localsIndexPage } from '../../LocalsData';
 
 type TProps = { [propName: string]: any };
 
-export class IndexWrapper extends Block {
+export class IndexWrapper extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
+  constructor(props: TProps) {
     super('div', {
-      chatsList: new ChatsList(props),
+      chatsList: new ChatsList({ ...props, ...localsIndexPage }),
       msgs: new Msgs(props),
     });
   }
 
   render(): string {
-    const compiled = pug.compile(tmplIndexWrapper);
+    const compiled = compile(tmplIndexWrapper);
     const html = compiled({
       chatsList: this.props.chatsList.render(),
       msgs: this.props.msgs.render(),

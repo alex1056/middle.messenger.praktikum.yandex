@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "./node_modules/.bin/parcel static/index.html static/*.html",
-    "build": "./node_modules/.bin/parcel build static/*.html",
-    "start": "npm run build && node ./server.js"
+    "dev": "npm run clear && parcel static/index.html static/*.html",
+    "build": "parcel build static/*.html",
+    "start": "parcel build static/*.html && node ./server.js",
+    "stylelint": "npx stylelint **/*.scss",
+    "eslint": "eslint . --ext .ts",
+    "clear": "rm -rf ./dist/*"
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,7 @@
     "eslint-plugin-import": "^2.22.1"
   },
   "dependencies": {
+    "@types/pug": "^2.0.4",
     "pug": "^3.0.2",
     "validator": "^13.5.2"
   }

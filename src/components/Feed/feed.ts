@@ -1,23 +1,24 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
-// import { Btn } from "../Button";
-// import { ProfileFormCtrls } from "../Profile-form-ctrls";
 import { tmplFeed } from './template';
 import './style.scss';
 
-const pug = require('pug');
+type TProps =
+  | {
+      feed: Object;
+      [propName: string]: any;
+    }
+  | {};
 
-type TProps = { [propName: string]: any };
-
-export class Feed extends Block {
+export class Feed extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
+  constructor(props: TProps = {}) {
     super('div', props);
   }
 
   render(): string {
-    // console.log({ ...this.props });
-    const compiled = pug.compile(tmplFeed);
+    const compiled = compile(tmplFeed);
     const html = compiled(this.props);
     return html;
   }

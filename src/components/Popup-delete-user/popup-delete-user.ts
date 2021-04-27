@@ -1,13 +1,12 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplDeleteAddUser } from './template';
 import './style.scss';
 
-const pug = require('pug');
-
 type TProps = { [propName: string]: any };
 
-export class PopupDeleteUser extends Block {
+export class PopupDeleteUser extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {
@@ -27,7 +26,7 @@ export class PopupDeleteUser extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplDeleteAddUser);
+    const compiled = compile(tmplDeleteAddUser);
     const html = compiled({
       ...this.props,
       buttonCancel: this.props.buttonCancel.render(),

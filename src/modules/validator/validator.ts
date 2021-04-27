@@ -1,17 +1,16 @@
 import { validationTextErrors } from './constants';
+import { validateEmail } from '../../utils/validate-email';
 
-const validator = require('validator');
-
-type Nullable<T> = T | null
+type Nullable<T> = T | null;
 
 export class Validator {
-  private form: Nullable<HTMLFormElement>
+  private form: Nullable<HTMLFormElement>;
 
-  private submit: Nullable<HTMLDivElement>
+  private submit: Nullable<HTMLDivElement>;
 
-  private inputs: HTMLInputElement[]
+  private inputs: HTMLInputElement[];
 
-  private handleLabels: boolean
+  private handleLabels: boolean;
   //
 
   constructor(formEl: HTMLFormElement) {
@@ -81,14 +80,14 @@ export class Validator {
   }
 
   validateInputElement(element: HTMLInputElement): boolean {
-    const errorElement: Nullable<HTMLDivElement> = document.querySelector(`#error${element.id}`);
+    const errorElement = document.querySelector<HTMLDivElement>(`#error${element.id}`);
     if (!errorElement) {
       throw new Error('Отсутствуют поля для вывода информации о валидации');
     }
 
     if (this.handleLabels) {
       if (element.value.length) {
-        const labelElement: Nullable<HTMLDivElement> = document.querySelector(`#label${element.id}`);
+        const labelElement = document.querySelector<HTMLDivElement>(`#label${element.id}`);
         if (!labelElement) {
           throw new Error('Отсутствуют label');
         } else {
@@ -126,7 +125,7 @@ export class Validator {
       return false;
     }
     if (element.type === 'email') {
-      if (!validator.isEmail(element.value)) {
+      if (!validateEmail(element.value)) {
         errorElement.textContent = validationTextErrors.validationEmailPresent;
         return false;
       }

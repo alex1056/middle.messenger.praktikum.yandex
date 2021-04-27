@@ -1,32 +1,30 @@
 import { EventBus } from '../EventBus';
 
 type Nullable<T> = T | null;
-type TProps = { [propName: string]: any };
 type TEventBus = {
   on: Function;
   off: Function;
   emit: Function;
 };
 
-export class Block {
+enum EVENTS {
+  INIT = 'init',
+  FLOW_CDM = 'flow:component-did-mount',
+  FLOW_RENDER = 'flow:render',
+  FLOW_CDU = 'flow:component-did-update',
+}
+
+export class Block<TProps> {
   props: TProps;
 
-  eventBus: Function;
-
-  public static EVENTS = {
-    INIT: 'init',
-    FLOW_CDM: 'flow:component-did-mount',
-    FLOW_RENDER: 'flow:render',
-    FLOW_CDU: 'flow:component-did-update',
-  };
+  eventBus: TEventBus;
 
   private _element: Nullable<HTMLElement> = null;
 
   private _meta: { tagName: string; props: TProps };
 
-  constructor(tagName = 'div', props = {}) {
+  constructor(tagName = 'div', props: TProps) {
     const eventBus = new EventBus();
-    // console.log(props);
     this._meta = {
       tagName,
       props,
@@ -34,17 +32,17 @@ export class Block {
 
     this.props = this._makePropsProxy(props);
 
-    this.eventBus = () => eventBus;
+    this.eventBus = eventBus;
 
     this._registerEvents(eventBus);
-    eventBus.emit(Block.EVENTS.INIT);
+    eventBus.emit(EVENTS.INIT);
   }
 
   _registerEvents(eventBus: TEventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(EVENTS.INIT, this.init.bind(this));
+    eventBus.on(EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+    eventBus.on(EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
   _createResources() {
@@ -54,17 +52,16 @@ export class Block {
 
   init() {
     this._createResources();
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this.eventBus.emit(EVENTS.FLOW_CDM);
   }
 
   _componentDidMount() {
     this.componentDidMount();
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    this.eventBus.emit(EVENTS.FLOW_RENDER);
   }
 
   // Может переопределять пользователь, необязательно трогать
   componentDidMount(): boolean {
-    // args = oldProps: TProps
     return true;
   }
 
@@ -72,12 +69,11 @@ export class Block {
     this.props = this._makePropsProxy(newProps);
     const response = this.componentDidUpdate();
     if (response) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
   }
 
   componentDidUpdate() {
-    // args = oldProps: TProps, newProps: TProps
     return true;
   }
 
@@ -85,7 +81,7 @@ export class Block {
     if (!nextProps) {
       return;
     }
-    this.eventBus().emit(Block.EVENTS.FLOW_CDU, this.props, nextProps);
+    this.eventBus.emit(EVENTS.FLOW_CDU, this.props, nextProps);
     Object.assign(this.props, nextProps);
   };
 
@@ -116,8 +112,8 @@ export class Block {
     throw new Error('Рендеренный элементы = null');
   }
 
-  _makePropsProxy(props: TProps) {
-    const proxyData = new Proxy(props, {
+  _makePropsProxy(props: TProps): TProps {
+    const proxyData = new Proxy(props as any, {
       get(target, prop: string) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;

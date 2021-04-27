@@ -1,13 +1,14 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplRegistr } from './template';
 import './style.scss';
 
-const pug = require('pug');
+type TProps = {
+  [propName: string]: any;
+};
 
-type TProps = { [propName: string]: any };
-
-export class RegistrForm extends Block {
+export class RegistrForm extends Block<TProps> {
   props: TProps;
 
   constructor(props?: TProps) {
@@ -22,7 +23,7 @@ export class RegistrForm extends Block {
   }
 
   render(): string {
-    const compiled = pug.compile(tmplRegistr);
+    const compiled = compile(tmplRegistr);
     const html = compiled({
       buttonsubmit: this.props.buttonsubmit.render(),
     });

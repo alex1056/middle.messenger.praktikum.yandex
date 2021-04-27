@@ -1,20 +1,19 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { tmpl500 } from './template';
 
-const pug = require('pug');
+type TProps = {};
 
-type TProps = { [propName: string]: any };
-
-export class Page500 extends Block {
+export class Page500 extends Block<TProps> {
   props: TProps;
 
-  constructor(props?: TProps) {
-    super('div', props);
+  constructor() {
+    super('div', {});
   }
 
   render(): string {
-    const compiled = pug.compile(tmpl500);
-    const html = compiled({});
+    const compiled = compile(tmpl500);
+    const html = compiled();
     return html;
   }
 }

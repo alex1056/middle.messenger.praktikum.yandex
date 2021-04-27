@@ -1,20 +1,28 @@
+import { compile } from 'pug';
 import { Block } from '../Block';
 import { btnTmpl } from './template';
 import './style.scss';
 
-const pug = require('pug');
+type TProps =
+  | {
+      buttonText?: string;
+      className?: string;
+      disabled?: boolean;
+      restProps?: {
+        [x: string]: any;
+      };
+    }
+  | undefined;
 
-type TProps = { [propName: string]: any }
-
-export class Btn extends Block {
-  props: TProps
+export class Btn extends Block<TProps> {
+  props: TProps;
 
   constructor(props?: TProps) {
     super('div', props);
   }
 
   render() {
-    const compiled = pug.compile(btnTmpl);
+    const compiled = compile(btnTmpl);
     const html = compiled(this.props);
     return html;
   }

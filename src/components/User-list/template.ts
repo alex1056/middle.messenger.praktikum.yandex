@@ -1,6 +1,6 @@
 export const tmplUserList = `
 ul(class="chats-list__user-list")
-    each item, i in userList            
+    each item, i in userListData            
         li(class="user")
             div(class="user__cont-1")
                 img(src=item.imgSrc alt="аватар")
