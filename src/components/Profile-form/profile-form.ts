@@ -18,7 +18,12 @@ export class ProfileForm extends Block<TProps> {
     //
     super('div', {
       ...props,
-      buttonsubmit: new Btn({ ...props, buttonText: 'Сохранить' }),
+      buttonsubmit: new Btn({
+        ...props,
+        buttonText: 'Сохранить',
+        className: 'pform__btn-save btn_hide',
+        disabled: true,
+      }),
       ctrls: new ProfileFormCtrls(props),
     });
   }
