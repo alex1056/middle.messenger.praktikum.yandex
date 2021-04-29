@@ -29,6 +29,7 @@ export class Router implements IRouter {
 
   use(pathname: string, block: any) {
     const route: IRoute = new Route(pathname, block, { rootQuery: this._rootQuery });
+    // console.log('use, route', route);
     this.routes.push(route);
     return this;
   }
@@ -45,6 +46,7 @@ export class Router implements IRouter {
   _onRoute(pathname: string) {
     const route: IRoute | undefined = this.getRoute(pathname);
 
+    // console.log('pathname, this._currentRoute', pathname, this._currentRoute);
     if (this._currentRoute) {
       // если мы уже на каком-то руте - мы его скрываем
       this._currentRoute.leave();

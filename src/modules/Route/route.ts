@@ -8,8 +8,6 @@ type TBlock = { [args: string]: any; hide: Function; show: Function; getContent:
 export interface IRoute {
   _pathname: string;
   _blockClass: () => any;
-  // _blockClass: () => { constructor: Function } as any as { new (): _blockClass; };
-  //as { new (layerName: string): TestVectorLayer; };
   _block: TBlock;
   _props: Record<string, T> | null;
   match: Function;
@@ -19,7 +17,6 @@ export interface IRoute {
 export class Route implements IRoute {
   _pathname: string;
   _blockClass: () => any;
-  // _blockClass: () => { constructor: Function };
   _block: TBlock;
   _props: Record<string, T> | null;
 
@@ -49,12 +46,11 @@ export class Route implements IRoute {
 
   render() {
     if (!this._block) {
-      // this._block = new (this._blockClass as any)({ rootQuery: '.page' });
       this._block = new (this._blockClass as any)(this._props);
 
       if (this._props && this._block) {
-        renderDOM(this._props.rootQuery, this._block.getContent() as HTMLDivElement);
-        // this._block.render();
+        const node: HTMLDivElement = this._block.getContent();
+        renderDOM(this._props.rootQuery, node);
       } else {
         throw new Error('Не задан root элемент для монтирования в DOM!');
       }

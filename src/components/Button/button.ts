@@ -8,6 +8,7 @@ type TProps =
       buttonText?: string;
       className?: string;
       disabled?: boolean;
+      buttonId?: string;
       restProps?: {
         [x: string]: any;
       };

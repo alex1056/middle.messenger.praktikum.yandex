@@ -1,22 +1,27 @@
-type Nullable<T> = T | null
+type Nullable<T> = T | null;
 
 export default class Form {
-  private validateForm: Function
+  private validateForm: Function;
 
-  private validateInputElement: Function
+  private validateInputElement: Function;
 
-  private handlerFormOpen: Function
+  private handlerFormOpen: Function;
 
-  private form: HTMLFormElement
+  private form: HTMLFormElement;
 
-  private submit: HTMLButtonElement
+  private submit: HTMLButtonElement;
 
-  private popup: HTMLDivElement
+  private popup: HTMLDivElement;
 
-  private handlers: { [handlerName: string]: Function[] }
+  private handlers: { [handlerName: string]: Function[] };
+  private formId: string;
 
-  constructor() {
+  constructor(formId: string) {
     this.handlers = {};
+    if (!formId) {
+      throw new Error('Не задан formId для валидации!');
+    }
+    this.formId = formId;
   }
 
   setFormValidator(validator: { validateForm(): boolean; validateInputElement(): boolean }) {
@@ -33,17 +38,17 @@ export default class Form {
 
   setPopup(popupElem: HTMLDivElement) {
     this.popup = popupElem;
-    this.form = popupElem.querySelector('#form') as HTMLFormElement;
-    this.submit = popupElem.querySelector('#submit') as HTMLButtonElement;
+    this.form = popupElem.querySelector(`#${this.formId}`) as HTMLFormElement;
+    this.submit = popupElem.querySelector(`#${this.formId} #submit-${this.formId}`) as HTMLButtonElement;
   }
 
   setEventListeners() {
     this.handlerFormOpen = this.formHandler.bind(this);
-    const form: Nullable<HTMLFormElement> = this.popup.querySelector('#form');
+    const form: Nullable<HTMLFormElement> = this.popup.querySelector(`#${this.formId}`);
     if (form) {
       const inputs = Array.from(form.elements);
       inputs.forEach((elem) => {
-        if (elem.id !== 'submit') {
+        if (elem.id !== `submit-${this.formId}`) {
           elem.addEventListener(
             'focus',
             this.handlerFormOpen as EventListener, // eslint-disable-line no-undef
@@ -65,7 +70,7 @@ export default class Form {
   }
 
   removeEventListeners() {
-    const form = this.popup.querySelector('#form') as HTMLFormElement;
+    const form = this.popup.querySelector(`#${this.formId}`) as HTMLFormElement;
     if (form) {
       const inputs = Array.from(form.elements) as HTMLInputElement[];
       inputs.forEach((elem) => {
@@ -92,7 +97,7 @@ export default class Form {
     if (event.type === 'submit') {
       if (this.handlers.submit) {
         this.handlers.submit.forEach((callback) => {
-          callback(this.form);
+          callback(this.form, this.formId);
         });
       }
     }
@@ -100,7 +105,7 @@ export default class Form {
 
   getFormData() {
     const inputs = Array.from(this.form.elements);
-    const submit = this.form.querySelector('#submit') as HTMLDivElement;
+    const submit = this.form.querySelector(`#${this.formId}`) as HTMLDivElement;
 
     const inputsData = inputs.reduce((acc, item: HTMLInputElement) => {
       const { id, value } = item;
@@ -109,7 +114,6 @@ export default class Form {
       }
       return acc;
     }, {});
-
     return inputsData;
   }
 }

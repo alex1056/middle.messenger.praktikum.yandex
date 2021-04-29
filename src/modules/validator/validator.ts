@@ -5,19 +5,22 @@ type Nullable<T> = T | null;
 
 export class Validator {
   private form: Nullable<HTMLFormElement>;
-
   private submit: Nullable<HTMLDivElement>;
-
   private inputs: HTMLInputElement[];
-
   private handleLabels: boolean;
-  //
+  private formId: string;
 
-  constructor(formEl: HTMLFormElement) {
+  constructor(formEl: HTMLFormElement, formId: string = '') {
     this.form = formEl;
+
+    if (!formId) {
+      throw new Error('Не задан formId для валидации!');
+    }
+    this.formId = formId;
     this.handleLabels = false;
     if (this.form) {
-      this.submit = this.form.querySelector('#submit');
+      this.submit = this.form.querySelector(`#${this.formId} #submit-${this.formId}`);
+
       this.inputs = Array.from(this.form.elements) as HTMLInputElement[];
     } else {
       throw new Error('Не найдена форма на странице');
@@ -31,7 +34,7 @@ export class Validator {
   private finalCheck() {
     let flag = true;
     this.inputs.forEach((elem: HTMLInputElement) => {
-      if (elem.id && elem.id !== 'submit') {
+      if (elem.id && elem.id !== `submit-${this.formId}`) {
         if (!this.validateInputElement(elem)) {
           flag = false;
         }
@@ -56,13 +59,13 @@ export class Validator {
       }
     } else {
       this.inputs.forEach((elem: HTMLInputElement) => {
-        if (event.target.id === elem.id && event.target.id !== 'submit') {
+        if (event.target.id === elem.id && event.target.id !== `submit-${this.formId}`) {
           if (!this.validateInputElement(elem)) {
             isValidForm = false;
           } else {
             flag = true;
             this.inputs.forEach((elem1: HTMLInputElement) => {
-              if (elem1.id !== 'submit') {
+              if (elem1.id !== `submit-${this.formId}`) {
                 if (!elem1.value) {
                   flag = false;
                 }
@@ -75,26 +78,25 @@ export class Validator {
         }
       });
     }
-
     return isValidForm;
   }
 
   validateInputElement(element: HTMLInputElement): boolean {
-    const errorElement = document.querySelector<HTMLDivElement>(`#error${element.id}`);
+    const errorElement = document.querySelector<HTMLDivElement>(`#${this.formId} #error${element.id}`);
     if (!errorElement) {
       throw new Error('Отсутствуют поля для вывода информации о валидации');
     }
 
     if (this.handleLabels) {
       if (element.value.length) {
-        const labelElement = document.querySelector<HTMLDivElement>(`#label${element.id}`);
+        const labelElement = document.querySelector<HTMLDivElement>(`#${this.formId} #label${element.id}`);
         if (!labelElement) {
           throw new Error('Отсутствуют label');
         } else {
           labelElement.classList.remove('login-form__label_hide');
         }
       } else {
-        const labelElement = document.querySelector(`#label${element.id}`);
+        const labelElement = document.querySelector(`#${this.formId} #label${element.id}`);
         if (!labelElement) {
           throw new Error('Отсутствуют label');
         } else {
@@ -103,9 +105,9 @@ export class Validator {
       }
     }
 
-    if (element.id === 'passwordconfirm') {
-      const pwdInput1 = document.querySelector('#password') as HTMLInputElement;
-      const pwdNew = document.querySelector('#newpassword') as HTMLInputElement;
+    if (element.id === `passwordconfirm-${this.formId}`) {
+      const pwdInput1 = document.querySelector(`#${this.formId} #password-${this.formId}`) as HTMLInputElement;
+      const pwdNew = document.querySelector(`#${this.formId} #newpassword-${this.formId}`) as HTMLInputElement;
 
       if (pwdNew && pwdInput1) {
         if (pwdNew.value !== element.value) {

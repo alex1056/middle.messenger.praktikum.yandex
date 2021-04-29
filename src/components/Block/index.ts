@@ -19,7 +19,7 @@ export class Block<TProps> {
 
   eventBus: TEventBus;
 
-  private _element: Nullable<HTMLElement> = null;
+  _element: Nullable<HTMLElement> = null;
 
   private _meta: { tagName: string; props: TProps };
 
@@ -89,6 +89,16 @@ export class Block<TProps> {
     return this._element;
   }
 
+  _addEvents(): void {
+    if (!this.addEvents()) {
+      // логика для добавления общих событий
+    }
+  }
+
+  addEvents(): boolean {
+    return false;
+  }
+
   _render() {
     let block: string = '';
     if (this.render()) {
@@ -100,16 +110,16 @@ export class Block<TProps> {
       template.insertAdjacentHTML('afterbegin', block);
       this._element.appendChild(template.firstElementChild as HTMLElement);
     }
+    this._addEvents();
   }
 
-  // Может переопределять пользователь, необязательно трогать
   render(): string | void {}
 
   getContent(): HTMLDivElement {
-    if (this.element) {
-      return this.element.firstElementChild as HTMLDivElement;
+    if (this._element) {
+      return this._element as HTMLDivElement;
     }
-    throw new Error('Рендеренный элементы = null');
+    throw new Error('Рендеренный элемент = null');
   }
 
   _makePropsProxy(props: TProps): TProps {

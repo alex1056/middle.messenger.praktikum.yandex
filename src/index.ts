@@ -15,3 +15,7 @@ router.use('/registr', RegistrForm);
 router.use('/404', Page404);
 router.use('/500', Page500);
 router.start();
+
+// setTimeout(() => {
+//   router.go('/profile');
+// }, 1000);

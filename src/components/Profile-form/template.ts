@@ -30,10 +30,10 @@ main(class="main")
                         div(class="pform__err-message")
                             span(id="errornick") 
                     div(class="pform__fset")
-                        label(for="pnone" class="pform__label") Телефон
-                        input(type="text" id="pnone" class="pform__input" disabled= disabled ? '' : null value="+7 (909) 967 30 30")/
+                        label(for="phone" class="pform__label") Телефон
+                        input(type="text" id="phone" class="pform__input" disabled= disabled ? '' : null value="+7 (909) 967 30 30")/
                         div(class="pform__err-message")
-                            span(id="errorpnone") 
+                            span(id="errorphone") 
                     div(class="pform__btn-cont")
                     != ctrls
                     != buttonsubmit`;
