@@ -13,6 +13,7 @@ module.exports = {
   },
   rules: {
     'implicit-arrow-linebreak': 'off',
+    'no-use-before-define': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     'import/no-unresolved': [2, { commonjs: true, amd: true, ignore: ['.jpeg$', '.jpg$', '.png$'] }],

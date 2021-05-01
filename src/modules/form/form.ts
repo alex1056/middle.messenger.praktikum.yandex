@@ -14,6 +14,7 @@ export default class Form {
   private popup: HTMLDivElement;
 
   private handlers: { [handlerName: string]: Function[] };
+
   private formId: string;
 
   constructor(formId: string) {

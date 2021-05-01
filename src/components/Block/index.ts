@@ -1,4 +1,4 @@
-import { EventBus } from '../EventBus';
+import { EventBus } from '../../modules/EventBus';
 
 type Nullable<T> = T | null;
 type TEventBus = {
@@ -7,11 +7,15 @@ type TEventBus = {
   emit: Function;
 };
 
+type TObjectRecord = { [propName: string]: any };
+
 enum EVENTS {
   INIT = 'init',
   FLOW_CDM = 'flow:component-did-mount',
   FLOW_RENDER = 'flow:render',
   FLOW_CDU = 'flow:component-did-update',
+  FLOW_CDU_REMOUNT = 'flow:component-did-update-remount',
+  FLOW_CDU_REMOUNT_ADD_EVENTS = 'flow:component-did-update-remount-add-events',
 }
 
 export class Block<TProps> {
@@ -19,7 +23,11 @@ export class Block<TProps> {
 
   eventBus: TEventBus;
 
+  events: TObjectRecord;
+
   _element: Nullable<HTMLElement> = null;
+
+  rootQuery: string;
 
   private _meta: { tagName: string; props: TProps };
 
@@ -30,6 +38,7 @@ export class Block<TProps> {
       props,
     };
 
+    this.rootQuery = '';
     this.props = this._makePropsProxy(props);
 
     this.eventBus = eventBus;
@@ -43,6 +52,8 @@ export class Block<TProps> {
     eventBus.on(EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(EVENTS.FLOW_CDU_REMOUNT, this._renderDOM.bind(this));
+    eventBus.on(EVENTS.FLOW_CDU_REMOUNT_ADD_EVENTS, this._addEvents.bind(this));
   }
 
   _createResources() {
@@ -67,8 +78,11 @@ export class Block<TProps> {
 
   _componentDidUpdate(oldProps: TProps, newProps: TProps) {
     this.props = this._makePropsProxy(newProps);
+
     const response = this.componentDidUpdate();
+
     if (response) {
+      this._removeEvents();
       this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
   }
@@ -78,6 +92,7 @@ export class Block<TProps> {
   }
 
   setProps = (nextProps: TProps) => {
+    // console.log(nextProps);
     if (!nextProps) {
       return;
     }
@@ -90,13 +105,50 @@ export class Block<TProps> {
   }
 
   _addEvents(): void {
-    if (!this.addEvents()) {
-      // логика для добавления общих событий
-    }
+    this.addEvents();
+    const { events = {} } = this.props as any;
+
+    Object.keys(events).forEach((eventName) => {
+      if (this._element) {
+        this._element.addEventListener(eventName, events[eventName]);
+      }
+    });
   }
 
   addEvents(): boolean {
     return false;
+  }
+
+  _removeEvents(): void {
+    this.removeEvents();
+    const { events = {} } = this.props as any;
+    Object.keys(events).forEach((eventName) => {
+      if (this._element) {
+        this._element.removeEventListener(eventName, events[eventName]);
+      }
+    });
+  }
+
+  removeEvents(): boolean {
+    return false;
+  }
+
+  _renderDOM() {
+    if (this.rootQuery) {
+      try {
+        const root = document.querySelector(this.rootQuery);
+        while (root && root.firstChild) {
+          root.removeChild(root.lastChild as HTMLDivElement);
+        }
+        if (root) {
+          root.appendChild(this.getContent());
+          return root as HTMLElement;
+        }
+      } catch {
+        console.log('DOM элемент не найден!');
+      }
+      this.eventBus.emit(EVENTS.FLOW_CDU_REMOUNT_ADD_EVENTS);
+    }
   }
 
   _render() {
@@ -104,13 +156,16 @@ export class Block<TProps> {
     if (this.render()) {
       block = this.render() as string;
     }
-
+    // console.log(document.body.outerHTML);
     if (this._element) {
       const template = document.createElement('template');
       template.insertAdjacentHTML('afterbegin', block);
-      this._element.appendChild(template.firstElementChild as HTMLElement);
+      //   this._element.appendChild(template.firstElementChild as HTMLElement);
+      this._element = template.firstElementChild as HTMLElement;
     }
+
     this._addEvents();
+    this.eventBus.emit(EVENTS.FLOW_CDU_REMOUNT);
   }
 
   render(): string | void {}
@@ -145,8 +200,8 @@ export class Block<TProps> {
     return document.createElement(tagName);
   }
 
-  show() {
-    this.getContent().style.display = 'block';
+  show(displayType: string = 'block') {
+    this.getContent().style.display = displayType;
   }
 
   hide() {

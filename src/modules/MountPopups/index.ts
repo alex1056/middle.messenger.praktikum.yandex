@@ -1,0 +1,1 @@
+export { mountPopups } from './mountPopups';

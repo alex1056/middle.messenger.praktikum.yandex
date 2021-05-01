@@ -12,7 +12,12 @@ export class PopupChngAvatar extends Block<TProps> {
   constructor(props?: TProps) {
     super('div', {
       ...props,
-      buttonChange: new Btn({ buttonText: 'Поменять' }),
+      buttonChange: new Btn({
+        buttonText: 'Поменять',
+        buttonId: 'chng-avatar-btn-popup-form-profile',
+        className: 'chng-avatar-popup__btn-submit btn_disabled',
+        disabled: true,
+      }),
     });
   }
 

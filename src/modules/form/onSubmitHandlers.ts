@@ -14,3 +14,7 @@ export function onSubmitHandlerLogin(form: HTMLFormElement, formId: string) {
 
   return inputsData;
 }
+
+export function onSubmitTestLogin(): void {
+  console.log('onSubmitTestLogin');
+}

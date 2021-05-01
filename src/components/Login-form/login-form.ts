@@ -1,11 +1,13 @@
+import { compile } from 'pug';
 import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
-import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplLogin } from './template';
 import './style.scss';
-import { onSubmitHandlerLogin } from '../../modules/form/onSubmitHandlers';
+import { onSubmitTestLogin } from '../../modules/form/onSubmitHandlers';
+// import { getEventBus } from '../../modules/EventBusInstance';
+// import { actions } from '../../modules/EventBusInstance';
 
 type TProps = {
   buttonText?: string;
@@ -16,6 +18,7 @@ type TProps = {
 
 export class LoginForm extends Block<TProps> {
   form: Form;
+
   constructor(props?: TProps) {
     //
     super('div', {
@@ -24,9 +27,15 @@ export class LoginForm extends Block<TProps> {
         buttonText: 'Аворизоваться',
         className: 'btn_disabled',
         buttonId: 'submit-form-login',
+        // events: {
+        //   click: onSubmitTestLogin,
+        // },
         disabled: true,
       }),
     });
+    // this.eventBus = getEventBus();
+    // const handler = onSubmitHandlerLogin;
+    // this.eventBus.on(actions.LOGIN_SUBMIT, handler);
   }
 
   addEvents(): boolean {
@@ -45,7 +54,7 @@ export class LoginForm extends Block<TProps> {
       formValidator.setHandleLabels(true);
     }
     this.form.setFormValidator(formValidator as any);
-    this.form.setHandlers('submit', onSubmitHandlerLogin);
+    this.form.setHandlers('submit', onSubmitTestLogin);
     return true;
   }
 
