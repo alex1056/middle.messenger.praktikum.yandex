@@ -2,7 +2,7 @@ export const tmplChatsList = `
 div(class="chats-list")
     div(class="chats-list__wrapper")
         div(class="chats-list__top-buttons")
-            a(class="btn-new-chat" href='./add-user.html')    Новый чат
+            a(class="btn-new-chat" id="btn-new-chat")    Новый чат
             a(class="btn-profile" href="./profile")    Профиль
         div(class="input")
             input(type="text" class="input-element")/

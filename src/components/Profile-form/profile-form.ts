@@ -8,8 +8,9 @@ import { PopupChngAvatar } from '../Popup-chng-avatar';
 import { tmplProfile } from './template';
 import './style.scss';
 import { onSubmitTestLogin } from '../../modules/form/onSubmitHandlers';
-import { hideOnClickOutside } from '../../utils/outside-click-listenet';
+// import { hideOnClickOutside } from '../../utils/outside-click-listenet';
 import { getEventBus, actions } from '../../modules/EventBusInstance';
+// import { Console } from 'node:console';
 
 const eventBus = getEventBus();
 
@@ -41,7 +42,7 @@ export class ProfileForm extends Block<TProps> {
         disabled: true,
       }),
       ctrls: new ProfileFormCtrls({ ...props }),
-      disabled: true,
+      inputsDisabled: true,
       showPasswordFields: false,
     });
     const { rootQuery } = props as any;
@@ -54,11 +55,9 @@ export class ProfileForm extends Block<TProps> {
     this.setProps = this.setProps.bind(this);
     this.chngData = this.chngData.bind(this);
     this.chngPwd = this.chngPwd.bind(this);
-    this.popupChngAvatar = null;
     this.outsideClick = this.outsideClick.bind(this);
 
     ProfileForm._instance = this;
-    // console.log('Конструктор отработал!');
   }
 
   chngData() {
@@ -66,7 +65,7 @@ export class ProfileForm extends Block<TProps> {
       ...ProfileForm._instance.props,
       className: 'pform__btn-save',
       ctrlsContainer: 'pform__ctrls-container_hide',
-      disabled: false,
+      inputsDisabled: false,
       setListeners: true,
     });
   }
@@ -76,16 +75,17 @@ export class ProfileForm extends Block<TProps> {
       ...ProfileForm._instance.props,
       className: 'pform__btn-save',
       ctrlsContainer: 'pform__ctrls-container_hide',
-      disabled: false,
+      inputsDisabled: false,
       setListeners: true,
       showPasswordFields: true,
     });
   }
 
   chngAvatar() {
+    const inputsDisabled = ProfileForm._instance.props?.inputsDisabled;
     ProfileForm._instance.setProps({
       ...ProfileForm._instance.props,
-      disabled: false,
+      inputsDisabled,
       setListeners: true,
       setListenersChngAvatar: true,
     });
@@ -111,8 +111,6 @@ export class ProfileForm extends Block<TProps> {
     }
 
     if (setListeners) {
-      // console.log('logsetListeners', setListeners);
-
       this.form = new Form('form-profile');
       this.form.setPopup(this._element as HTMLDivElement);
       this.form.setEventListeners();
@@ -142,7 +140,6 @@ export class ProfileForm extends Block<TProps> {
   }
 
   outsideClick = (event: any) => {
-    event.preventDefault();
     const popupChngAvatar = document.body.querySelector<HTMLElement>('#chng-avatar-popup-profile');
     if (event.type === 'click') {
       if (popupChngAvatar) {
@@ -187,8 +184,6 @@ export class ProfileForm extends Block<TProps> {
   }
 
   render(): string {
-    // console.log('...this.props', { ...this.props });
-
     const compiled = compile(tmplProfile);
     const html = compiled({
       ...this.props,

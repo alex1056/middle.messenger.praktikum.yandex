@@ -12,27 +12,27 @@ main(class="main")
                     if !showPasswordFields
                         div(class="pform__fset")
                             label(for="email-form-profile" class="pform__label") Email
-                            input(type="email" id="email-form-profile" class="pform__input" disabled= disabled ? '' : null value="karabas@yandex.ru")/
+                            input(type="email" id="email-form-profile" class="pform__input" disabled= inputsDisabled ? '' : null value="karabas@yandex.ru")/
                             div(class="pform__err-message")
                                 span(id="erroremail-form-profile") 
                         div(class="pform__fset")
                             label(for="login-form-profile" class="pform__label") Логин
-                            input(type="text" id="login-form-profile" class="pform__input" disabled= disabled ? '' : null value="KarabasAE")/
+                            input(type="text" id="login-form-profile" class="pform__input" disabled= inputsDisabled ? '' : null value="KarabasAE")/
                             div(class="pform__err-message")
                                 span(id="errorlogin-form-profile") 
                         div(class="pform__fset")
                             label(for="name-form-profile" class="pform__label") Имя
-                            input(type="text" id="name-form-profile" class="pform__input" disabled= disabled ? '' : null value="Андрей")/
+                            input(type="text" id="name-form-profile" class="pform__input" disabled= inputsDisabled ? '' : null value="Андрей")/
                             div(class="pform__err-message")
                                 span(id="errorname-form-profile") 
                         div(class="pform__fset")
                             label(for="nick-form-profile" class="pform__label") Имя в чате
-                            input(type="text" id="nick-form-profile" class="pform__input" disabled= disabled ? '' : null value="Андрей К")/
+                            input(type="text" id="nick-form-profile" class="pform__input" disabled= inputsDisabled ? '' : null value="Андрей К")/
                             div(class="pform__err-message")
                                 span(id="errornick-form-profile") 
                         div(class="pform__fset")
                             label(for="phone-form-profile" class="pform__label") Телефон
-                            input(type="text" id="phone-form-profile" class="pform__input" disabled= disabled ? '' : null value="+7 (909) 967 30 30")/
+                            input(type="text" id="phone-form-profile" class="pform__input" disabled= inputsDisabled ? '' : null value="+7 (909) 967 30 30")/
                             div(class="pform__err-message")
                                 span(id="errorphone-form-profile")
                     else
