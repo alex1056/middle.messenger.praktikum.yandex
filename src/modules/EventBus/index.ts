@@ -1,5 +1,6 @@
 export class EventBus {
   listeners: { [eventName: string]: Function[] };
+
   static _instance = {} as EventBus;
 
   constructor() {

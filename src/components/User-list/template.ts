@@ -9,7 +9,7 @@ ul(class="chats-list__user-list")
                     p(class="user__nick-name")  #{item.name} 
                     div(class="user__date-wrapper")
                         span(class="user__date")    #{item.lastMsgdate}
-                        a(class="user__delete-icon" href="./index-delete-user.html") +
+                        span(class="user__delete-icon" ) +
                 div(class="user__bottom-wrapper")
                     p(class="user__last-message") #{item.lastMsg}
                     if item.unreadMsg

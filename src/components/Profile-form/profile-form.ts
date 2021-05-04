@@ -9,10 +9,14 @@ import { tmplProfile } from './template';
 import './style.scss';
 import { onSubmitTestLogin } from '../../modules/form/onSubmitHandlers';
 // import { hideOnClickOutside } from '../../utils/outside-click-listenet';
-import { getEventBus, actions } from '../../modules/EventBusInstance';
+// import { getEventBus, actions } from '../../modules/EventBusInstance';
 // import { Console } from 'node:console';
+import { createStore, Actions } from '../../modules/Store';
 
-const eventBus = getEventBus();
+// const eventBus = getEventBus();
+const store = createStore();
+
+// const eventBus = getEventBus();
 
 type TProps =
   | {
@@ -55,7 +59,7 @@ export class ProfileForm extends Block<TProps> {
     this.setProps = this.setProps.bind(this);
     this.chngData = this.chngData.bind(this);
     this.chngPwd = this.chngPwd.bind(this);
-    this.outsideClick = this.outsideClick.bind(this);
+    // this.outsideClick = this.outsideClick.bind(this);
 
     ProfileForm._instance = this;
   }
@@ -89,11 +93,15 @@ export class ProfileForm extends Block<TProps> {
       setListeners: true,
       setListenersChngAvatar: true,
     });
-    eventBus.emit(actions.CHNG_AVATAR_POPUP_SHOW);
+    // eventBus.emit(actions.CHNG_AVATAR_POPUP_SHOW);
+    store.dispatch({
+      type: Actions.CHNG_AVATAR_POPUP_SHOW,
+      data: { showPopup: true },
+    });
   }
 
   addEvents(): boolean {
-    const { setListeners, setListenersChngAvatar } = this.props as any;
+    const { setListeners } = this.props as any;
     let nodeData = null;
     let nodePwd = null;
     let nodeChngAvatar = null;
@@ -128,34 +136,9 @@ export class ProfileForm extends Block<TProps> {
       this.form.setFormValidator(formValidator as any);
       this.form.setHandlers('submit', onSubmitTestLogin);
     }
-    if (setListenersChngAvatar) {
-      const popupChngAvatar = document.body.querySelector<HTMLElement>('#chng-avatar-popup-profile');
-      if (popupChngAvatar) {
-        popupChngAvatar.addEventListener('click', this.outsideClick);
-        document.addEventListener('keydown', this.outsideClick);
-      }
-    }
 
     return true;
   }
-
-  outsideClick = (event: any) => {
-    const popupChngAvatar = document.body.querySelector<HTMLElement>('#chng-avatar-popup-profile');
-    if (event.type === 'click') {
-      if (popupChngAvatar) {
-        if (popupChngAvatar === event.target) {
-          popupChngAvatar.style.display = 'none';
-          popupChngAvatar.removeEventListener('click', this.outsideClick);
-        }
-      }
-    }
-    if (event.key === 'Escape') {
-      if (popupChngAvatar) {
-        popupChngAvatar.style.display = 'none';
-        document.removeEventListener('keydown', this.outsideClick);
-      }
-    }
-  };
 
   componentDidUpdate() {
     if (this.form) {

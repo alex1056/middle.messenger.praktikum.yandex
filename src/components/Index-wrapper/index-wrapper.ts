@@ -5,9 +5,11 @@ import { Msgs } from '../Msgs';
 import { tmplIndexWrapper } from './template';
 import './style.scss';
 import { localsIndexPage } from '../../LocalsData';
-import { getEventBus, actions } from '../../modules/EventBusInstance';
+// import { getEventBus, actions } from '../../modules/EventBusInstance';
+import { createStore, Actions } from '../../modules/Store';
 
-const eventBus = getEventBus();
+// const eventBus = getEventBus();
+const store = createStore();
 
 type TProps = { [propName: string]: any };
 
@@ -30,12 +32,13 @@ export class IndexWrapper extends Block<TProps> {
 
     this.rootQuery = rootQuery;
     this.addUser = this.addUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
 
     IndexWrapper._instance = this;
   }
 
   addEvents(): boolean {
-    const { setListenersAddUser } = this.props as any;
+    // const { setListenersAddUser } = this.props as any;
     let nodeAddUserBtn = null;
 
     if (this._element) {
@@ -46,34 +49,39 @@ export class IndexWrapper extends Block<TProps> {
       nodeAddUserBtn.addEventListener('click', this.addUser);
     }
 
-    if (setListenersAddUser) {
-      const popupAddUser = document.body.querySelector<HTMLElement>('#popup-add-user');
-      if (popupAddUser) {
-        popupAddUser.addEventListener('click', this.outsideClick);
-        document.addEventListener('keydown', this.outsideClick);
-      }
+    let deleteUserButtons = null;
+
+    if (this._element) {
+      deleteUserButtons = this._element.querySelectorAll<HTMLElement>('.user__delete-icon');
+      deleteUserButtons.forEach((button) => button.addEventListener('click', this.deleteUser));
+    }
+
+    let addMediaBtn = null;
+
+    if (this._element) {
+      addMediaBtn = this._element.querySelector<HTMLElement>('#add-media-btn-popup');
+    }
+    if (addMediaBtn) {
+      addMediaBtn.addEventListener('click', this.addMedia);
     }
 
     return true;
   }
 
-  outsideClick = (event: any) => {
-    const popupAddUser = document.body.querySelector<HTMLElement>('#popup-add-user');
-    if (event.type === 'click') {
-      if (popupAddUser) {
-        if (popupAddUser === event.target) {
-          popupAddUser.style.display = 'none';
-          popupAddUser.removeEventListener('click', this.outsideClick);
-        }
-      }
-    }
-    if (event.key === 'Escape') {
-      if (popupAddUser) {
-        popupAddUser.style.display = 'none';
-        document.removeEventListener('keydown', this.outsideClick);
-      }
-    }
-  };
+  // add-media-btn-popup
+  addMedia() {
+    store.dispatch({
+      type: Actions.ADD_MEDIA_SHOW_POPUP,
+      data: { showPopup: true },
+    });
+  }
+
+  deleteUser() {
+    store.dispatch({
+      type: Actions.DELETE_USER_FROM_CHAT,
+      data: { showPopup: true },
+    });
+  }
 
   addUser() {
     IndexWrapper._instance.setProps({
@@ -81,7 +89,10 @@ export class IndexWrapper extends Block<TProps> {
       // setListeners: true,
       setListenersAddUser: true,
     });
-    eventBus.emit(actions.ADD_USER_POPUP_SHOW);
+    store.dispatch({
+      type: Actions.ADD_USER_POPUP_SHOW,
+      data: { showPopup: true },
+    });
   }
 
   render(): string {
