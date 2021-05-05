@@ -43,6 +43,20 @@ export default class Form {
     this.submit = popupElem.querySelector(`#${this.formId} #submit-${this.formId}`) as HTMLButtonElement;
   }
 
+  getForm() {
+    if (this.form) {
+      return this.form;
+    }
+    return null;
+  }
+
+  getSubmitBtn() {
+    if (this.submit) {
+      return this.submit;
+    }
+    return null;
+  }
+
   setEventListeners() {
     this.handlerFormOpen = this.formHandler.bind(this);
 

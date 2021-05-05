@@ -12,6 +12,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'object-curly-newline': 'off',
     camelcase: 'off',
     'operator-linebreak': 'off',
     'implicit-arrow-linebreak': 'off',

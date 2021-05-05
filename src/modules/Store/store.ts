@@ -1,5 +1,5 @@
 import { TState, TAction } from './types';
-import { Actions } from './actions';
+// import { Actions } from './actions';
 
 type StoreSubscriberMethod = any;
 // type StoreSubscription = any;
@@ -55,11 +55,12 @@ export class Store {
     } else {
       this.subscribers[action.type].forEach((subscriber: StoreSubscriberMethod) => subscriber(this.state));
     }
-    if (!this.subscribers[Actions.ANY_ACTION]) {
-      throw new Error(`Нет события: ${Actions.ANY_ACTION}`);
-    } else {
-      this.subscribers[Actions.ANY_ACTION].forEach((subscriber: StoreSubscriberMethod) => subscriber(this.state));
-    }
+    // if (!this.subscribers[Actions.ANY_ACTION]) {
+    //   throw new Error(`Нет события: ${Actions.ANY_ACTION}`);
+    // } else {
+    //   this.subscribers[Actions.ANY_ACTION].forEach((subscriber: StoreSubscriberMethod) => subscriber(this.state));
+    // }
+    localStorage.setItem('app-state', JSON.stringify(this.state));
   }
 
   getState() {

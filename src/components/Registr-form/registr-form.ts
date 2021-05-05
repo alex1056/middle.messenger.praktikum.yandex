@@ -9,13 +9,6 @@ import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onS
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 
-// import { getEventBus } from '../../modules/EventBusInstance';
-
-// const data = {
-//   login: 'ABlogin',
-//   password: '123456',
-// };
-
 const api = new Api();
 const store = createStore();
 
@@ -38,11 +31,6 @@ export class RegistrForm extends Block<TProps> {
         disabled: true,
       }),
     });
-    // this.onSubmitHandlerLogin = this.onSubmitHandlerLogin.bind(this);
-    // this.eventBus = getEventBus();
-    // const handler = () => {};
-
-    // this.eventBus.on('test', handler);
   }
 
   onSubmitHandlerLogin(event: any, form: HTMLFormElement, formId: string) {
@@ -64,7 +52,7 @@ export class RegistrForm extends Block<TProps> {
           api.getUserData().then((res1) => {
             const userData = res1.json();
             store.dispatch({
-              type: Actions.GET_DATA,
+              type: Actions.GET_USER_DATA,
               data: userData,
             });
             if (errSpan) {

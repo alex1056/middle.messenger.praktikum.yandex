@@ -60,6 +60,7 @@ type Options = {
   data?: any;
   timeout?: number;
   headers?: { [key: string]: string };
+  form?: any;
 };
 
 export class HTTPTransport {
@@ -87,7 +88,7 @@ export class HTTPTransport {
   };
 
   request = (url: string, options: Options, timeout: number = 5000): Promise<RequestResult> => {
-    const { method, headers, data } = options;
+    const { method, headers, data, form } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -119,8 +120,10 @@ export class HTTPTransport {
         reject(e);
       };
 
-      if (!data) {
+      if (!data && !form) {
         xhr.send();
+      } else if (form) {
+        xhr.send(form);
       } else {
         xhr.send(JSON.stringify(data));
       }

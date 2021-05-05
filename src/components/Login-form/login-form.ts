@@ -57,7 +57,7 @@ export class LoginForm extends Block<TProps> {
           api.getUserData().then((res1) => {
             const userData = res1.json();
             store.dispatch({
-              type: Actions.GET_DATA,
+              type: Actions.GET_USER_DATA,
               data: userData,
             });
             if (errSpan) {

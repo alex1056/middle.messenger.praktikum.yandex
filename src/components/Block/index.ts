@@ -71,7 +71,6 @@ export class Block<TProps> {
     this.eventBus.emit(EVENTS.FLOW_RENDER);
   }
 
-  // Может переопределять пользователь, необязательно трогать
   componentDidMount(): boolean {
     return true;
   }
@@ -92,7 +91,6 @@ export class Block<TProps> {
   }
 
   setProps = (nextProps: TProps) => {
-    // console.log(nextProps);
     if (!nextProps) {
       return;
     }

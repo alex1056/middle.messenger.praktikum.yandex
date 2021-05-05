@@ -7,16 +7,12 @@ import { ProfileFormCtrls } from '../Profile-form-ctrls';
 import { PopupChngAvatar } from '../Popup-chng-avatar';
 import { tmplProfile } from './template';
 import './style.scss';
-import { onSubmitTestLogin } from '../../modules/form/onSubmitHandlers';
-// import { hideOnClickOutside } from '../../utils/outside-click-listenet';
-// import { getEventBus, actions } from '../../modules/EventBusInstance';
-// import { Console } from 'node:console';
+import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
+import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 
-// const eventBus = getEventBus();
+const api = new Api();
 const store = createStore();
-
-// const eventBus = getEventBus();
 
 type TProps =
   | {
@@ -31,7 +27,6 @@ export class ProfileForm extends Block<TProps> {
 
   form: Form;
 
-  // state: { [x: string]: any };
   popupChngAvatar: PopupChngAvatar | null;
 
   static _instance: ProfileForm;
@@ -48,6 +43,15 @@ export class ProfileForm extends Block<TProps> {
       ctrls: new ProfileFormCtrls({ ...props }),
       inputsDisabled: true,
       showPasswordFields: false,
+      data: {
+        email: '',
+        login: '',
+        first_name: '',
+        second_name: '',
+        display_name: '',
+        phone: '',
+        avatar: '',
+      },
     });
     const { rootQuery } = props as any;
 
@@ -59,7 +63,6 @@ export class ProfileForm extends Block<TProps> {
     this.setProps = this.setProps.bind(this);
     this.chngData = this.chngData.bind(this);
     this.chngPwd = this.chngPwd.bind(this);
-    // this.outsideClick = this.outsideClick.bind(this);
 
     ProfileForm._instance = this;
   }
@@ -93,11 +96,55 @@ export class ProfileForm extends Block<TProps> {
       setListeners: true,
       setListenersChngAvatar: true,
     });
-    // eventBus.emit(actions.CHNG_AVATAR_POPUP_SHOW);
+
     store.dispatch({
       type: Actions.CHNG_AVATAR_POPUP_SHOW,
       data: { showPopup: true },
     });
+  }
+
+  onSubmitHandlerProfile(event: any, form: HTMLFormElement, formId: string) {
+    event.preventDefault();
+
+    const errServerReply = document.body.querySelector(`#${formId}`) as HTMLFormElement;
+    const errSpan = errServerReply.querySelector('#error-server-reply');
+    const inputsData = onSubmitGetFormData(form, formId) as any;
+
+    const inputsDataMapped = mapInputsForSending(inputsData, formId);
+
+    const { userData } = store.getState();
+
+    if (userData.id) {
+      const { oldPassword, newPassword } = inputsDataMapped as any;
+      if (oldPassword && newPassword) {
+        api.chngUserPassword({ data: inputsDataMapped }).then((res) => {
+          if (res.ok) {
+            if (errSpan) {
+              errSpan.textContent = 'Изменения сохранены';
+            }
+          } else if (errSpan) {
+            const { reason } = res.json();
+            errSpan.textContent = reason as string;
+          }
+        });
+      } else {
+        api.chngUserProfileData({ data: inputsDataMapped }).then((res) => {
+          if (res.ok) {
+            const userDataFromServer = res.json();
+            if (errSpan) {
+              errSpan.textContent = 'Изменения сохранены';
+            }
+            store.dispatch({
+              type: Actions.GET_USER_DATA,
+              data: userDataFromServer,
+            });
+          } else if (errSpan) {
+            const { reason } = res.json();
+            errSpan.textContent = reason as string;
+          }
+        });
+      }
+    }
   }
 
   addEvents(): boolean {
@@ -121,6 +168,7 @@ export class ProfileForm extends Block<TProps> {
     if (setListeners) {
       this.form = new Form('form-profile');
       this.form.setPopup(this._element as HTMLDivElement);
+      this.form.setHandlers('submit', this.onSubmitHandlerProfile);
       this.form.setEventListeners();
       let currentForm = null;
       let formValidator = null;
@@ -134,8 +182,25 @@ export class ProfileForm extends Block<TProps> {
         formValidator.setHandleLabels(false);
       }
       this.form.setFormValidator(formValidator as any);
-      this.form.setHandlers('submit', onSubmitTestLogin);
     }
+    return true;
+  }
+
+  componentDidMount(): boolean {
+    api.getUserData().then((res) => {
+      if (res.ok) {
+        const userDataFromServer = res.json();
+        store.dispatch({
+          type: Actions.GET_USER_DATA,
+          data: userDataFromServer,
+        });
+
+        ProfileForm._instance.setProps({
+          ...ProfileForm._instance.props,
+          data: userDataFromServer,
+        });
+      }
+    });
 
     return true;
   }

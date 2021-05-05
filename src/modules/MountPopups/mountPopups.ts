@@ -38,18 +38,24 @@ export function mountPopups(): void {
   function popupChngAvatarHandler() {
     const popupChngAvatar = new PopupChngAvatar();
     renderDOM('.body', popupChngAvatar.getContent());
-    // popupChngAvatar.hide();
-    // popupChngAvatar.show('flex');
+    const { chngAvatarPopup } = store.getState();
+    if (chngAvatarPopup.showPopup) {
+      popupChngAvatar.show('flex');
+    } else {
+      popupChngAvatar.hide();
+    }
   }
   store.subscribe(Actions.CHNG_AVATAR_POPUP_SHOW, popupChngAvatarHandler);
 
   function popupAddUserHandler() {
-    // console.log(store.getState());
     const popupAddUser = new PopupAddUser();
     renderDOM('.body', popupAddUser.getContent());
-    // popupAddUser.hide();
-    // popupAddUser.show('flex');
+    const { addUserPopup } = store.getState();
+    if (addUserPopup.showPopup) {
+      popupAddUser.show('flex');
+    } else {
+      popupAddUser.hide();
+    }
   }
   store.subscribe(Actions.ADD_USER_POPUP_SHOW, popupAddUserHandler);
-  // eventBus.on(actions.ADD_USER_POPUP_SHOW, popupAddUserHandler);
 }

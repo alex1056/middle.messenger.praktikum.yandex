@@ -15,6 +15,7 @@ type Options = {
   data?: any;
   timeout?: number;
   headers?: { [key: string]: string };
+  form?: any;
 };
 
 export type TDataLogin = {
@@ -47,6 +48,31 @@ export class Api {
   logOut = () => this.api.post(`${urlApi}/auth/logout`, {});
 
   getUserData = () => this.api.get(`${urlApi}/auth/user`, {});
+
+  chngUserProfileData = (options: Options) => {
+    const { data } = options;
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.put(`${urlApi}/user/profile`, { data, headers });
+  };
+
+  chngUserPassword = (options: Options) => {
+    const { data } = options;
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.put(`${urlApi}/user/password`, { data, headers });
+  };
+
+  chngUserAvatar = (options: Options) => {
+    const { form } = options;
+    console.log(form);
+    // const headers = {
+    //   'content-type': 'application/json',
+    // };
+    return this.api.put(`${urlApi}/user/profile/avatar`, form);
+  };
 
   getChats = () => this.api.get(`${urlApi}/chats`, {});
 
