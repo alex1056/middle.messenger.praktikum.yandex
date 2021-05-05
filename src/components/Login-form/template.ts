@@ -14,6 +14,8 @@ main(class="main")
                     input(type="password" id="password-form-login" class="login-form__input" value="" placeholder="Пароль")/
                 div(class="login-form__err-message")
                     span(id="errorpassword-form-login")
+                div(class="login-form__err-message login-form__err-message_server-reply-error")
+                    span(id="error-server-reply") 
                 div(class="login-form__btn-cont") 
                     != buttonsubmit
                     a(class="btn login-form__btn login-form__btn_white" href="./registr")

@@ -12,6 +12,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    camelcase: 'off',
     'operator-linebreak': 'off',
     'implicit-arrow-linebreak': 'off',
     'no-use-before-define': 'off',

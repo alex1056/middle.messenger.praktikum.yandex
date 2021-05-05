@@ -51,7 +51,7 @@ export class Store {
     this.state = this.reducer(this.state, action);
 
     if (!this.subscribers[action.type]) {
-      throw new Error(`Нет события: ${action.type}`);
+      console.log(`Нет события: ${action.type}`);
     } else {
       this.subscribers[action.type].forEach((subscriber: StoreSubscriberMethod) => subscriber(this.state));
     }

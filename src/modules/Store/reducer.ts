@@ -69,6 +69,20 @@ export function reducer(state: TState, action: TAction): TState {
         addMediaPopup: { ...prevStateLocal, showPopup },
       };
 
+    case Actions.REGISTRATION_GET_DATA:
+      prevStateLocal = state.userData || {};
+
+      return {
+        ...state,
+        userData: { ...prevStateLocal, ...data },
+      };
+
+    case Actions.LOGOUT_CLEAN_DATA:
+      return {
+        ...state,
+        userData: {},
+      };
+
     default:
       return state;
   }

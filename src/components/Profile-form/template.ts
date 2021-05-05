@@ -37,10 +37,10 @@ main(class="main")
                                 span(id="errorphone-form-profile")
                     else
                         div(class="pform__fset")
-                            label(for="password-form-profile" class="pform__label") Старый пароль
-                            input(type="password" id="password-form-profile" class="pform__input" value="karabas@yandex.ru")/
+                            label(for="oldPassword-form-profile" class="pform__label") Старый пароль
+                            input(type="password" id="oldPassword-form-profile" class="pform__input" value="karabas@yandex.ru")/
                             div(class="pform__err-message")
-                                span(id="errorpassword-form-profile")
+                                span(id="erroroldPassword-form-profile")
                         div(class="pform__fset")
                             label(for="newpassword-form-profile" class="pform__label") Новый пароль
                             input(type="password" id="newpassword-form-profile" class="pform__input" value="KarabasAE")/

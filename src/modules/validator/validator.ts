@@ -5,9 +5,13 @@ type Nullable<T> = T | null;
 
 export class Validator {
   private form: Nullable<HTMLFormElement>;
+
   private submit: Nullable<HTMLDivElement>;
+
   private inputs: HTMLInputElement[];
+
   private handleLabels: boolean;
+
   private formId: string;
 
   constructor(formEl: HTMLFormElement, formId: string = '') {
@@ -106,16 +110,25 @@ export class Validator {
     }
 
     if (element.id === `passwordconfirm-${this.formId}`) {
-      const pwdInput1 = document.querySelector(`#${this.formId} #password-${this.formId}`) as HTMLInputElement;
+      const pwdOld = document.querySelector(`#${this.formId} #oldPassword-${this.formId}`) as HTMLInputElement;
       const pwdNew = document.querySelector(`#${this.formId} #newpassword-${this.formId}`) as HTMLInputElement;
+      const pwd = document.querySelector(`#${this.formId} #password-${this.formId}`) as HTMLInputElement;
+      // console.log(element.id, pwdNew.value);
 
-      if (pwdNew && pwdInput1) {
+      if (pwd && !pwdOld) {
+        if (pwd.value !== element.value) {
+          errorElement.textContent = validationTextErrors.pwdsDontMatch;
+          return false;
+        }
+      }
+
+      if (pwdNew && pwdOld) {
         if (pwdNew.value !== element.value) {
           errorElement.textContent = validationTextErrors.pwdsDontMatch;
           return false;
         }
-      } else if (pwdInput1) {
-        if (pwdInput1.value !== element.value) {
+      } else if (pwdOld) {
+        if (pwdOld.value !== element.value) {
           errorElement.textContent = validationTextErrors.pwdsDontMatch;
           return false;
         }

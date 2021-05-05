@@ -45,6 +45,7 @@ export default class Form {
 
   setEventListeners() {
     this.handlerFormOpen = this.formHandler.bind(this);
+
     const form: Nullable<HTMLFormElement> = this.popup.querySelector(`#${this.formId}`);
     if (form) {
       const inputs = Array.from(form.elements);
@@ -62,6 +63,7 @@ export default class Form {
           );
         }
       });
+
       form.addEventListener(
         'submit',
         this.handlerFormOpen as EventListener, // eslint-disable-line no-undef
@@ -98,7 +100,7 @@ export default class Form {
     if (event.type === 'submit') {
       if (this.handlers.submit) {
         this.handlers.submit.forEach((callback) => {
-          callback(this.form, this.formId);
+          callback(event, this.form, this.formId);
         });
       }
     }

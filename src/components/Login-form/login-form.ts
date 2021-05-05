@@ -5,9 +5,12 @@ import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplLogin } from './template';
 import './style.scss';
-import { onSubmitTestLogin } from '../../modules/form/onSubmitHandlers';
-// import { getEventBus } from '../../modules/EventBusInstance';
-// import { actions } from '../../modules/EventBusInstance';
+import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
+import { Api } from '../../modules/Api';
+import { createStore, Actions } from '../../modules/Store';
+
+const api = new Api();
+const store = createStore();
 
 type TProps = {
   buttonText?: string;
@@ -33,14 +36,46 @@ export class LoginForm extends Block<TProps> {
         disabled: true,
       }),
     });
-    // this.eventBus = getEventBus();
-    // const handler = onSubmitHandlerLogin;
-    // this.eventBus.on(actions.LOGIN_SUBMIT, handler);
+  }
+
+  onSubmitHandlerLogin(event: any, form: HTMLFormElement, formId: string) {
+    event.preventDefault();
+
+    const errServerReply = document.body.querySelector(`#${formId}`) as HTMLFormElement;
+    const errSpan = errServerReply.querySelector('#error-server-reply');
+    const inputsData = onSubmitGetFormData(form, formId) as any;
+
+    const inputsDataMapped = mapInputsForSending(inputsData, formId);
+
+    api.logOut().then(() => {
+      store.dispatch({
+        type: Actions.LOGOUT_CLEAN_DATA,
+        data: {},
+      });
+      api.signIn({ data: inputsDataMapped }).then((res) => {
+        if (res.ok) {
+          api.getUserData().then((res1) => {
+            const userData = res1.json();
+            store.dispatch({
+              type: Actions.GET_DATA,
+              data: userData,
+            });
+            if (errSpan) {
+              errSpan.textContent = '';
+            }
+          });
+        } else if (errSpan) {
+          const { reason } = res.json();
+          errSpan.textContent = reason as string;
+        }
+      });
+    });
   }
 
   addEvents(): boolean {
     this.form = new Form('form-login');
     this.form.setPopup(this._element as HTMLDivElement);
+    this.form.setHandlers('submit', this.onSubmitHandlerLogin);
     this.form.setEventListeners();
     let currentForm = null;
     let formValidator = null;
@@ -54,7 +89,7 @@ export class LoginForm extends Block<TProps> {
       formValidator.setHandleLabels(true);
     }
     this.form.setFormValidator(formValidator as any);
-    this.form.setHandlers('submit', onSubmitTestLogin);
+
     return true;
   }
 
