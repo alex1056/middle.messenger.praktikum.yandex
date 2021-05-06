@@ -3,11 +3,9 @@ import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplPopupChngAvatar } from './template';
 import { Form } from '../../modules/form';
-// import { Validator } from '../../modules/validator';
-import './style.scss';
-// import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
+import './style.scss';
 
 type TProps = { [propName: string]: any };
 const api = new Api();
@@ -49,7 +47,6 @@ export class PopupChngAvatar extends Block<TProps> {
       const uploadInput = form?.querySelector('#uploadInput-form-chng-avatar');
       uploadInput?.addEventListener('change', this.handleFileUpload);
       form?.addEventListener('submit', this.handleFileSubmit);
-      // uploadInput?.addEventListener('onchange', this.handleFile);
     }
 
     return true;
@@ -57,38 +54,53 @@ export class PopupChngAvatar extends Block<TProps> {
 
   handleFileSubmit(event: any) {
     event.preventDefault();
+
     const popup = document.body.querySelector('#chng-avatar-popup');
     const formNode = popup?.querySelector<HTMLFormElement>('#form-chng-avatar');
-    // const uploadInput = form?.querySelector<HTMLInputElement>('#uploadInput-form-chng-avatar');
+    const fName = formNode?.querySelector<HTMLElement>('#uploadedfile-form-chng-avatar');
+    const inputLabel = formNode?.querySelector<HTMLElement>('#labelavatar-form-chng-avatar');
+    const submitBtn = formNode?.querySelector<HTMLButtonElement>('#submit-form-chng-avatar');
 
-    // const fileList = uploadInput?.files;
     if (formNode) {
-      const formdata = new FormData(formNode);
+      const formData = new FormData();
       const uploadInput = formNode?.querySelector('#uploadInput-form-chng-avatar') as HTMLInputElement;
-      const file = uploadInput.files[0].file;
-      console.log('uploadInput.files[0]', uploadInput.files[0]);
-      console.log('file', file);
-      formdata.append('file', file);
-      api.chngUserAvatar({ form: formdata }).then((res) => {
-        if (res.ok) {
-          const userDataFromServer = res.json();
-          console.log(userDataFromServer);
-          // if (errSpan) {
-          //   errSpan.textContent = 'Изменения сохранены';
-          // }
-          // store.dispatch({
-          //   type: Actions.GET_USER_DATA,
-          //   data: userDataFromServer,
-          // });
-        } else {
-          const { reason } = res.json();
-          // errSpan.textContent = reason as string;
-          console.log(reason);
-        }
-      });
-    }
+      if (uploadInput) {
+        // @ts-ignore: Object is possibly 'null'
+        const file = uploadInput.files[0];
+        formData.append('avatar', file, 'my-file-name');
+        api.chngUserAvatar({ form: formData }).then((res) => {
+          if (res.ok) {
+            const userDataFromServer = res.json();
 
-    // console.log(fileList);
+            store.dispatch({
+              type: Actions.GET_USER_DATA,
+              data: userDataFromServer,
+            });
+            store.dispatch({
+              type: Actions.UPDATE_AVATAR,
+            });
+            store.dispatch({
+              type: Actions.CHNG_AVATAR_POPUP_SHOW,
+              data: { showPopup: false },
+            });
+            if (fName) {
+              fName.style.display = 'none';
+            }
+            if (inputLabel) {
+              inputLabel.style.display = 'block';
+            }
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.classList.add('btn_disabled');
+            }
+          } else {
+            const { reason } = res.json();
+
+            console.log(reason);
+          }
+        });
+      }
+    }
   }
 
   handleFileUpload(event: any) {
@@ -112,14 +124,11 @@ export class PopupChngAvatar extends Block<TProps> {
         }
       }
     }
-    // console.log(fileList[0]);
-    // console.log(this);
-
-    // console.log(form);
   }
 
   outsideClick(event: any) {
     const popup = PopupChngAvatar._instance._element;
+
     if (event.type === 'click') {
       if (popup) {
         if (popup === event.target) {

@@ -6,7 +6,7 @@ import { Page404 } from './components/404';
 import { Page500 } from './components/500';
 import { LoginForm } from './components/Login-form';
 import { RegistrForm } from './components/Registr-form';
-import { mountPopups } from './modules/MountPopups';
+import { mountPopups, setPopupsSubscribers } from './modules/MountPopups';
 import { createStore, Actions } from './modules/Store';
 import { Api } from './modules/Api';
 
@@ -37,6 +37,7 @@ router.use('/500', Page500);
 router.start();
 
 mountPopups();
+setPopupsSubscribers();
 // setTimeout(() => {
 //   router.go('/profile');
 // }, 1000);

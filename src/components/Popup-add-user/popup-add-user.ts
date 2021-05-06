@@ -50,6 +50,10 @@ export class PopupAddUser extends Block<TProps> {
         if (popup === event.target) {
           popup.style.display = 'none';
           popup.removeEventListener('click', this.outsideClick);
+          store.dispatch({
+            type: Actions.ADD_USER_POPUP_SHOW,
+            data: { showPopup: false },
+          });
         }
       }
     }
@@ -57,12 +61,12 @@ export class PopupAddUser extends Block<TProps> {
       if (popup) {
         popup.style.display = 'none';
         document.removeEventListener('keydown', this.outsideClick);
+        store.dispatch({
+          type: Actions.ADD_USER_POPUP_SHOW,
+          data: { showPopup: false },
+        });
       }
     }
-    store.dispatch({
-      type: Actions.ADD_USER_POPUP_SHOW,
-      data: { showPopup: false },
-    });
   }
 
   render(): string {

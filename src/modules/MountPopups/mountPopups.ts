@@ -39,6 +39,20 @@ export function mountPopups(): void {
     const popupChngAvatar = new PopupChngAvatar();
     renderDOM('.body', popupChngAvatar.getContent());
     const { chngAvatarPopup } = store.getState();
+
+    // const popup = popupChngAvatar.getContent();
+    // const formNode = popup?.querySelector<HTMLFormElement>('#form-chng-avatar');
+    // const fName = formNode?.querySelector<HTMLElement>('#uploadedfile-form-chng-avatar');
+    // const inputLabel = formNode?.querySelector<HTMLElement>('#labelavatar-form-chng-avatar');
+    // const submitBtn = formNode?.querySelector<HTMLButtonElement>('#submit-form-chng-avatar');
+
+    // fName.style.display = 'none';
+    // inputLabel.style.display = 'block';
+    // if (submitBtn) {
+    //   submitBtn.disabled = false;
+    //   submitBtn.classList.add('btn_disabled');
+    // }
+
     if (chngAvatarPopup.showPopup) {
       popupChngAvatar.show('flex');
     } else {

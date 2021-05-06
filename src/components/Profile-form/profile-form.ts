@@ -8,7 +8,7 @@ import { PopupChngAvatar } from '../Popup-chng-avatar';
 import { tmplProfile } from './template';
 import './style.scss';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
-import { Api } from '../../modules/Api';
+import { Api, urlApiResources } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 
 const api = new Api();
@@ -189,15 +189,15 @@ export class ProfileForm extends Block<TProps> {
   componentDidMount(): boolean {
     api.getUserData().then((res) => {
       if (res.ok) {
-        const userDataFromServer = res.json();
+        const userDataFromServer = res.json() as any;
         store.dispatch({
           type: Actions.GET_USER_DATA,
           data: userDataFromServer,
         });
-
+        const avatarUrl = `${urlApiResources}${userDataFromServer.avatar}`;
         ProfileForm._instance.setProps({
           ...ProfileForm._instance.props,
-          data: userDataFromServer,
+          data: { ...userDataFromServer, avatar: avatarUrl },
         });
       }
     });
@@ -227,7 +227,6 @@ export class ProfileForm extends Block<TProps> {
         this.props.ctrls = new ProfileFormCtrls(this.props);
       }
     }
-
     return true;
   }
 

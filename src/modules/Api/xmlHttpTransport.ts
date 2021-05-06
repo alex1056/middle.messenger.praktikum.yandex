@@ -107,10 +107,7 @@ export class HTTPTransport {
 
       xhr.onload = () => resolve(parseXHRResult(xhr));
 
-      xhr.onerror = () => {
-        console.log('Onerror сработал');
-        return resolve(errorResponse(xhr, 'Невозможно сделать запрос'));
-      };
+      xhr.onerror = () => resolve(errorResponse(xhr, 'Невозможно сделать запрос'));
 
       xhr.ontimeout = () => {
         resolve(errorResponse(xhr, 'Время ожидания запроса истекло'));

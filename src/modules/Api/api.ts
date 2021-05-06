@@ -67,11 +67,7 @@ export class Api {
 
   chngUserAvatar = (options: Options) => {
     const { form } = options;
-    console.log(form);
-    // const headers = {
-    //   'content-type': 'application/json',
-    // };
-    return this.api.put(`${urlApi}/user/profile/avatar`, form);
+    return this.api.put(`${urlApi}/user/profile/avatar`, { form });
   };
 
   getChats = () => this.api.get(`${urlApi}/chats`, {});

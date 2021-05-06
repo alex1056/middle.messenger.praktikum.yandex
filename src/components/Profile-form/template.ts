@@ -6,7 +6,7 @@ main(class="main")
         div(class="profile__info-cont")
             div(class="profile__info")
                 div(class="profile__avatar-cont" )
-                    a(class="profile__avatar" id="chng-avatar-btn-form-profile")
+                    a(class="profile__avatar" id="chng-avatar-btn-form-profile" style='background-image:url('+ data.avatar + ');background-size:cover;')
                 span(class="profile__name") #{data.first_name}
                 form(class="pform" id="form-profile")
                     if !showPasswordFields
