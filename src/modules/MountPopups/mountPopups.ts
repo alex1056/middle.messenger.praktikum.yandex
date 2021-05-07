@@ -25,18 +25,34 @@ export function mountPopups(): void {
   store.subscribe(Actions.ADD_CHAT_POPUP_SHOW, popupAddChatHandler);
 
   function popupDeleteChatHandler() {
-    const popupDeleteChat = new PopupDeleteChat({});
-    renderDOM('.body', popupDeleteChat.getContent());
+    let popup = null;
     const deleteChatPopupState = store.getState().deleteChatPopup;
-
-    console.log(deleteChatPopupState);
     const { chatId, chatName } = deleteChatPopupState;
-    popupDeleteChat.setProps({ ...popupDeleteChat.props, chatId, chatName });
+    let popupDeleteChat = null;
+    try {
+      popup = document.body.querySelector<HTMLDivElement>('#delete-chat-popup');
+    } catch {
+      console.log('Popup delete chat не найден в DOM!');
+    }
 
-    if (deleteChatPopupState.showPopup) {
-      popupDeleteChat.show('flex');
+    if (!popup) {
+      popupDeleteChat = new PopupDeleteChat({});
+      popupDeleteChat.setProps({ ...popupDeleteChat.props, chatId, chatName });
+      renderDOM('.body', popupDeleteChat.getContent());
+
+      if (deleteChatPopupState.showPopup) {
+        popupDeleteChat.show('flex');
+      } else {
+        popupDeleteChat.hide();
+      }
+    } else if (deleteChatPopupState.showPopup) {
+      popupDeleteChat = new PopupDeleteChat({});
+      popupDeleteChat.setProps({ ...popupDeleteChat.props, chatId, chatName });
+      document.querySelector('#delete-chat-popup')?.remove();
+      renderDOM('.body', popupDeleteChat.getContent());
+      popup.style.display = 'flex';
     } else {
-      popupDeleteChat.hide();
+      popup.style.display = 'none';
     }
   }
   store.subscribe(Actions.DELETE_CHAT_POPUP_SHOW, popupDeleteChatHandler);

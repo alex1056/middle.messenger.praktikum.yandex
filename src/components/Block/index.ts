@@ -132,6 +132,7 @@ export class Block<TProps> {
   }
 
   _renderDOM() {
+    // console.log('Из _renderDOM', this.rootQuery);
     if (this.rootQuery) {
       try {
         const root = document.querySelector(this.rootQuery);
@@ -161,6 +162,7 @@ export class Block<TProps> {
       //   this._element.appendChild(template.firstElementChild as HTMLElement);
       this._element = template.firstElementChild as HTMLElement;
     }
+    // console.log(this._element);
 
     this._addEvents();
     this.eventBus.emit(EVENTS.FLOW_CDU_REMOUNT);

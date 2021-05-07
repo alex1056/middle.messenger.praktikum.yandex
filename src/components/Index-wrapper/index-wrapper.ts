@@ -87,7 +87,6 @@ export class IndexWrapper extends Block<TProps> {
   // }
 
   deleteChat() {
-    console.log(this);
     store.dispatch({
       type: Actions.DELETE_CHAT_POPUP_SHOW,
       data: { showPopup: true, chatId: this.dataset.chatId, chatName: this.dataset.chatName },

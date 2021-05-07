@@ -2,7 +2,6 @@ import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplDeleteAddUser } from './template';
-// import './style.scss';
 import { createStore, Actions } from '../../modules/Store';
 
 type TProps = { [propName: string]: any };
@@ -28,6 +27,7 @@ export class PopupDeleteChat extends Block<TProps> {
         disabled: false,
       }),
     });
+
     if (PopupDeleteChat._instance) {
       return PopupDeleteChat._instance;
     }
@@ -46,7 +46,8 @@ export class PopupDeleteChat extends Block<TProps> {
   }
 
   outsideClick(event: any) {
-    const popup = PopupDeleteChat._instance._element;
+    // const popup = PopupDeleteChat._instance._element;
+    const popup = document.body.querySelector<HTMLDivElement>('#delete-chat-popup');
 
     if (event.key === 'Escape') {
       if (popup) {
