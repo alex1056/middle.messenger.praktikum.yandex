@@ -3,11 +3,39 @@ import { PopupChngAvatar } from '../../components/Popup-chng-avatar';
 import { PopupAddUser } from '../../components/Popup-add-user';
 import { PopupDeleteUser } from '../../components/Popup-delete-user';
 import { PopupAddMedia } from '../../components/Popup-add-media';
+import { PopupAddChat } from '../../components/Popup-add-chat';
+import { PopupDeleteChat } from '../../components/Popup-delete-chat';
 // import { getEventBus, actions } from '../EventBusInstance';
 import { createStore, Actions } from '../Store';
 
 export function mountPopups(): void {
   const store = createStore();
+
+  function popupAddChatHandler() {
+    const popupAddChat = new PopupAddChat({});
+    renderDOM('.body', popupAddChat.getContent());
+    const addChatPopupState = store.getState().addChatPopup;
+
+    if (addChatPopupState.showPopup) {
+      popupAddChat.show('flex');
+    } else {
+      popupAddChat.hide();
+    }
+  }
+  store.subscribe(Actions.ADD_CHAT_POPUP_SHOW, popupAddChatHandler);
+
+  function popupDeleteChatHandler() {
+    const popupDeleteChat = new PopupDeleteChat({});
+    renderDOM('.body', popupDeleteChat.getContent());
+    const deleteChatPopupState = store.getState().deleteChatPopup;
+
+    if (deleteChatPopupState.showPopup) {
+      popupDeleteChat.show('flex');
+    } else {
+      popupDeleteChat.hide();
+    }
+  }
+  store.subscribe(Actions.DELETE_CHAT_POPUP_SHOW, popupDeleteChatHandler);
 
   function popupAddMediaHandler() {
     const popupAddMedia = new PopupAddMedia({});
@@ -20,7 +48,7 @@ export function mountPopups(): void {
       popupAddMedia.hide();
     }
   }
-  store.subscribe(Actions.ADD_MEDIA_SHOW_POPUP, popupAddMediaHandler);
+  store.subscribe(Actions.ADD_MEDIA_POPUP_SHOW, popupAddMediaHandler);
 
   function popupDeleteUserHandler() {
     const popupDeleteUser = new PopupDeleteUser();
@@ -39,19 +67,6 @@ export function mountPopups(): void {
     const popupChngAvatar = new PopupChngAvatar();
     renderDOM('.body', popupChngAvatar.getContent());
     const { chngAvatarPopup } = store.getState();
-
-    // const popup = popupChngAvatar.getContent();
-    // const formNode = popup?.querySelector<HTMLFormElement>('#form-chng-avatar');
-    // const fName = formNode?.querySelector<HTMLElement>('#uploadedfile-form-chng-avatar');
-    // const inputLabel = formNode?.querySelector<HTMLElement>('#labelavatar-form-chng-avatar');
-    // const submitBtn = formNode?.querySelector<HTMLButtonElement>('#submit-form-chng-avatar');
-
-    // fName.style.display = 'none';
-    // inputLabel.style.display = 'block';
-    // if (submitBtn) {
-    //   submitBtn.disabled = false;
-    //   submitBtn.classList.add('btn_disabled');
-    // }
 
     if (chngAvatarPopup.showPopup) {
       popupChngAvatar.show('flex');

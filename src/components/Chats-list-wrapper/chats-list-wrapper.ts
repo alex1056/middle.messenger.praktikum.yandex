@@ -1,7 +1,7 @@
 import { compile } from 'pug';
 import { Block } from '../Block';
-import { UserList } from '../User-list';
-import { tmplChatsList } from './template';
+import { ChatList } from '../Chat-list';
+import { tmplChatList } from './template';
 
 type TPropsChatsList = {
   [propName: string]: any;
@@ -14,20 +14,20 @@ type TPropsChatsList = {
   }[];
 };
 
-export class ChatsList extends Block<TPropsChatsList> {
+export class ChatsListWrapper extends Block<TPropsChatsList> {
   props: TPropsChatsList;
 
   constructor(props: TPropsChatsList) {
     super('div', {
       ...props,
-      userList: new UserList(props),
+      chatList: new ChatList(props),
     });
   }
 
   render(): string {
-    const compiled = compile(tmplChatsList);
+    const compiled = compile(tmplChatList);
     const html = compiled({
-      userList: this.props.userList.render(),
+      chatList: this.props.chatList.render(),
     });
     return html;
   }

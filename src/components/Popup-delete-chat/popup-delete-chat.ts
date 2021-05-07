@@ -2,16 +2,16 @@ import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplDeleteAddUser } from './template';
-import './style.scss';
+// import './style.scss';
 import { createStore, Actions } from '../../modules/Store';
 
 type TProps = { [propName: string]: any };
 const store = createStore();
 
-export class PopupDeleteUser extends Block<TProps> {
+export class PopupDeleteChat extends Block<TProps> {
   props: TProps;
 
-  static _instance: PopupDeleteUser;
+  static _instance: PopupDeleteChat;
 
   constructor(props?: TProps) {
     super('div', {
@@ -28,11 +28,11 @@ export class PopupDeleteUser extends Block<TProps> {
         disabled: false,
       }),
     });
-    if (PopupDeleteUser._instance) {
-      return PopupDeleteUser._instance;
+    if (PopupDeleteChat._instance) {
+      return PopupDeleteChat._instance;
     }
 
-    PopupDeleteUser._instance = this;
+    PopupDeleteChat._instance = this;
   }
 
   addEvents(): boolean {
@@ -46,14 +46,14 @@ export class PopupDeleteUser extends Block<TProps> {
   }
 
   outsideClick(event: any) {
-    const popup = PopupDeleteUser._instance._element;
+    const popup = PopupDeleteChat._instance._element;
 
     if (event.key === 'Escape') {
       if (popup) {
         popup.style.display = 'none';
         document.removeEventListener('keydown', this.outsideClick);
         store.dispatch({
-          type: Actions.DELETE_USER_FROM_CHAT,
+          type: Actions.DELETE_CHAT_POPUP_SHOW,
           data: { showPopup: false },
         });
       }
@@ -66,7 +66,7 @@ export class PopupDeleteUser extends Block<TProps> {
           event.target.classList.contains('btn__text')
         ) {
           store.dispatch({
-            type: Actions.DELETE_USER_FROM_CHAT,
+            type: Actions.DELETE_CHAT_POPUP_SHOW,
             data: { showPopup: false },
           });
         }

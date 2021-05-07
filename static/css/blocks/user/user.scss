@@ -1,4 +1,4 @@
-.user {
+.chat {
   width: 100%;
   height: 67px;
   position: relative;
@@ -17,7 +17,7 @@
   &:hover {
     background-color: #e4edfd;
 
-    .user__delete-icon {
+    .chat__delete-icon {
       display: block;
     }
   }

@@ -47,7 +47,7 @@ export class PopupAddMedia extends Block<TProps> {
       }
     }
     store.dispatch({
-      type: Actions.ADD_MEDIA_SHOW_POPUP,
+      type: Actions.ADD_MEDIA_POPUP_SHOW,
       data: { showPopup: false },
     });
   }

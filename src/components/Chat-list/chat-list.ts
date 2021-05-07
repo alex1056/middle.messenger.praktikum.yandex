@@ -1,7 +1,6 @@
 import { compile } from 'pug';
 import { Block } from '../Block';
-import { tmplUserList } from './template';
-import './style.scss';
+import { tmplChatList } from './template';
 
 type TPropsUserList = {
   userListData: {
@@ -14,7 +13,7 @@ type TPropsUserList = {
   [propName: string]: any;
 };
 
-export class UserList extends Block<TPropsUserList> {
+export class ChatList extends Block<TPropsUserList> {
   props: TPropsUserList;
 
   constructor(props: TPropsUserList) {
@@ -22,7 +21,7 @@ export class UserList extends Block<TPropsUserList> {
   }
 
   render(): string {
-    const compiled = compile(tmplUserList);
+    const compiled = compile(tmplChatList);
     const html = compiled(this.props);
     return html;
   }

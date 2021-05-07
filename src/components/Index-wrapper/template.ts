@@ -1,4 +1,4 @@
 export const tmplIndexWrapper = `
 main(class="main")
-    != chatsList
+    != chatList
     != msgs`;

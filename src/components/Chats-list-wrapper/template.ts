@@ -1,4 +1,4 @@
-export const tmplChatsList = `
+export const tmplChatList = `
 div(class="chats-list")
     div(class="chats-list__wrapper")
         div(class="chats-list__top-buttons")
@@ -9,4 +9,4 @@ div(class="chats-list")
             div(class="input__wrapper")
                 div(class="input__wrapper-loop")
                     span(class="input__loop-text")  Поиск
-        != userList`;
+        != chatList`;

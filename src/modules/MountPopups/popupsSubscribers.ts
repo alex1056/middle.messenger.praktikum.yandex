@@ -36,7 +36,7 @@ export function setPopupsSubscribers(): void {
 //       popupAddMedia.hide();
 //     }
 //   }
-//   store.subscribe(Actions.ADD_MEDIA_SHOW_POPUP, popupAddMediaHandler);
+//   store.subscribe(Actions.ADD_MEDIA_POPUP_SHOW, popupAddMediaHandler);
 
 //   function popupDeleteUserHandler() {
 //     const popupDeleteUser = new PopupDeleteUser();

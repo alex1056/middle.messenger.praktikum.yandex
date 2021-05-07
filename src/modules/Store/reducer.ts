@@ -55,7 +55,7 @@ export function reducer(state: TState, action: TAction): TState {
         deleteUserPopup: { ...prevStateLocal, showPopup },
       };
 
-    case Actions.ADD_MEDIA_SHOW_POPUP:
+    case Actions.ADD_MEDIA_POPUP_SHOW:
       prevStateLocal = state.addMediaPopup || {};
 
       if (!data) {
@@ -67,6 +67,34 @@ export function reducer(state: TState, action: TAction): TState {
       return {
         ...state,
         addMediaPopup: { ...prevStateLocal, showPopup },
+      };
+
+    case Actions.ADD_CHAT_POPUP_SHOW:
+      prevStateLocal = state.addChatPopup || {};
+
+      if (!data) {
+        showPopup = false;
+      } else {
+        showPopup = data.showPopup;
+      }
+
+      return {
+        ...state,
+        addChatPopup: { ...prevStateLocal, showPopup },
+      };
+
+    case Actions.DELETE_CHAT_POPUP_SHOW:
+      prevStateLocal = state.deleteChatPopup || {};
+
+      if (!data) {
+        showPopup = false;
+      } else {
+        showPopup = data.showPopup;
+      }
+
+      return {
+        ...state,
+        deleteChatPopup: { ...prevStateLocal, showPopup },
       };
 
     case Actions.GET_USER_DATA:
