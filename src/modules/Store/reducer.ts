@@ -4,6 +4,8 @@ import { TState, TAction } from './types';
 export function reducer(state: TState, action: TAction): TState {
   let prevStateLocal;
   let showPopup;
+  let chatId;
+  let chatName;
   const { data } = action;
   switch (action.type) {
     case Actions.CHATS_UPDATE:
@@ -88,13 +90,17 @@ export function reducer(state: TState, action: TAction): TState {
 
       if (!data) {
         showPopup = false;
+        chatId = null;
+        chatName = null;
       } else {
         showPopup = data.showPopup;
+        chatId = data.chatId;
+        chatName = data.chatName;
       }
 
       return {
         ...state,
-        deleteChatPopup: { ...prevStateLocal, showPopup },
+        deleteChatPopup: { ...prevStateLocal, showPopup, chatId, chatName },
       };
 
     case Actions.GET_USER_DATA:

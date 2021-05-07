@@ -29,6 +29,10 @@ export function mountPopups(): void {
     renderDOM('.body', popupDeleteChat.getContent());
     const deleteChatPopupState = store.getState().deleteChatPopup;
 
+    console.log(deleteChatPopupState);
+    const { chatId, chatName } = deleteChatPopupState;
+    popupDeleteChat.setProps({ ...popupDeleteChat.props, chatId, chatName });
+
     if (deleteChatPopupState.showPopup) {
       popupDeleteChat.show('flex');
     } else {

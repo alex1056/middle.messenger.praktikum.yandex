@@ -15,6 +15,8 @@ type TProps = { [propName: string]: any };
 export class IndexWrapper extends Block<TProps> {
   props: TProps;
 
+  dataset: { [propName: string]: any };
+
   static _instance: IndexWrapper;
 
   constructor(props: TProps) {
@@ -85,9 +87,10 @@ export class IndexWrapper extends Block<TProps> {
   // }
 
   deleteChat() {
+    console.log(this);
     store.dispatch({
       type: Actions.DELETE_CHAT_POPUP_SHOW,
-      data: { showPopup: true },
+      data: { showPopup: true, chatId: this.dataset.chatId, chatName: this.dataset.chatName },
     });
   }
 
