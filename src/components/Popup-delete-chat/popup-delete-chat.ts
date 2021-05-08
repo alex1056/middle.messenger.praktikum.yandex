@@ -46,8 +46,7 @@ export class PopupDeleteChat extends Block<TProps> {
   }
 
   outsideClick(event: any) {
-    // const popup = PopupDeleteChat._instance._element;
-    const popup = document.body.querySelector<HTMLDivElement>('#delete-chat-popup');
+    const popup = PopupDeleteChat._instance._element;
 
     if (event.key === 'Escape') {
       if (popup) {
