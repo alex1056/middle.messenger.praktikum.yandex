@@ -2,21 +2,22 @@ import { compile } from 'pug';
 import { Block } from '../Block';
 import { tmplChatList } from './template';
 
-type TPropsUserList = {
-  userListData: {
-    imgSrc: string;
-    name: string;
-    lastMsg: string;
-    lastMsgdate: string;
-    unreadMsg: number;
-  }[];
+type TPropsChatsList = {
   [propName: string]: any;
+  chatsData: {
+    id: string;
+    avatar: string;
+    title: string;
+    created_by: number;
+    [last_message: string]: any;
+    unread_count: number;
+  }[];
 };
 
-export class ChatList extends Block<TPropsUserList> {
-  props: TPropsUserList;
+export class ChatList extends Block<TPropsChatsList> {
+  props: TPropsChatsList;
 
-  constructor(props: TPropsUserList) {
+  constructor(props: TPropsChatsList) {
     super('div', props);
   }
 

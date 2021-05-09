@@ -3,9 +3,13 @@ import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplDeleteAddUser } from './template';
 import { createStore, Actions } from '../../modules/Store';
+import { Api } from '../../modules/Api';
+import { transfromChatsData } from '../../utils/transfrom-chats-data';
+import './style.scss';
 
 type TProps = { [propName: string]: any };
 const store = createStore();
+const api = new Api();
 
 export class PopupDeleteChat extends Block<TProps> {
   props: TProps;
@@ -18,13 +22,16 @@ export class PopupDeleteChat extends Block<TProps> {
       buttonCancel: new Btn({
         buttonText: 'Отмена',
         className: 'popup__btn btn_small btn_white',
-        buttonId: 'delete-user-cancel-btn',
+        buttonId: 'cancel-delete-chat-btn',
+        type: 'button',
         // disabled: true,
       }),
       buttonAdd: new Btn({
         buttonText: 'Удалить',
         className: 'popup__btn btn_small',
+        buttonId: 'submit-delete-chat-btn',
         disabled: false,
+        type: 'submit',
       }),
     });
 
@@ -41,8 +48,35 @@ export class PopupDeleteChat extends Block<TProps> {
     if (popup) {
       popup.addEventListener('click', this.outsideClick);
       document.addEventListener('keydown', this.outsideClick);
+      const form = popup.querySelector<HTMLFormElement>('#delete-chat-form');
+      form?.addEventListener('submit', this.onSubmit);
     }
     return true;
+  }
+
+  onSubmit(event: any) {
+    event.preventDefault();
+    const { chatId } = PopupDeleteChat._instance.props;
+
+    api.deleteChat(chatId).then((res) => {
+      if (res.ok) {
+        api.getChats().then((res1) => {
+          const chatsDataReply = res1.json() as any;
+          const chatsDataChanged = transfromChatsData(chatsDataReply);
+          store.dispatch({
+            type: Actions.CHATS_UPDATE,
+            data: chatsDataChanged,
+          });
+        });
+        // const avatarUrl = `${urlApiResources}${userDataFromServer.avatar}`;
+        // ProfileForm._instance.setProps({
+        //   ...ProfileForm._instance.props,
+        //   data: { ...userDataFromServer, avatar: avatarUrl },
+        // });
+      } else {
+        console.log(res.json());
+      }
+    });
   }
 
   outsideClick(event: any) {

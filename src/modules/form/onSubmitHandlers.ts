@@ -6,9 +6,10 @@ export function onSubmitGetFormData(form: HTMLFormElement, formId: string) {
   }
   const inputs = Array.from(form.elements);
   const submit = form.querySelector(`#submit-${formId}`) as HTMLDivElement;
+  const cancel = form.querySelector(`#cancel-${formId}`) as HTMLDivElement;
 
   const inputsData = inputs.reduce((acc: object, { id, value }: HTMLInputElement) => {
-    if (id && id !== submit.id) {
+    if (id && id !== submit.id && id !== cancel.id) {
       return { ...acc, [id]: value };
     }
     return acc;
@@ -41,6 +42,8 @@ export function mapInputsForSending(inputsData: any, formId: string) {
           return { ...acc, oldPassword: inputsData[item] };
         case `newpassword-${formId}`:
           return { ...acc, newPassword: inputsData[item] };
+        case `newchat-${formId}`:
+          return { ...acc, chatName: inputsData[item] };
         default:
           return acc;
       }

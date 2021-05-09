@@ -4,10 +4,15 @@ import { ChatsListWrapper } from '../Chats-list-wrapper';
 import { Msgs } from '../Msgs';
 import { tmplIndexWrapper } from './template';
 import './style.scss';
-import { localsIndexPage } from '../../LocalsData';
+// import { localsIndexPage } from '../../LocalsData';
+// import { localsIndexPage2 } from '../../LocalsData/index2';
 // import { getEventBus, actions } from '../../modules/EventBusInstance';
 import { createStore, Actions } from '../../modules/Store';
+import { Api, urlApiResources } from '../../modules/Api';
+// import { lastMsgTimeToString } from '../../utils/msg-time';
+import { transfromChatsData } from '../../utils/transfrom-chats-data';
 
+const api = new Api();
 const store = createStore();
 
 type TProps = { [propName: string]: any };
@@ -17,14 +22,21 @@ export class IndexWrapper extends Block<TProps> {
 
   dataset: { [propName: string]: any };
 
+  // chatsData: { [propName: string]: any };
+
   static _instance: IndexWrapper;
 
   constructor(props: TProps) {
+    // console.log('props=', props);
     super('div', {
-      chatList: new ChatsListWrapper({ ...props, ...localsIndexPage }),
+      chatList: new ChatsListWrapper({
+        ...props,
+        chatsData: [{ id: '', avatar: '', title: '', created_by: 0, last_message: null, unread_count: 0 }],
+      }),
       msgs: new Msgs(props),
     });
 
+    // console.log('this.props после super=', { ...this.props });
     const { rootQuery } = props as any;
 
     if (IndexWrapper._instance) {
@@ -38,6 +50,25 @@ export class IndexWrapper extends Block<TProps> {
     this.deleteChat = this.deleteChat.bind(this);
 
     IndexWrapper._instance = this;
+  }
+
+  componentDidMount(): boolean {
+    api.getChats().then((res) => {
+      const chatsDataReply = res.json() as any;
+      const chatsDataChanged = transfromChatsData(chatsDataReply);
+
+      store.dispatch({
+        type: Actions.CHATS_UPDATE,
+        data: chatsDataChanged,
+      });
+      const { chatsData } = store.getState();
+      IndexWrapper._instance.setProps({
+        ...IndexWrapper._instance.props,
+        chatList: new ChatsListWrapper({ ...this.props, chatsData: chatsData.data }),
+      });
+    });
+
+    return true;
   }
 
   addEvents(): boolean {
@@ -86,10 +117,10 @@ export class IndexWrapper extends Block<TProps> {
   //   });
   // }
 
-  deleteChat() {
+  deleteChat(event: any) {
     store.dispatch({
       type: Actions.DELETE_CHAT_POPUP_SHOW,
-      data: { showPopup: true, chatId: this.dataset.chatId, chatName: this.dataset.chatName },
+      data: { showPopup: true, chatId: event.target.dataset.chatId, chatName: event.target.dataset.chatName },
     });
   }
 
@@ -120,6 +151,7 @@ export class IndexWrapper extends Block<TProps> {
   render(): string {
     const compiled = compile(tmplIndexWrapper);
     const html = compiled({
+      ...this.props,
       chatList: this.props.chatList.render(),
       msgs: this.props.msgs.render(),
     });

@@ -5,12 +5,13 @@ import { tmplChatList } from './template';
 
 type TPropsChatsList = {
   [propName: string]: any;
-  userListData: {
-    imgSrc: string;
-    name: string;
-    lastMsg: string;
-    lastMsgdate: string;
-    unreadMsg: number;
+  chatsData: {
+    id: string;
+    avatar: string;
+    title: string;
+    created_by: number;
+    [last_message: string]: any;
+    unread_count: number;
   }[];
 };
 

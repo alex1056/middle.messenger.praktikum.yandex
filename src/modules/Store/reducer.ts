@@ -9,10 +9,11 @@ export function reducer(state: TState, action: TAction): TState {
   const { data } = action;
   switch (action.type) {
     case Actions.CHATS_UPDATE:
-      prevStateLocal = state.chats || {};
+      prevStateLocal = state.chatsData || {};
       return {
         ...state,
-        chats: { ...prevStateLocal, data },
+        chatsData: { ...prevStateLocal, data },
+        // chatsData: {},
       };
 
     case Actions.ADD_USER_POPUP_SHOW:

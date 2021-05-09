@@ -1,5 +1,5 @@
 export const tmplPopupAddUser = `
-div(class="popup popup_visible" id="popup-add-user")
+div(class="popup popup_visible" id="add-user-popup")
     div(class="popup__body")
         form(id="popup-add-user-form")
             div(class="popup__text-cont")

@@ -57,9 +57,6 @@ export class PopupChngAvatar extends Block<TProps> {
 
     const popup = document.body.querySelector('#chng-avatar-popup');
     const formNode = popup?.querySelector<HTMLFormElement>('#form-chng-avatar');
-    const fName = formNode?.querySelector<HTMLElement>('#uploadedfile-form-chng-avatar');
-    const inputLabel = formNode?.querySelector<HTMLElement>('#labelavatar-form-chng-avatar');
-    const submitBtn = formNode?.querySelector<HTMLButtonElement>('#submit-form-chng-avatar');
 
     if (formNode) {
       const formData = new FormData();
@@ -83,16 +80,6 @@ export class PopupChngAvatar extends Block<TProps> {
               type: Actions.CHNG_AVATAR_POPUP_SHOW,
               data: { showPopup: false },
             });
-            if (fName) {
-              fName.style.display = 'none';
-            }
-            if (inputLabel) {
-              inputLabel.style.display = 'block';
-            }
-            if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.classList.add('btn_disabled');
-            }
           } else {
             const { reason } = res.json();
 
@@ -113,7 +100,8 @@ export class PopupChngAvatar extends Block<TProps> {
       const submitBtn = form?.querySelector<HTMLButtonElement>('#submit-form-chng-avatar');
 
       if (fName) {
-        fName.textContent = fileList[0].name;
+        const slicedName = fileList[0].name.split('').slice(0, 20).join('');
+        fName.textContent = `${slicedName}${fileList[0].name.length > 20 ? '...' : ''}`;
         fName.style.display = 'block';
         if (inputLabel) {
           inputLabel.style.display = 'none';

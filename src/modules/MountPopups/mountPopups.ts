@@ -11,17 +11,49 @@ import { createStore, Actions } from '../Store';
 export function mountPopups(): void {
   const store = createStore();
 
-  function popupAddChatHandler() {
-    const popupAddChat = new PopupAddChat({});
-    renderDOM('.body', popupAddChat.getContent());
-    const addChatPopupState = store.getState().addChatPopup;
+  // function popupAddChatHandler() {
+  //   const popupAddChat = new PopupAddChat({});
+  //   renderDOM('.body', popupAddChat.getContent());
+  //   const addChatPopupState = store.getState().addChatPopup;
 
-    if (addChatPopupState.showPopup) {
-      popupAddChat.show('flex');
+  //   if (addChatPopupState.showPopup) {
+  //     popupAddChat.show('flex');
+  //   } else {
+  //     popupAddChat.hide();
+  //   }
+  // }
+  function popupAddChatHandler() {
+    let popup = null;
+    const addChatPopupState = store.getState().addChatPopup;
+    // const { chatId, chatName } = addChatPopupState;
+    let popupAddChat = null;
+    try {
+      popup = document.body.querySelector<HTMLDivElement>('#add-chat-popup');
+    } catch {
+      console.log('Popup add chat не найден в DOM!');
+    }
+
+    if (!popup) {
+      popupAddChat = new PopupAddChat({});
+      popupAddChat.setProps({ ...popupAddChat.props });
+      renderDOM('.body', popupAddChat.getContent());
+
+      if (addChatPopupState.showPopup) {
+        popupAddChat.show('flex');
+      } else {
+        popupAddChat.hide();
+      }
+    } else if (addChatPopupState.showPopup) {
+      popupAddChat = new PopupAddChat({});
+      popupAddChat.setProps({ ...popupAddChat.props });
+      document.querySelector('#add-chat-popup')?.remove();
+      renderDOM('.body', popupAddChat.getContent());
+      popup.style.display = 'flex';
     } else {
-      popupAddChat.hide();
+      popup.style.display = 'none';
     }
   }
+
   store.subscribe(Actions.ADD_CHAT_POPUP_SHOW, popupAddChatHandler);
 
   function popupDeleteChatHandler() {
@@ -84,27 +116,67 @@ export function mountPopups(): void {
   store.subscribe(Actions.DELETE_USER_FROM_CHAT, popupDeleteUserHandler);
 
   function popupChngAvatarHandler() {
-    const popupChngAvatar = new PopupChngAvatar();
-    renderDOM('.body', popupChngAvatar.getContent());
-    const { chngAvatarPopup } = store.getState();
+    let popup = null;
+    const chngAvatarPopupState = store.getState().chngAvatarPopup;
+    let popupChngAvatar = null;
+    try {
+      popup = document.body.querySelector<HTMLDivElement>('#chng-avatar-popup');
+    } catch {
+      console.log('Popup add user не найден в DOM!');
+    }
 
-    if (chngAvatarPopup.showPopup) {
-      popupChngAvatar.show('flex');
+    if (!popup) {
+      popupChngAvatar = new PopupChngAvatar({});
+      popupChngAvatar.setProps({ ...popupChngAvatar.props });
+      renderDOM('.body', popupChngAvatar.getContent());
+
+      if (chngAvatarPopupState.showPopup) {
+        popupChngAvatar.show('flex');
+      } else {
+        popupChngAvatar.hide();
+      }
+    } else if (chngAvatarPopupState.showPopup) {
+      popupChngAvatar = new PopupChngAvatar({});
+      popupChngAvatar.setProps({ ...popupChngAvatar.props });
+      document.querySelector('#chng-avatar-popup')?.remove();
+      renderDOM('.body', popupChngAvatar.getContent());
+      popup.style.display = 'flex';
     } else {
-      popupChngAvatar.hide();
+      popup.style.display = 'none';
     }
   }
   store.subscribe(Actions.CHNG_AVATAR_POPUP_SHOW, popupChngAvatarHandler);
 
   function popupAddUserHandler() {
-    const popupAddUser = new PopupAddUser();
-    renderDOM('.body', popupAddUser.getContent());
-    const { addUserPopup } = store.getState();
-    if (addUserPopup.showPopup) {
-      popupAddUser.show('flex');
+    let popup = null;
+    const addUserPopupState = store.getState().addUserPopup;
+    let popupAddChat = null;
+    try {
+      popup = document.body.querySelector<HTMLDivElement>('#add-user-popup');
+    } catch {
+      console.log('Popup add user не найден в DOM!');
+    }
+
+    if (!popup) {
+      popupAddChat = new PopupAddUser({});
+      popupAddChat.setProps({ ...popupAddChat.props });
+      renderDOM('.body', popupAddChat.getContent());
+
+      if (addUserPopupState.showPopup) {
+        popupAddChat.show('flex');
+      } else {
+        popupAddChat.hide();
+      }
+    } else if (addUserPopupState.showPopup) {
+      popupAddChat = new PopupAddUser({});
+      popupAddChat.setProps({ ...popupAddChat.props });
+      document.querySelector('#add-user-popup')?.remove();
+      renderDOM('.body', popupAddChat.getContent());
+      popup.style.display = 'flex';
     } else {
-      popupAddUser.hide();
+      popup.style.display = 'none';
     }
   }
+
   store.subscribe(Actions.ADD_USER_POPUP_SHOW, popupAddUserHandler);
 }

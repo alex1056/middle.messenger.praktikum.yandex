@@ -1,0 +1,8 @@
+.delete-chat-form {
+  display: flex;
+  flex-direction: column;
+
+  &__chat-name {
+    text-align: center;
+  }
+}

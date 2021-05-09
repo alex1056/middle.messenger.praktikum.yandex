@@ -1,15 +1,22 @@
 import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplPopupAddUser } from './template';
-// import './style.scss';
+import { tmplPopupAddChat } from './template';
 import { createStore, Actions } from '../../modules/Store';
+import { Api } from '../../modules/Api';
+import { Form } from '../../modules/form';
+import { Validator } from '../../modules/validator';
+import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
+import './style.scss';
 
 type TProps = { [propName: string]: any };
 const store = createStore();
+const api = new Api();
 
 export class PopupAddChat extends Block<TProps> {
   props: TProps;
+
+  form: Form;
 
   static _instance: PopupAddChat;
 
@@ -19,10 +26,13 @@ export class PopupAddChat extends Block<TProps> {
       buttonCancel: new Btn({
         buttonText: 'Отмена',
         className: 'popup__btn btn_small btn_white',
+        buttonId: 'cancel-popup-add-chat-form',
+        type: 'button',
       }),
       buttonAdd: new Btn({
         buttonText: 'Добавить',
         className: 'popup__btn btn_small btn_disabled',
+        buttonId: 'submit-popup-add-chat-form',
         disabled: true,
       }),
     });
@@ -33,12 +43,63 @@ export class PopupAddChat extends Block<TProps> {
     PopupAddChat._instance = this;
   }
 
+  onSubmitHandlerAddChat(event: any, form: HTMLFormElement, formId: string) {
+    event.preventDefault();
+    const inputsData = onSubmitGetFormData(form, formId);
+    const formData = mapInputsForSending(inputsData, formId) as { chatName: string };
+    api.createChat(formData.chatName).then((res) => {
+      if (res.ok) {
+        api.getChats().then((res1) => {
+          const chatsData = res1.json();
+          console.log(chatsData);
+          store.dispatch({
+            type: Actions.CHATS_UPDATE,
+            data: chatsData,
+          });
+        });
+      } else {
+        const { reason } = res.json();
+        console.log(reason);
+        // errSpan.textContent = reason as string;
+      }
+    });
+  }
+
+  onCancelHandlerAddChat(event: any) {
+    event.preventDefault();
+    store.dispatch({
+      type: Actions.ADD_CHAT_POPUP_SHOW,
+      data: { showPopup: false },
+    });
+  }
+
   addEvents(): boolean {
     const popup = this._element;
     if (popup) {
       popup.addEventListener('click', this.outsideClick);
       document.addEventListener('keydown', this.outsideClick);
     }
+
+    this.form = new Form('popup-add-chat-form');
+    this.form.setPopup(this._element as HTMLDivElement);
+    this.form.setHandlers('submit', this.onSubmitHandlerAddChat);
+    this.form.setEventListeners();
+    let currentForm = null;
+    let formValidator = null;
+    if (this._element) {
+      currentForm = this._element.querySelector('#popup-add-chat-form') as HTMLFormElement;
+    }
+    if (currentForm) {
+      formValidator = new Validator(currentForm, 'popup-add-chat-form');
+    }
+    if (formValidator) {
+      formValidator.setHandleLabels(true);
+    }
+    this.form.setFormValidator(formValidator as any);
+
+    const cancelBtn = this._element?.querySelector<HTMLButtonElement>('#cancel-popup-add-chat-form');
+    cancelBtn?.addEventListener('click', this.onCancelHandlerAddChat);
+
     return true;
   }
 
@@ -69,7 +130,7 @@ export class PopupAddChat extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplPopupAddUser);
+    const compiled = compile(tmplPopupAddChat);
     const html = compiled({
       ...this.props,
       buttonCancel: this.props.buttonCancel.render(),

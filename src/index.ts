@@ -8,7 +8,7 @@ import { LoginForm } from './components/Login-form';
 import { RegistrForm } from './components/Registr-form';
 import { mountPopups, setPopupsSubscribers } from './modules/MountPopups';
 import { createStore, Actions } from './modules/Store';
-import { Api } from './modules/Api';
+// import { Api } from './modules/Api';
 
 const store = createStore();
 store.subscribe(Actions.ANY_ACTION, (state: any) => {
@@ -45,10 +45,10 @@ setPopupsSubscribers();
 // const popupChngAvatar = new PopupChngAvatar();
 // renderDOM('.page', popupChngAvatar.getContent());
 // popupChngAvatar.hide();
-const data = {
-  login: 'ABlogin',
-  password: '123456',
-};
+// const data = {
+//   login: 'ABlogin',
+//   password: '123456',
+// };
 
 // const api = new Api();
 

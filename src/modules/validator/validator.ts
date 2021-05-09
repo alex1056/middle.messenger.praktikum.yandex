@@ -38,7 +38,7 @@ export class Validator {
   private finalCheck() {
     let flag = true;
     this.inputs.forEach((elem: HTMLInputElement) => {
-      if (elem.id && elem.id !== `submit-${this.formId}`) {
+      if (elem.id && elem.id !== `submit-${this.formId}` && elem.id !== `cancel-${this.formId}`) {
         if (!this.validateInputElement(elem)) {
           flag = false;
         }
@@ -63,13 +63,17 @@ export class Validator {
       }
     } else {
       this.inputs.forEach((elem: HTMLInputElement) => {
-        if (event.target.id === elem.id && event.target.id !== `submit-${this.formId}`) {
+        if (
+          event.target.id === elem.id &&
+          event.target.id !== `submit-${this.formId}` &&
+          event.target.id !== `cancel-${this.formId}`
+        ) {
           if (!this.validateInputElement(elem)) {
             isValidForm = false;
           } else {
             flag = true;
             this.inputs.forEach((elem1: HTMLInputElement) => {
-              if (elem1.id !== `submit-${this.formId}`) {
+              if (elem1.id !== `submit-${this.formId}` && elem1.id !== `cancel-${this.formId}`) {
                 if (!elem1.value) {
                   flag = false;
                 }
@@ -113,7 +117,6 @@ export class Validator {
       const pwdOld = document.querySelector(`#${this.formId} #oldPassword-${this.formId}`) as HTMLInputElement;
       const pwdNew = document.querySelector(`#${this.formId} #newpassword-${this.formId}`) as HTMLInputElement;
       const pwd = document.querySelector(`#${this.formId} #password-${this.formId}`) as HTMLInputElement;
-      // console.log(element.id, pwdNew.value);
 
       if (pwd && !pwdOld) {
         if (pwd.value !== element.value) {

@@ -78,10 +78,8 @@ export class HTTPTransport {
   put = (url: string, options: Options = {}): Promise<RequestResult> =>
     this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  delete = (url: string, options: Options = {}): Promise<RequestResult> => {
-    console.log(options);
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
-  };
+  delete = (url: string, options: Options = {}): Promise<RequestResult> =>
+    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
   reject = (err: any) => {
     throw new Error(err);

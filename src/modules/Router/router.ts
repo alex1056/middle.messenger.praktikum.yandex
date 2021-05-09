@@ -9,9 +9,13 @@ interface IRouter {
 
 export class Router implements IRouter {
   routes: IRoute[];
+
   history: History;
+
   _currentRoute: any;
+
   _rootQuery: string;
+
   static __instance: Router;
 
   constructor(rootQuery: string) {
@@ -72,10 +76,10 @@ export class Router implements IRouter {
   }
 
   getRoute(pathname: string) {
-    const route: IRoute | undefined = this.routes.find((route) => route.match(pathname));
+    const route: IRoute | undefined = this.routes.find((route1) => route1.match(pathname));
     if (!route) {
-      return this.routes.find((route) => route.match('/404'));
+      return this.routes.find((route1) => route1.match('/404'));
     }
-    return this.routes.find((route) => route.match(pathname));
+    return this.routes.find((route1) => route1.match(pathname));
   }
 }
