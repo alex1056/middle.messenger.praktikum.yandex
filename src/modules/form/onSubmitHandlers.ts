@@ -1,4 +1,4 @@
-import { sanitizeHtmlXss } from '../../utils/sanitizeHtml';
+// import { sanitizeHtmlXss } from '../../utils/sanitizeHtml';
 
 export function onSubmitGetFormData(form: HTMLFormElement, formId: string) {
   if (!formId) {
@@ -44,6 +44,8 @@ export function mapInputsForSending(inputsData: any, formId: string) {
           return { ...acc, newPassword: inputsData[item] };
         case `newchat-${formId}`:
           return { ...acc, chatName: inputsData[item] };
+        case `userlogin-${formId}`:
+          return { ...acc, userLogin: inputsData[item] };
         default:
           return acc;
       }

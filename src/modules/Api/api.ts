@@ -79,6 +79,13 @@ export class Api {
     return this.api.post(`${urlApi}/chats`, { data: { title }, headers });
   };
 
+  findUser = (login: string) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.post(`${urlApi}/user/search`, { data: { login }, headers });
+  };
+
   deleteChat = (chatId: string) => {
     const headers = {
       'content-type': 'application/json',

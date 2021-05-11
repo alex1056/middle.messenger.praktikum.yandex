@@ -16,6 +16,13 @@ export function reducer(state: TState, action: TAction): TState {
         // chatsData: {},
       };
 
+    case Actions.SET_ACTIVE_CHAT:
+      prevStateLocal = state.chatsData || {};
+      return {
+        ...state,
+        chatsData: { ...prevStateLocal, activeChatId: data.activeChatId },
+      };
+
     case Actions.ADD_USER_POPUP_SHOW:
       prevStateLocal = state.addUserPopup || {};
 
@@ -42,6 +49,20 @@ export function reducer(state: TState, action: TAction): TState {
       return {
         ...state,
         chngAvatarPopup: { ...prevStateLocal, showPopup },
+      };
+
+    case Actions.USER_MENU_POPUP_SHOW:
+      prevStateLocal = state.userMenuPopup || {};
+
+      if (!data) {
+        showPopup = false;
+      } else {
+        showPopup = data.showPopup;
+      }
+
+      return {
+        ...state,
+        userMenuPopup: { ...prevStateLocal, showPopup },
       };
 
     case Actions.DELETE_USER_FROM_CHAT:

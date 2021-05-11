@@ -33,7 +33,7 @@ export class Router implements IRouter {
 
   use(pathname: string, block: any) {
     const route: IRoute = new Route(pathname, block, { rootQuery: this._rootQuery });
-    // console.log('use, route', route);
+    console.log('use, pathname', pathname);
     this.routes.push(route);
     return this;
   }
@@ -50,7 +50,7 @@ export class Router implements IRouter {
   _onRoute(pathname: string) {
     const route: IRoute | undefined = this.getRoute(pathname);
 
-    // console.log('pathname, this._currentRoute', pathname, this._currentRoute);
+    console.log('pathname, route', pathname, route);
     if (this._currentRoute) {
       // если мы уже на каком-то руте - мы его скрываем
       this._currentRoute.leave();
@@ -62,10 +62,15 @@ export class Router implements IRouter {
     }
   }
 
-  go(pathname: string) {
-    this.history.pushState({}, '', pathname);
+  go(state: {}, pathname: string) {
+    this.history.pushState(state, '', pathname);
     this._onRoute(pathname);
   }
+
+  // go(pathname: string) {
+  //   this.history.pushState({}, '', pathname);
+  //   this._onRoute(pathname);
+  // }
 
   back() {
     this.history.back();
@@ -76,7 +81,10 @@ export class Router implements IRouter {
   }
 
   getRoute(pathname: string) {
-    const route: IRoute | undefined = this.routes.find((route1) => route1.match(pathname));
+    const route: IRoute | undefined = this.routes.find((route1) => {
+      console.log(route1);
+      return route1.match(pathname);
+    });
     if (!route) {
       return this.routes.find((route1) => route1.match('/404'));
     }

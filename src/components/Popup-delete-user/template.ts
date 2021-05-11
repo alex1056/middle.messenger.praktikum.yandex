@@ -1,9 +1,12 @@
 export const tmplDeleteAddUser = `
 div(class="popup popup_visible")
     div(class="popup__body")
-        p(class="popup__exclam") Вы уверены что хотите удалить пользователя и всю переписку?
-        p(class="popup__item-to-delete") Пользователь:
-            span(class="popup__item-to-delete") &nbsp;Андрей
-        div(class="popup__btn-cont")
-            != buttonCancel
-            != buttonAdd`;
+        form(class="delete-user" id="popup-add-user-form")
+            div(class="popup__text-cont")
+                p(class="popup__exclam") Удалить пользователя из чата?
+                div(class="popup__fset delete-user__fset")
+                    label(for="newuser-popup-add-user-form" class="popup__label") Логин
+                    input(type="text" id="newuser-popup-add-user-form" class="popup__input" value="" placeholder="Введите логин или email")/
+            div(class="popup__btn-cont")
+                != buttonCancel
+                != buttonAdd`;

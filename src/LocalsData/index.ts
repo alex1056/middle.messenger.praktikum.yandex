@@ -1,5 +1,6 @@
 export const localsIndexPage = {
   feed: {
+    chatId: 12,
     name: 'Андрей',
     imgSrc: require('../../static/img/cat-avatar.jpeg'),
     lastMsg: '19 июня',

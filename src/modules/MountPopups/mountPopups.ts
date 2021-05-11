@@ -5,23 +5,51 @@ import { PopupDeleteUser } from '../../components/Popup-delete-user';
 import { PopupAddMedia } from '../../components/Popup-add-media';
 import { PopupAddChat } from '../../components/Popup-add-chat';
 import { PopupDeleteChat } from '../../components/Popup-delete-chat';
+import { PopupUserMenu } from '../../components/Popup-user-menu';
+
 // import { getEventBus, actions } from '../EventBusInstance';
 import { createStore, Actions } from '../Store';
 
 export function mountPopups(): void {
   const store = createStore();
 
-  // function popupAddChatHandler() {
-  //   const popupAddChat = new PopupAddChat({});
-  //   renderDOM('.body', popupAddChat.getContent());
-  //   const addChatPopupState = store.getState().addChatPopup;
+  function popupUserMenuHandler() {
+    let popup = null;
+    const userMenuPopupState = store.getState().userMenuPopup;
 
-  //   if (addChatPopupState.showPopup) {
-  //     popupAddChat.show('flex');
-  //   } else {
-  //     popupAddChat.hide();
-  //   }
-  // }
+    let popupUserMenu = null;
+    try {
+      popup = document.body.querySelector<HTMLDivElement>('#user-menu-popup');
+    } catch {
+      console.log('Popup UserMenu не найден в DOM!');
+    }
+
+    if (!popup) {
+      popupUserMenu = new PopupUserMenu({});
+      popupUserMenu.setProps({ ...popupUserMenu.props });
+      renderDOM('.body', popupUserMenu.getContent());
+
+      if (userMenuPopupState.showPopup) {
+        popupUserMenu.show('flex');
+      } else {
+        popupUserMenu.hide();
+      }
+    } else if (userMenuPopupState.showPopup) {
+      popupUserMenu = new PopupUserMenu({});
+      popupUserMenu.setProps({ ...popupUserMenu.props });
+      document.querySelector('#user-menu-popup')?.remove();
+      renderDOM('.body', popupUserMenu.getContent());
+      popup.style.display = 'flex';
+    } else {
+      popup.style.display = 'none';
+    }
+    if (popup && userMenuPopupState.showPopup) {
+      popup.style.display = 'none';
+    }
+  }
+
+  store.subscribe(Actions.USER_MENU_POPUP_SHOW, popupUserMenuHandler);
+
   function popupAddChatHandler() {
     let popup = null;
     const addChatPopupState = store.getState().addChatPopup;

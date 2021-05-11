@@ -16,15 +16,21 @@ export interface IRoute {
 
 export class Route implements IRoute {
   _pathname: string;
+
   _blockClass: () => any;
+
   _block: TBlock;
+
   _props: Record<string, T> | null;
+
+  _params: any;
 
   constructor(pathname: string, view: () => any, props: any) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
     this._props = props;
+    this._params = null;
   }
 
   navigate(pathname: string) {
@@ -41,12 +47,20 @@ export class Route implements IRoute {
   }
 
   match(pathname: string) {
+    const pattern = '/chats/:chatId';
+    const routeMatcher = new RegExp(pattern.replace(/:[^\s/]+/g, '([\\w-]+)'));
+    const isRoute = pathname.match(routeMatcher);
+    if (isRoute) {
+      this._params = { chatId: isRoute[1] };
+      return true;
+    }
     return isEqual(pathname, this._pathname);
   }
 
   render() {
     if (!this._block) {
-      this._block = new (this._blockClass as any)(this._props);
+      console.log('this._props', this._props);
+      this._block = new (this._blockClass as any)({ ...this._props, ...this._params });
 
       if (this._props && this._block) {
         const node: HTMLDivElement = this._block.getContent();

@@ -11,9 +11,11 @@ import { createStore, Actions } from '../../modules/Store';
 import { Api, urlApiResources } from '../../modules/Api';
 // import { lastMsgTimeToString } from '../../utils/msg-time';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
+import { Router } from '../../modules/Router';
 
 const api = new Api();
 const store = createStore();
+const router = new Router('.page');
 
 type TProps = { [propName: string]: any };
 
@@ -22,12 +24,10 @@ export class IndexWrapper extends Block<TProps> {
 
   dataset: { [propName: string]: any };
 
-  // chatsData: { [propName: string]: any };
-
   static _instance: IndexWrapper;
 
   constructor(props: TProps) {
-    // console.log('props=', props);
+    console.log('Index Wrapper', props);
     super('div', {
       chatList: new ChatsListWrapper({
         ...props,
@@ -36,7 +36,6 @@ export class IndexWrapper extends Block<TProps> {
       msgs: new Msgs(props),
     });
 
-    // console.log('this.props после super=', { ...this.props });
     const { rootQuery } = props as any;
 
     if (IndexWrapper._instance) {
@@ -44,9 +43,9 @@ export class IndexWrapper extends Block<TProps> {
     }
 
     this.rootQuery = rootQuery;
-    // this.addUser = this.addUser.bind(this);
+
     this.addChat = this.addChat.bind(this);
-    // this.deleteUser = this.deleteUser.bind(this);
+
     this.deleteChat = this.deleteChat.bind(this);
 
     IndexWrapper._instance = this;
@@ -72,7 +71,6 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   addEvents(): boolean {
-    // const { setListenersAddUser } = this.props as any;
     let nodeAddChat = null;
 
     if (this._element) {
@@ -90,6 +88,13 @@ export class IndexWrapper extends Block<TProps> {
       deleteChatButtons.forEach((button) => button.addEventListener('click', this.deleteChat));
     }
 
+    let userMenu = null;
+
+    if (this._element) {
+      userMenu = this._element.querySelectorAll<HTMLElement>('#add-remove-user');
+      userMenu.forEach((button) => button.addEventListener('click', this.userMenu));
+    }
+
     let addMediaBtn = null;
 
     if (this._element) {
@@ -99,13 +104,42 @@ export class IndexWrapper extends Block<TProps> {
       addMediaBtn.addEventListener('click', this.addMedia);
     }
 
+    let selectChats = null;
+
+    if (this._element) {
+      selectChats = this._element.querySelectorAll<HTMLElement>('.chat');
+    }
+    if (selectChats) {
+      selectChats.forEach((chatNode) => chatNode.addEventListener('click', this.selectChat));
+    }
+
     return true;
   }
 
-  // add-media-btn-popup
+  selectChat(event: any) {
+    const selectChats = document.querySelectorAll<HTMLElement>('.chat');
+
+    if (selectChats) {
+      selectChats.forEach((chatNode) => chatNode.classList.remove('chat_selected'));
+    }
+    event.currentTarget.classList.toggle('chat_selected');
+    store.dispatch({
+      type: Actions.SET_ACTIVE_CHAT,
+      data: { activeChatId: this.dataset.chatId },
+    });
+    router.go({ chatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
+  }
+
   addMedia() {
     store.dispatch({
       type: Actions.ADD_MEDIA_POPUP_SHOW,
+      data: { showPopup: true },
+    });
+  }
+
+  userMenu() {
+    store.dispatch({
+      type: Actions.USER_MENU_POPUP_SHOW,
       data: { showPopup: true },
     });
   }

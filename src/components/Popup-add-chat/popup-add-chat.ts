@@ -51,7 +51,7 @@ export class PopupAddChat extends Block<TProps> {
       if (res.ok) {
         api.getChats().then((res1) => {
           const chatsData = res1.json();
-          console.log(chatsData);
+          // console.log(chatsData);
           store.dispatch({
             type: Actions.CHATS_UPDATE,
             data: chatsData,

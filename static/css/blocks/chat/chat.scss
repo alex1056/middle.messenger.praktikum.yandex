@@ -13,6 +13,9 @@
   &:last-child {
     border-bottom: 1px solid #eaeaea;
   }
+  &_selected {
+    background-color: #e4edfd;
+  }
 
   &:hover {
     background-color: #e4edfd;
