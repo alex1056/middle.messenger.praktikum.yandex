@@ -30,9 +30,6 @@ export class LoginForm extends Block<TProps> {
         buttonText: 'Аворизоваться',
         className: 'btn_disabled',
         buttonId: 'submit-form-login',
-        // events: {
-        //   click: onSubmitTestLogin,
-        // },
         disabled: true,
       }),
     });

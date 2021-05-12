@@ -48,18 +48,30 @@ export class Route implements IRoute {
 
   match(pathname: string) {
     const pattern = '/chats/:chatId';
-    const routeMatcher = new RegExp(pattern.replace(/:[^\s/]+/g, '([\\w-]+)'));
-    const isRoute = pathname.match(routeMatcher);
-    if (isRoute) {
-      this._params = { chatId: isRoute[1] };
+
+    if (isEqual(pathname, this._pathname)) {
       return true;
     }
-    return isEqual(pathname, this._pathname);
+    // console.log(`pattern=${pattern}, this._pathname=${this._pathname}`);
+    if (pattern === this._pathname) {
+      // console.log('совпадает');
+      const routeMatcher = new RegExp(pattern.replace(/:[^\s/?]+/g, '([\\w-]+)'));
+      const isRoute = pathname.match(routeMatcher);
+      // isRoute - результат распознавания pathname по шаблону pattern
+      // console.log('isRoute, pathname', isRoute, pathname);
+      if (isRoute) {
+        this._params = { chatId: isRoute[1] };
+        return true;
+      }
+    }
+
+    return false;
   }
 
-  render() {
+  render(args) {
+    console.log(args);
     if (!this._block) {
-      console.log('this._props', this._props);
+      // console.log('this._props', this._props);
       this._block = new (this._blockClass as any)({ ...this._props, ...this._params });
 
       if (this._props && this._block) {

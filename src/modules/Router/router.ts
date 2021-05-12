@@ -33,7 +33,7 @@ export class Router implements IRouter {
 
   use(pathname: string, block: any) {
     const route: IRoute = new Route(pathname, block, { rootQuery: this._rootQuery });
-    console.log('use, pathname', pathname);
+    // console.log('use, pathname', pathname);
     this.routes.push(route);
     return this;
   }
@@ -49,15 +49,16 @@ export class Router implements IRouter {
 
   _onRoute(pathname: string) {
     const route: IRoute | undefined = this.getRoute(pathname);
-
-    console.log('pathname, route', pathname, route);
+    // console.log('Из _onRoute pathname, route', pathname, route);
     if (this._currentRoute) {
+      console.log('this._currentRoute, route', this._currentRoute, route);
       // если мы уже на каком-то руте - мы его скрываем
       this._currentRoute.leave();
     }
 
     this._currentRoute = route;
     if (route) {
+      console.log('Перед Render, route=', route);
       route.render(route, pathname);
     }
   }
@@ -81,8 +82,11 @@ export class Router implements IRouter {
   }
 
   getRoute(pathname: string) {
+    // console.log(this.routes);
     const route: IRoute | undefined = this.routes.find((route1) => {
-      console.log(route1);
+      // if (route1.match(pathname)) {
+      // console.log('Совпадает!', route1, pathname, route1.match(pathname));
+      // }
       return route1.match(pathname);
     });
     if (!route) {

@@ -81,6 +81,16 @@ export class IndexWrapper extends Block<TProps> {
       nodeAddChat.addEventListener('click', this.addChat);
     }
 
+    let nodeGoProfileBtn = null;
+
+    if (this._element) {
+      nodeGoProfileBtn = this._element.querySelector('#btn-go-profile');
+    }
+
+    if (nodeGoProfileBtn) {
+      nodeGoProfileBtn.addEventListener('click', this.goProfile);
+    }
+
     let deleteChatButtons = null;
 
     if (this._element) {
@@ -127,7 +137,25 @@ export class IndexWrapper extends Block<TProps> {
       type: Actions.SET_ACTIVE_CHAT,
       data: { activeChatId: this.dataset.chatId },
     });
+    // console.log('chatId', this.dataset.chatId);
     router.go({ chatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
+
+    // const { chatsData } = store.getState();
+    // IndexWrapper._instance.setProps({
+    //   ...IndexWrapper._instance.props,
+    //   chatId: this.dataset.chatId,
+    //   // chatList: new ChatsListWrapper({ ...this.props, chatsData: chatsData.data }),
+    // });
+  }
+
+  // componentDidUpdate(): boolean {
+  //   console.log('componentDidUpdate, props', { ...this.props });
+  //   return true;
+  //   // console.log()
+  // }
+
+  goProfile() {
+    router.go({}, `/profile`);
   }
 
   addMedia() {

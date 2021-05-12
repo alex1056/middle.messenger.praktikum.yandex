@@ -1,5 +1,4 @@
 import { Router } from './modules/Router';
-// import { getEventBus } from './modules/EventBusInstance';
 import { IndexWrapper } from './components/Index-wrapper';
 import { ProfileForm } from './components/Profile-form';
 import { Page404 } from './components/404';
@@ -9,8 +8,6 @@ import { RegistrForm } from './components/Registr-form';
 import { mountPopups, setPopupsSubscribers } from './modules/MountPopups';
 import { mountIndexWrapper } from './modules/MountComponents';
 import { createStore, Actions } from './modules/Store';
-
-// import { Api } from './modules/Api';
 
 const store = createStore();
 store.subscribe(Actions.ANY_ACTION, (state: any) => {
@@ -31,7 +28,7 @@ store.subscribe(Actions.ANY_ACTION, (state: any) => {
 const router = new Router('.page');
 
 router.use('/', IndexWrapper);
-router.use('/chats/:id', IndexWrapper);
+router.use('/chats/:chatId', IndexWrapper);
 router.use('/profile', ProfileForm);
 router.use('/login', LoginForm);
 router.use('/registr', RegistrForm);

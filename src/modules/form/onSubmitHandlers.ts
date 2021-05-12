@@ -9,9 +9,16 @@ export function onSubmitGetFormData(form: HTMLFormElement, formId: string) {
   const cancel = form.querySelector(`#cancel-${formId}`) as HTMLDivElement;
 
   const inputsData = inputs.reduce((acc: object, { id, value }: HTMLInputElement) => {
-    if (id && id !== submit.id && id !== cancel.id) {
-      return { ...acc, [id]: value };
+    if (cancel) {
+      if (id && id !== submit.id && id !== cancel.id) {
+        return { ...acc, [id]: value };
+      }
+    } else {
+      if (id && id !== submit.id) {
+        return { ...acc, [id]: value };
+      }
     }
+
     return acc;
   }, {});
 
