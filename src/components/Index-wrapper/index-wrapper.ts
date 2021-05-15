@@ -4,12 +4,10 @@ import { ChatsListWrapper } from '../Chats-list-wrapper';
 import { Msgs } from '../Msgs';
 import { tmplIndexWrapper } from './template';
 import './style.scss';
-// import { localsIndexPage } from '../../LocalsData';
-// import { localsIndexPage2 } from '../../LocalsData/index2';
-// import { getEventBus, actions } from '../../modules/EventBusInstance';
-import { createStore, Actions } from '../../modules/Store';
+
+import { createStore, Actions, chatsDataSelector } from '../../modules/Store';
 import { Api, urlApiResources } from '../../modules/Api';
-// import { lastMsgTimeToString } from '../../utils/msg-time';
+
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
 import { Router } from '../../modules/Router';
 
@@ -27,13 +25,16 @@ export class IndexWrapper extends Block<TProps> {
   static _instance: IndexWrapper;
 
   constructor(props: TProps) {
-    console.log('Index Wrapper', props);
+    // console.log('Index Wrapper', props);
     super('div', {
       chatList: new ChatsListWrapper({
         ...props,
         chatsData: [{ id: '', avatar: '', title: '', created_by: 0, last_message: null, unread_count: 0 }],
       }),
-      msgs: new Msgs(props),
+      msgs: new Msgs({
+        ...props,
+        activeChatData: { id: '', avatar: '', title: '', created_by: 0, last_message: null, unread_count: 0 },
+      }),
     });
 
     const { rootQuery } = props as any;
@@ -60,10 +61,15 @@ export class IndexWrapper extends Block<TProps> {
         type: Actions.CHATS_UPDATE,
         data: chatsDataChanged,
       });
-      const { chatsData } = store.getState();
+      const { chatsData, activeChatId } = store.getState();
+      const activeChatData = chatsDataSelector(activeChatId);
+
       IndexWrapper._instance.setProps({
+        activeChatData,
+        ...this.props,
         ...IndexWrapper._instance.props,
         chatList: new ChatsListWrapper({ ...this.props, chatsData: chatsData.data }),
+        msgs: new Msgs({ ...this.props, chatId: activeChatId, activeChatData }),
       });
     });
 
@@ -137,15 +143,8 @@ export class IndexWrapper extends Block<TProps> {
       type: Actions.SET_ACTIVE_CHAT,
       data: { activeChatId: this.dataset.chatId },
     });
-    // console.log('chatId', this.dataset.chatId);
-    router.go({ chatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
 
-    // const { chatsData } = store.getState();
-    // IndexWrapper._instance.setProps({
-    //   ...IndexWrapper._instance.props,
-    //   chatId: this.dataset.chatId,
-    //   // chatList: new ChatsListWrapper({ ...this.props, chatsData: chatsData.data }),
-    // });
+    router.go({ chatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
   }
 
   // componentDidUpdate(): boolean {
@@ -155,7 +154,7 @@ export class IndexWrapper extends Block<TProps> {
   // }
 
   goProfile() {
-    router.go({}, `/profile`);
+    router.go({}, '/profile');
   }
 
   addMedia() {
@@ -172,13 +171,6 @@ export class IndexWrapper extends Block<TProps> {
     });
   }
 
-  // deleteUser() {
-  //   store.dispatch({
-  //     type: Actions.DELETE_USER_FROM_CHAT,
-  //     data: { showPopup: true },
-  //   });
-  // }
-
   deleteChat(event: any) {
     store.dispatch({
       type: Actions.DELETE_CHAT_POPUP_SHOW,
@@ -187,36 +179,21 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   addChat() {
-    // IndexWrapper._instance.setProps({
-    //   ...IndexWrapper._instance.props,
-    //   // setListeners: true,
-    //   // setListenersAddChat: true,
-    // });
     store.dispatch({
       type: Actions.ADD_CHAT_POPUP_SHOW,
       data: { showPopup: true },
     });
   }
 
-  // addUser() {
-  //   IndexWrapper._instance.setProps({
-  //     ...IndexWrapper._instance.props,
-  //     // setListeners: true,
-  //     setListenersAddUser: true,
-  //   });
-  //   store.dispatch({
-  //     type: Actions.ADD_USER_POPUP_SHOW,
-  //     data: { showPopup: true },
-  //   });
-  // }
-
   render(): string {
+    // console.log('IndexWrapper render this.props.msgs', this.props.msgs.render());
     const compiled = compile(tmplIndexWrapper);
     const html = compiled({
       ...this.props,
       chatList: this.props.chatList.render(),
       msgs: this.props.msgs.render(),
     });
+    // console.log('IndexWrapper render', html);
     return html;
   }
 }

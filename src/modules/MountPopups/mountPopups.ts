@@ -130,15 +130,48 @@ export function mountPopups(): void {
   }
   store.subscribe(Actions.ADD_MEDIA_POPUP_SHOW, popupAddMediaHandler);
 
-  function popupDeleteUserHandler() {
-    const popupDeleteUser = new PopupDeleteUser();
-    renderDOM('.body', popupDeleteUser.getContent());
-    const deleteUserPopupState = store.getState().deleteUserPopup;
+  // function popupDeleteUserHandler() {
+  //   const popupDeleteUser = new PopupDeleteUser();
+  //   renderDOM('.body', popupDeleteUser.getContent());
+  //   const deleteUserPopupState = store.getState().deleteUserPopup;
 
-    if (deleteUserPopupState.showPopup) {
-      popupDeleteUser.show('flex');
+  //   if (deleteUserPopupState.showPopup) {
+  //     popupDeleteUser.show('flex');
+  //   } else {
+  //     popupDeleteUser.hide();
+  //   }
+  // }
+  // store.subscribe(Actions.DELETE_USER_FROM_CHAT, popupDeleteUserHandler);
+
+  function popupDeleteUserHandler() {
+    let popup = null;
+    const deleteUserPopupState = store.getState().deleteUserPopup;
+    const { showPopup } = deleteUserPopupState;
+    let popupDeleteUser = null;
+    try {
+      popup = document.body.querySelector<HTMLDivElement>('#delete-user-popup');
+    } catch {
+      console.log('Popup delete user не найден в DOM!');
+    }
+
+    if (!popup) {
+      popupDeleteUser = new PopupDeleteUser({});
+      popupDeleteUser.setProps({ ...popupDeleteUser.props, showPopup });
+      renderDOM('.body', popupDeleteUser.getContent());
+
+      if (deleteUserPopupState.showPopup) {
+        popupDeleteUser.show('flex');
+      } else {
+        popupDeleteUser.hide();
+      }
+    } else if (deleteUserPopupState.showPopup) {
+      popupDeleteUser = new PopupDeleteUser({});
+      popupDeleteUser.setProps({ ...popupDeleteUser.props, showPopup });
+      document.querySelector('#delete-user-popup')?.remove();
+      renderDOM('.body', popupDeleteUser.getContent());
+      popup.style.display = 'flex';
     } else {
-      popupDeleteUser.hide();
+      popup.style.display = 'none';
     }
   }
   store.subscribe(Actions.DELETE_USER_FROM_CHAT, popupDeleteUserHandler);

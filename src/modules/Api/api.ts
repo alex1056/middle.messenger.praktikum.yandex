@@ -79,6 +79,20 @@ export class Api {
     return this.api.post(`${urlApi}/chats`, { data: { title }, headers });
   };
 
+  addUsersToChat = (users: number[], chatId: number) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.put(`${urlApi}/chats/users`, { data: { users, chatId }, headers });
+  };
+
+  deleteUsersFromChat = (users: number[], chatId: number) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.delete(`${urlApi}/chats/users`, { data: { users, chatId }, headers });
+  };
+
   findUser = (login: string) => {
     const headers = {
       'content-type': 'application/json',
@@ -91,6 +105,13 @@ export class Api {
       'content-type': 'application/json',
     };
     return this.api.delete(`${urlApi}/chats`, { data: { chatId }, headers });
+  };
+
+  getChatUsers = (chatId: string) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.get(`${urlApi}/chats/${chatId}/users`, { headers });
   };
 
   getChatFiles = (chatId: number) => this.api.get(`${urlApi}/chats/${chatId}/files`);

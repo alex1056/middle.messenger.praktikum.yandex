@@ -6,10 +6,12 @@ import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
 import './style.scss';
+import { Router } from '../../modules/Router';
 
 type TProps = { [propName: string]: any };
 const store = createStore();
 const api = new Api();
+const router = new Router('.page');
 
 export class PopupDeleteChat extends Block<TProps> {
   props: TProps;
@@ -57,6 +59,14 @@ export class PopupDeleteChat extends Block<TProps> {
   onSubmit(event: any) {
     event.preventDefault();
     const { chatId } = PopupDeleteChat._instance.props;
+    const { activeChatId } = store.getState();
+    let activeChatIdLocal: any;
+    if (Number(chatId) === Number(activeChatId)) {
+      activeChatIdLocal = null;
+    } else {
+      activeChatIdLocal = activeChatId;
+    }
+    console.log('activeChatId=', activeChatIdLocal);
 
     api.deleteChat(chatId).then((res) => {
       if (res.ok) {
@@ -67,6 +77,15 @@ export class PopupDeleteChat extends Block<TProps> {
             type: Actions.CHATS_UPDATE,
             data: chatsDataChanged,
           });
+
+          store.dispatch({
+            type: Actions.SET_ACTIVE_CHAT,
+            data: { activeChatId: activeChatIdLocal },
+          });
+
+          if (Number(chatId) === Number(activeChatId)) {
+            router.go({}, '/');
+          }
         });
         // const avatarUrl = `${urlApiResources}${userDataFromServer.avatar}`;
         // ProfileForm._instance.setProps({

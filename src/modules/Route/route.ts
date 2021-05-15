@@ -52,9 +52,8 @@ export class Route implements IRoute {
     if (isEqual(pathname, this._pathname)) {
       return true;
     }
-    // console.log(`pattern=${pattern}, this._pathname=${this._pathname}`);
+
     if (pattern === this._pathname) {
-      // console.log('совпадает');
       const routeMatcher = new RegExp(pattern.replace(/:[^\s/?]+/g, '([\\w-]+)'));
       const isRoute = pathname.match(routeMatcher);
       // isRoute - результат распознавания pathname по шаблону pattern
@@ -68,19 +67,13 @@ export class Route implements IRoute {
     return false;
   }
 
-  render(args) {
-    console.log('render, args', args);
-    console.log('render, this._block', this._block);
+  render() {
     if (!this._block) {
-      // console.log('this._props', this._props);
       this._block = new (this._blockClass as any)({ ...this._props, ...this._params });
-
-      console.log('render 2, this._block', this._block);
-      console.log('render 2, this._props', { ...this._props, ...this._params });
 
       if (this._props && this._block) {
         const node: HTMLDivElement = this._block.getContent();
-        console.log('node', node);
+
         renderDOM(this._props.rootQuery, node);
       } else {
         throw new Error('Не задан root элемент для монтирования в DOM!');
@@ -88,14 +81,14 @@ export class Route implements IRoute {
       return;
     }
 
-    console.log('До set props this._block.props', { ...this._block.props });
+    // console.log('До set props this._block.props', { ...this._block.props });
 
     this._block.setProps({
       ...this._block.props,
       ...this._props,
       ...this._params,
     });
-    console.log('После set props, this._block.props', { ...this._block.props });
+    // console.log('После set props, this._block.props', { ...this._block.props });
     // this._block.show();
   }
 }

@@ -78,29 +78,41 @@ export class PopupAddUser extends Block<TProps> {
     event.preventDefault();
     const inputsData = onSubmitGetFormData(form, formId);
     const formData = mapInputsForSending(inputsData, formId) as { userLogin: string };
+    const errSpan = document.querySelector('#add-user-popup #erroruserlogin-popup-add-user-form');
     api.findUser(formData.userLogin).then((res) => {
       if (res.ok) {
         const resArr = res.json() as Array<{}>;
-        console.log(resArr);
+
         const arrFiltered = resArr.filter((item: any) => {
           if (item.login === formData.userLogin) {
             return true;
           }
           return false;
         });
-        console.log(arrFiltered);
-        // api.getChats().then((res1) => {
-        //   const chatsData = res1.json();
-        //   console.log(chatsData);
-        //   store.dispatch({
-        //     type: Actions.CHATS_UPDATE,
-        //     data: chatsData,
-        //   });
-        // });
-      } else {
-        const { reason } = res.json();
-        console.log(reason);
-        // errSpan.textContent = reason as string;
+        // console.log(arrFiltered);
+        if (arrFiltered.length === 0) {
+          if (errSpan) {
+            errSpan.textContent = 'пользователь не найден';
+          }
+          return;
+        }
+        const { id } = arrFiltered[0] as any;
+        if (id) {
+          const users = [id];
+          const { activeChatId } = store.getState();
+
+          api.addUsersToChat(users, activeChatId).then((res1) => {
+            if (res1.ok && errSpan) {
+              errSpan.textContent = `${formData.userLogin} добавлен в чат`;
+            }
+          });
+        } else {
+          const { reason } = res.json();
+
+          if (errSpan) {
+            errSpan.textContent = `${reason}`;
+          }
+        }
       }
     });
   }

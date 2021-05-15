@@ -2,7 +2,7 @@ export const tmplProfile = `
 main(class="main")
     div(class="profile")
         div(class="profile__back")
-            a(class="btn-circle" href="./")
+            a(class="btn-circle" id="profile-btn-back")
         div(class="profile__info-cont")
             div(class="profile__info")
                 div(class="profile__avatar-cont" )

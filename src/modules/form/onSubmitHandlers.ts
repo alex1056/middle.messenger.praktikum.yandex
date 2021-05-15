@@ -13,10 +13,8 @@ export function onSubmitGetFormData(form: HTMLFormElement, formId: string) {
       if (id && id !== submit.id && id !== cancel.id) {
         return { ...acc, [id]: value };
       }
-    } else {
-      if (id && id !== submit.id) {
-        return { ...acc, [id]: value };
-      }
+    } else if (id && id !== submit.id) {
+      return { ...acc, [id]: value };
     }
 
     return acc;

@@ -10,9 +10,11 @@ import './style.scss';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import { Api, urlApiResources } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
+import { Router } from '../../modules/Router';
 
 const api = new Api();
 const store = createStore();
+const router = new Router('.page');
 
 type TProps =
   | {
@@ -183,7 +185,21 @@ export class ProfileForm extends Block<TProps> {
       }
       this.form.setFormValidator(formValidator as any);
     }
+
+    let profileBtnBack = null;
+
+    if (this._element) {
+      profileBtnBack = this._element.querySelector<HTMLElement>('#profile-btn-back');
+    }
+    if (profileBtnBack) {
+      profileBtnBack.addEventListener('click', this.goBack);
+    }
+
     return true;
+  }
+
+  goBack() {
+    router.back();
   }
 
   componentDidMount(): boolean {

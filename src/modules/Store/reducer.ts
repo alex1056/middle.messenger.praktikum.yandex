@@ -7,6 +7,7 @@ export function reducer(state: TState, action: TAction): TState {
   let chatId;
   let chatName;
   const { data } = action;
+  // console.log(data);
   switch (action.type) {
     case Actions.CHATS_UPDATE:
       prevStateLocal = state.chatsData || {};
@@ -17,10 +18,10 @@ export function reducer(state: TState, action: TAction): TState {
       };
 
     case Actions.SET_ACTIVE_CHAT:
-      prevStateLocal = state.chatsData || {};
+      // prevStateLocal = state.chatsData || {};
       return {
         ...state,
-        chatsData: { ...prevStateLocal, activeChatId: data.activeChatId },
+        activeChatId: data.activeChatId,
       };
 
     case Actions.ADD_USER_POPUP_SHOW:

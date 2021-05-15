@@ -51,19 +51,22 @@ export class Router implements IRouter {
     const route: IRoute | undefined = this.getRoute(pathname);
     // console.log('Из _onRoute pathname, route', pathname, route);
     if (this._currentRoute) {
-      console.log('this._currentRoute, route', this._currentRoute, route);
+      // console.log('this._currentRoute, route', this._currentRoute, route);
       // если мы уже на каком-то руте - мы его скрываем
-      this._currentRoute.leave();
+      if (this._currentRoute._pathname !== '/' && route?._pathname !== '/chats/:chatId') {
+        this._currentRoute.leave();
+      }
     }
 
     this._currentRoute = route;
     if (route) {
-      console.log('Перед Render, route=', route);
+      // console.log('Перед Render, route=', route);
       route.render(route, pathname);
     }
   }
 
   go(state: {}, pathname: string) {
+    // console.log('pathname', pathname);
     this.history.pushState(state, '', pathname);
     this._onRoute(pathname);
   }
@@ -83,12 +86,7 @@ export class Router implements IRouter {
 
   getRoute(pathname: string) {
     // console.log(this.routes);
-    const route: IRoute | undefined = this.routes.find((route1) => {
-      // if (route1.match(pathname)) {
-      // console.log('Совпадает!', route1, pathname, route1.match(pathname));
-      // }
-      return route1.match(pathname);
-    });
+    const route: IRoute | undefined = this.routes.find((route1) => route1.match(pathname));
     if (!route) {
       return this.routes.find((route1) => route1.match('/404'));
     }
