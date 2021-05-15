@@ -94,6 +94,7 @@ export class Block<TProps> {
     if (!nextProps) {
       return;
     }
+    // console.log('Новые пропсы пришли');
     this.eventBus.emit(EVENTS.FLOW_CDU, this.props, nextProps);
     Object.assign(this.props, nextProps);
   };
@@ -151,18 +152,19 @@ export class Block<TProps> {
   }
 
   _render() {
+    console.log('Пришли в рендер');
     let block: string = '';
     if (this.render()) {
       block = this.render() as string;
     }
-    // console.log(document.body.outerHTML);
+    console.log('block=', block);
     if (this._element) {
       const template = document.createElement('template');
       template.insertAdjacentHTML('afterbegin', block);
       //   this._element.appendChild(template.firstElementChild as HTMLElement);
       this._element = template.firstElementChild as HTMLElement;
     }
-    // console.log(this._element);
+    console.log(this._element);
 
     this._addEvents();
     this.eventBus.emit(EVENTS.FLOW_CDU_REMOUNT);

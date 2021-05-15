@@ -69,19 +69,33 @@ export class Route implements IRoute {
   }
 
   render(args) {
-    console.log(args);
+    console.log('render, args', args);
+    console.log('render, this._block', this._block);
     if (!this._block) {
       // console.log('this._props', this._props);
       this._block = new (this._blockClass as any)({ ...this._props, ...this._params });
 
+      console.log('render 2, this._block', this._block);
+      console.log('render 2, this._props', { ...this._props, ...this._params });
+
       if (this._props && this._block) {
         const node: HTMLDivElement = this._block.getContent();
+        console.log('node', node);
         renderDOM(this._props.rootQuery, node);
       } else {
         throw new Error('Не задан root элемент для монтирования в DOM!');
       }
       return;
     }
-    this._block.show();
+
+    console.log('До set props this._block.props', { ...this._block.props });
+
+    this._block.setProps({
+      ...this._block.props,
+      ...this._props,
+      ...this._params,
+    });
+    console.log('После set props, this._block.props', { ...this._block.props });
+    // this._block.show();
   }
 }
