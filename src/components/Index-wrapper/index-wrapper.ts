@@ -64,12 +64,29 @@ export class IndexWrapper extends Block<TProps> {
       const { chatsData, activeChatId } = store.getState();
       const activeChatData = chatsDataSelector(activeChatId);
 
+      const { history } = router;
+      const { state } = history;
+
+      let activeChatIdLocal = activeChatId;
+      if (!state) {
+        activeChatIdLocal = null;
+        store.dispatch({
+          type: Actions.REMOVE_ACTIVE_CHAT_ID,
+          data: { activeChatId: null },
+        });
+      }
+
       IndexWrapper._instance.setProps({
         activeChatData,
+        activeChatId: Number(activeChatIdLocal),
         ...this.props,
         ...IndexWrapper._instance.props,
-        chatList: new ChatsListWrapper({ ...this.props, chatsData: chatsData.data }),
-        msgs: new Msgs({ ...this.props, chatId: activeChatId, activeChatData }),
+        chatList: new ChatsListWrapper({
+          ...this.props,
+          activeChatId: Number(activeChatIdLocal),
+          chatsData: chatsData.data,
+        }),
+        msgs: new Msgs({ ...this.props, activeChatId: Number(activeChatIdLocal), activeChatData }),
       });
     });
 
@@ -144,7 +161,7 @@ export class IndexWrapper extends Block<TProps> {
       data: { activeChatId: this.dataset.chatId },
     });
 
-    router.go({ chatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
+    router.go({ activeChatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
   }
 
   // componentDidUpdate(): boolean {
@@ -193,7 +210,7 @@ export class IndexWrapper extends Block<TProps> {
       chatList: this.props.chatList.render(),
       msgs: this.props.msgs.render(),
     });
-    // console.log('IndexWrapper render', html);
+
     return html;
   }
 }

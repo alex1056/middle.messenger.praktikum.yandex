@@ -1,4 +1,4 @@
-export const tmplDeleteAddUser = `
+export const tmplDeleteChat = `
 div(class="popup popup_visible" id="delete-chat-popup")
     div(class="popup__body")
         form(class="delete-chat-form" id="delete-chat-form")

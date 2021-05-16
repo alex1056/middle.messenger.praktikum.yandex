@@ -1,7 +1,7 @@
 import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplDeleteAddUser } from './template';
+import { tmplDeleteChat } from './template';
 import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
@@ -66,21 +66,21 @@ export class PopupDeleteChat extends Block<TProps> {
     } else {
       activeChatIdLocal = activeChatId;
     }
-    console.log('activeChatId=', activeChatIdLocal);
 
     api.deleteChat(chatId).then((res) => {
       if (res.ok) {
         api.getChats().then((res1) => {
           const chatsDataReply = res1.json() as any;
           const chatsDataChanged = transfromChatsData(chatsDataReply);
-          store.dispatch({
-            type: Actions.CHATS_UPDATE,
-            data: chatsDataChanged,
-          });
 
           store.dispatch({
             type: Actions.SET_ACTIVE_CHAT,
             data: { activeChatId: activeChatIdLocal },
+          });
+
+          store.dispatch({
+            type: Actions.CHATS_UPDATE,
+            data: chatsDataChanged,
           });
 
           if (Number(chatId) === Number(activeChatId)) {
@@ -128,7 +128,7 @@ export class PopupDeleteChat extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplDeleteAddUser);
+    const compiled = compile(tmplDeleteChat);
     const html = compiled({
       ...this.props,
       buttonCancel: this.props.buttonCancel.render(),

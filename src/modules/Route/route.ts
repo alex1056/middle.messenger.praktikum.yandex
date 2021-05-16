@@ -59,7 +59,7 @@ export class Route implements IRoute {
       // isRoute - результат распознавания pathname по шаблону pattern
       // console.log('isRoute, pathname', isRoute, pathname);
       if (isRoute) {
-        this._params = { chatId: isRoute[1] };
+        this._params = { activeChatId: isRoute[1] };
         return true;
       }
     }

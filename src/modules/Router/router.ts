@@ -49,10 +49,8 @@ export class Router implements IRouter {
 
   _onRoute(pathname: string) {
     const route: IRoute | undefined = this.getRoute(pathname);
-    // console.log('Из _onRoute pathname, route', pathname, route);
+
     if (this._currentRoute) {
-      // console.log('this._currentRoute, route', this._currentRoute, route);
-      // если мы уже на каком-то руте - мы его скрываем
       if (this._currentRoute._pathname !== '/' && route?._pathname !== '/chats/:chatId') {
         this._currentRoute.leave();
       }
@@ -60,13 +58,11 @@ export class Router implements IRouter {
 
     this._currentRoute = route;
     if (route) {
-      // console.log('Перед Render, route=', route);
       route.render(route, pathname);
     }
   }
 
   go(state: {}, pathname: string) {
-    // console.log('pathname', pathname);
     this.history.pushState(state, '', pathname);
     this._onRoute(pathname);
   }

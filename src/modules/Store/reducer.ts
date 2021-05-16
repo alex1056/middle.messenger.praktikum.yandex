@@ -24,6 +24,13 @@ export function reducer(state: TState, action: TAction): TState {
         activeChatId: data.activeChatId,
       };
 
+    case Actions.REMOVE_ACTIVE_CHAT_ID:
+      // prevStateLocal = state.chatsData || {};
+      return {
+        ...state,
+        activeChatId: data.activeChatId,
+      };
+
     case Actions.ADD_USER_POPUP_SHOW:
       prevStateLocal = state.addUserPopup || {};
 

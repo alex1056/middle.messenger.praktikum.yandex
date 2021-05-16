@@ -1,7 +1,7 @@
 export const tmplChatList = `
 ul(class="chats-list__chat-list")
     each item, i in chatsData            
-        li(class="chat" data-chat-id = item.id)
+        li(class=activeChatId === item.id ? "chat chat_selected" : "chat" data-chat-id = item.id data-chat-activeChatId = activeChatId)
             div(class="chat__cont-1")
                 img(src=item.avatar alt="аватар")
             div(class="chat__cont-2")

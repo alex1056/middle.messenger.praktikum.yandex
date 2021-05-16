@@ -124,6 +124,26 @@ export class ProfileForm extends Block<TProps> {
             if (errSpan) {
               errSpan.textContent = 'Изменения сохранены';
             }
+
+            setTimeout(() => {
+              ProfileForm._instance.setProps({
+                ...ProfileForm._instance.props,
+                buttonsubmit: new Btn({
+                  ...ProfileForm._instance.props,
+                  buttonText: 'Сохранить',
+                  className: 'pform__btn-save btn_hide',
+                  disabled: true,
+                }),
+                ctrlsContainer: 'pform__ctrls-container',
+                inputsDisabled: false,
+                setListeners: true,
+                showPasswordFields: false,
+                ctrls: new ProfileFormCtrls({
+                  ...ProfileForm._instance.props,
+                  ctrlsContainer: 'pform__ctrls-container',
+                }),
+              });
+            }, 1000);
           } else if (errSpan) {
             const { reason } = res.json();
             errSpan.textContent = reason as string;
@@ -132,7 +152,7 @@ export class ProfileForm extends Block<TProps> {
       } else {
         api.chngUserProfileData({ data: inputsDataMapped }).then((res) => {
           if (res.ok) {
-            const userDataFromServer = res.json();
+            const userDataFromServer = res.json() as any;
             if (errSpan) {
               errSpan.textContent = 'Изменения сохранены';
             }
@@ -140,6 +160,28 @@ export class ProfileForm extends Block<TProps> {
               type: Actions.GET_USER_DATA,
               data: userDataFromServer,
             });
+
+            setTimeout(() => {
+              const avatarUrl = `${urlApiResources}${userDataFromServer.avatar}`;
+              ProfileForm._instance.setProps({
+                ...ProfileForm._instance.props,
+                data: { ...userDataFromServer, avatar: avatarUrl },
+                buttonsubmit: new Btn({
+                  ...ProfileForm._instance.props,
+                  buttonText: 'Сохранить',
+                  className: 'pform__btn-save btn_hide',
+                  disabled: true,
+                }),
+                ctrlsContainer: 'pform__ctrls-container',
+                inputsDisabled: false,
+                setListeners: true,
+                showPasswordFields: false,
+                ctrls: new ProfileFormCtrls({
+                  ...ProfileForm._instance.props,
+                  ctrlsContainer: 'pform__ctrls-container',
+                }),
+              });
+            }, 1000);
           } else if (errSpan) {
             const { reason } = res.json();
             errSpan.textContent = reason as string;
