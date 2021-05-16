@@ -100,6 +100,13 @@ export class Api {
     return this.api.post(`${urlApi}/user/search`, { data: { login }, headers });
   };
 
+  getChatToken = (chatId: number) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.post(`${urlApi}/chats/token/${chatId}`, { headers });
+  };
+
   deleteChat = (chatId: string) => {
     const headers = {
       'content-type': 'application/json',

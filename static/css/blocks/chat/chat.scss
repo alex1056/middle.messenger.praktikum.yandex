@@ -8,6 +8,7 @@
   background-color: #fbfbfb;
   padding: 4px 10px 0 10px;
   margin-left: -10px;
+  margin-right: -10px;
   margin-top: 4px;
 
   &:last-child {
@@ -93,7 +94,9 @@
   }
 
   &__last-message {
-    width: calc(100% - 20px);
+    // width: calc(100% - 20px);
+    width: 190px;
+    height: 25px;
     margin: 0;
     margin-top: 4px;
     font-weight: 500;
@@ -101,6 +104,9 @@
     line-height: 15px;
     color: #999;
     padding-right: 23px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &__unread-mess-numb {

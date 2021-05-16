@@ -19,20 +19,6 @@ export class Store {
     this.reducer = reducer;
   }
 
-  //   subscribe<F extends StoreSubscriberMethod>(fn: F): StoreSubscription {
-  //     this.subscribers.push(fn);
-  //     return {
-  //       unsubscribe: function () {
-  //         this.subscribers = this.subscribers.filter((subscriber: StoreSubscriberMethod) => subscriber !== fn);
-  //       }.bind(this),
-  //     };
-  //   }
-
-  //   dispatch(action: TAction) {
-  //     this.state = this.reducer(this.state, action);
-  //     this.subscribers.forEach((subscriber: StoreSubscriberMethod) => subscriber(this.state));
-  //   }
-
   subscribe(action: string, callback: Function) {
     if (!this.subscribers[action]) {
       this.subscribers[action] = [];

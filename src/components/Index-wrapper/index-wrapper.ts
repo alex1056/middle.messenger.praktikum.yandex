@@ -6,14 +6,16 @@ import { tmplIndexWrapper } from './template';
 import './style.scss';
 
 import { createStore, Actions, chatsDataSelector } from '../../modules/Store';
-import { Api, urlApiResources } from '../../modules/Api';
-
+import { Api } from '../../modules/Api';
+import { WebSocketRun } from '../../modules/WebSocket';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
 import { Router } from '../../modules/Router';
 
 const api = new Api();
 const store = createStore();
 const router = new Router('.page');
+const { userData } = store.getState();
+const ws = new WebSocketRun();
 
 type TProps = { [propName: string]: any };
 
@@ -48,6 +50,7 @@ export class IndexWrapper extends Block<TProps> {
     this.addChat = this.addChat.bind(this);
 
     this.deleteChat = this.deleteChat.bind(this);
+    this.webSocketRun = this.webSocketRun.bind(this);
 
     IndexWrapper._instance = this;
   }
@@ -161,14 +164,56 @@ export class IndexWrapper extends Block<TProps> {
       data: { activeChatId: this.dataset.chatId },
     });
 
-    router.go({ activeChatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
+    api.getChatToken(this.dataset.chatId).then((res) => {
+      if (res.ok) {
+        const { token } = res.json() as any;
+        console.log(token);
+        ws.socketInit(userData.id, this.dataset.chatId, token);
+        ws.socketOnOpen();
+        ws.socketOnClose();
+        ws.socketOnError();
+        ws.socketOnMessage();
+        // this.webSocketRun(userData.id, this.dataset.chatId, token);
+        router.go({ activeChatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
+      } else {
+        const { reason } = res.json();
+        console.log(reason);
+      }
+    });
   }
 
-  // componentDidUpdate(): boolean {
-  //   console.log('componentDidUpdate, props', { ...this.props });
-  //   return true;
-  //   // console.log()
-  // }
+  webSocketRun(userId: number, chatId: number, token: string) {
+    const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
+
+    socket.addEventListener('open', () => {
+      console.log('Соединение установлено');
+
+      socket.send(
+        JSON.stringify({
+          content: 'Моё первое сообщение миру!',
+          type: 'message',
+        }),
+      );
+    });
+
+    socket.addEventListener('close', (event) => {
+      if (event.wasClean) {
+        console.log('Соединение закрыто чисто');
+      } else {
+        console.log('Обрыв соединения');
+      }
+
+      console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+    });
+
+    socket.addEventListener('message', (event) => {
+      console.log('Получены данные', event.data);
+    });
+
+    socket.addEventListener('error', (event) => {
+      console.log('Ошибка', event.message);
+    });
+  }
 
   goProfile() {
     router.go({}, '/profile');

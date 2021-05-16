@@ -1,5 +1,6 @@
 import { Actions } from './actions';
 import { TState, TAction } from './types';
+import { completeImgUrl } from './utils/completeImgUrl';
 
 export function reducer(state: TState, action: TAction): TState {
   let prevStateLocal;
@@ -11,9 +12,10 @@ export function reducer(state: TState, action: TAction): TState {
   switch (action.type) {
     case Actions.CHATS_UPDATE:
       prevStateLocal = state.chatsData || {};
+
       return {
         ...state,
-        chatsData: { ...prevStateLocal, data },
+        chatsData: { ...prevStateLocal, data: completeImgUrl(data) },
         // chatsData: {},
       };
 
