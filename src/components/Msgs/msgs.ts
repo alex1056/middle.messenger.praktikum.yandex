@@ -11,7 +11,7 @@ export class Msgs extends Block<TProps> {
   props: TProps;
 
   constructor(props: TProps = {}) {
-    console.log('Msgs', props);
+    // console.log('Msgs', props);
     super('div', {
       ...props,
       sendForm: new SendForm(),

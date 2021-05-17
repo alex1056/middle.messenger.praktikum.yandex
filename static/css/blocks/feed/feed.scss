@@ -42,6 +42,7 @@
     font-size: 12px;
     line-height: 15px;
     color: #1e1e1e;
+    padding-bottom: 8px;
 
     &:nth-child(1n) {
       margin-top: 18px;
@@ -54,7 +55,7 @@
 
   &__msg-time {
     position: absolute;
-    bottom: 8px;
+    bottom: 6px;
     right: 8px;
     font-weight: 500;
     font-size: 9px;
@@ -99,8 +100,8 @@
 
   &__answer-time-cont {
     position: absolute;
-    bottom: 11px;
-    right: 11px;
+    bottom: 4px;
+    right: 9px;
     font-weight: 500;
     font-size: 9px;
     line-height: 9px;

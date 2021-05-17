@@ -122,14 +122,6 @@ export class HTTPTransport {
       } else {
         xhr.send(JSON.stringify(data));
       }
-      // if (method === METHODS.GET || method === METHODS.DELETE || !data) {
-      //   xhr.send();
-      // } else if ((method === METHODS.POST || method === METHODS.PUT) && data) {
-      //   console.log(data);
-      //   xhr.send(JSON.stringify(data));
-      // } else {
-      //   xhr.send(data);
-      // }
     });
   };
 }

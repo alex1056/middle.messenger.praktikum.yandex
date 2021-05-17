@@ -237,11 +237,29 @@ export class ProfileForm extends Block<TProps> {
       profileBtnBack.addEventListener('click', this.goBack);
     }
 
+    let profileBtnLogout = null;
+
+    if (this._element) {
+      profileBtnLogout = this._element.querySelector<HTMLElement>('#profile-btn-logout');
+    }
+    if (profileBtnLogout) {
+      profileBtnLogout.addEventListener('click', this.goLogout);
+    }
+
     return true;
   }
 
   goBack() {
     router.back();
+  }
+
+  goLogout() {
+    api.logOut().then(() => {
+      store.dispatch({
+        type: Actions.LOGOUT_CLEAN_DATA,
+        data: {},
+      });
+    });
   }
 
   componentDidMount(): boolean {

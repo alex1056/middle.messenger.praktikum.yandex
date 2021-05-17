@@ -6,7 +6,7 @@ main(class="main")
                 h1(class="login-form__title") Вход
                 div(class="login-form__fset")
                     label(for="login-form-login" class="login-form__label login-form__label_hide" id="labellogin-form-login") Логин
-                    input(type="email" id="login-form-login" class="login-form__input" value="" placeholder="Логин")/
+                    input(type="text" id="login-form-login" class="login-form__input" value="" placeholder="Логин")/
                 div(class="login-form__err-message")
                     span(id="errorlogin-form-login")
                 div(class="login-form__fset")

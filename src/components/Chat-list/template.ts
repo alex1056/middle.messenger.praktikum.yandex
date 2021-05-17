@@ -8,7 +8,7 @@ ul(class="chats-list__chat-list")
                 div(class="chat__top-wrapper")
                     p(class="chat__nick-name")  #{item.title} 
                     div(class="chat__date-wrapper")
-                        span(class="chat__date")    #{last_message ? item.time : '1 Мая 2020'}
+                        span(class="chat__date")    #{item.last_message ? item.last_message.time : '1 Мая 2021'}
                         span(class="chat__delete-icon" data-chat-id= item.id data-chat-name= item.title) +
                 div(class="chat__bottom-wrapper")                    
                     p(class="chat__last-message") #{item.last_message ? item.last_message.content : 'Однажды в студеную зимнюю пору я из лесу вышел был сильный мороз'}

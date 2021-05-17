@@ -1,7 +1,7 @@
 import { compile } from 'pug';
 import { Block } from '../Block';
 import { tmplSendForm } from './template';
-import './style.scss';
+// import './style.scss';
 
 type TProps = { [propName: string]: any } | {};
 

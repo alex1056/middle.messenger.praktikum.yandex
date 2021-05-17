@@ -50,6 +50,7 @@ export class LoginForm extends Block<TProps> {
         data: {},
       });
       api.signIn({ data: inputsDataMapped }).then((res) => {
+        console.log(res);
         if (res.ok) {
           api.getUserData().then((res1) => {
             const userData = res1.json();

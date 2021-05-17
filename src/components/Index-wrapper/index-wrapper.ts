@@ -2,6 +2,7 @@ import { compile } from 'pug';
 import { Block } from '../Block';
 import { ChatsListWrapper } from '../Chats-list-wrapper';
 import { Msgs } from '../Msgs';
+import { FeedMsg } from '../Feed-msg';
 import { tmplIndexWrapper } from './template';
 import './style.scss';
 
@@ -9,6 +10,7 @@ import { createStore, Actions, chatsDataSelector } from '../../modules/Store';
 import { Api } from '../../modules/Api';
 import { WebSocketRun } from '../../modules/WebSocket';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
+import { timeParce } from '../../utils/timeParse';
 import { Router } from '../../modules/Router';
 
 const api = new Api();
@@ -24,6 +26,8 @@ export class IndexWrapper extends Block<TProps> {
 
   dataset: { [propName: string]: any };
 
+  token: string | null;
+
   static _instance: IndexWrapper;
 
   constructor(props: TProps) {
@@ -35,7 +39,8 @@ export class IndexWrapper extends Block<TProps> {
       }),
       msgs: new Msgs({
         ...props,
-        activeChatData: { id: '', avatar: '', title: '', created_by: 0, last_message: null, unread_count: 0 },
+        // activeChatData: { id: '', avatar: '', title: '', created_by: 0, last_message: null, unread_count: 0 },
+        activeChatData: null,
       }),
     });
 
@@ -50,7 +55,7 @@ export class IndexWrapper extends Block<TProps> {
     this.addChat = this.addChat.bind(this);
 
     this.deleteChat = this.deleteChat.bind(this);
-    this.webSocketRun = this.webSocketRun.bind(this);
+    // this.wsInit = this.wsInit.bind(this);
 
     IndexWrapper._instance = this;
   }
@@ -73,14 +78,14 @@ export class IndexWrapper extends Block<TProps> {
       let activeChatIdLocal = activeChatId;
       if (!state) {
         activeChatIdLocal = null;
-        store.dispatch({
-          type: Actions.REMOVE_ACTIVE_CHAT_ID,
-          data: { activeChatId: null },
-        });
+      }
+
+      if (activeChatIdLocal) {
+        IndexWrapper._instance.wsInit(activeChatIdLocal);
       }
 
       IndexWrapper._instance.setProps({
-        activeChatData,
+        activeChatData: activeChatIdLocal ? activeChatData : null,
         activeChatId: Number(activeChatIdLocal),
         ...this.props,
         ...IndexWrapper._instance.props,
@@ -89,7 +94,11 @@ export class IndexWrapper extends Block<TProps> {
           activeChatId: Number(activeChatIdLocal),
           chatsData: chatsData.data,
         }),
-        msgs: new Msgs({ ...this.props, activeChatId: Number(activeChatIdLocal), activeChatData }),
+        msgs: new Msgs({
+          ...this.props,
+          activeChatId: Number(activeChatIdLocal),
+          activeChatData: activeChatIdLocal ? activeChatData : null,
+        }),
       });
     });
 
@@ -149,7 +158,74 @@ export class IndexWrapper extends Block<TProps> {
       selectChats.forEach((chatNode) => chatNode.addEventListener('click', this.selectChat));
     }
 
+    // send-msg-form
+    let sendMsgBtn = null;
+
+    if (this._element) {
+      sendMsgBtn = this._element.querySelector<HTMLElement>('#send-msg-form');
+    }
+    if (sendMsgBtn) {
+      sendMsgBtn.addEventListener('submit', this.sendMsg);
+    }
+
     return true;
+  }
+
+  sendMsg(event: any) {
+    event.preventDefault();
+
+    if (event.target.elements[0].value.length) {
+      const msg = event.target.elements[0].value;
+      if (ws.socket.readyState !== 1) {
+        const { activeChatId } = store.getState();
+        IndexWrapper._instance.wsInit(activeChatId, msg);
+      } else {
+        ws.socketSend(event.target.elements[0].value);
+      }
+    }
+  }
+
+  wsInit(activeChatId: number, msg?: string) {
+    api.getChatToken(activeChatId).then((res) => {
+      if (res.ok) {
+        const { token } = res.json() as any;
+
+        ws.socketInit(userData.id, activeChatId, token).then(() => {
+          if (msg) {
+            ws.socketSend(msg);
+          }
+        });
+        ws.socketOnClose();
+        ws.socketOnError();
+        ws.socketOnMessage(IndexWrapper._instance.publishMessage);
+      } else {
+        const { reason } = res.json();
+        console.log(reason);
+      }
+    });
+  }
+
+  publishMessage(data: string) {
+    const msgObj = JSON.parse(data);
+    let dataPublish = {};
+
+    if (msgObj.user_id) {
+      if (userData.id === msgObj.user_id) {
+        console.log('Отправленное сообщение (Вы) =>', msgObj.content);
+        dataPublish = { incomingMsg: false, content: msgObj.content, time: timeParce(msgObj.time) };
+      } else {
+        dataPublish = { incomingMsg: true, content: msgObj.content, time: timeParce(msgObj.time) };
+      }
+
+      const feedMsg = new FeedMsg({
+        data: dataPublish,
+      });
+
+      const feedNode = document.querySelector<HTMLDivElement>('.feed__container');
+      if (feedNode) {
+        feedNode.appendChild(feedMsg.getContent());
+      }
+    }
   }
 
   selectChat(event: any) {
@@ -159,60 +235,14 @@ export class IndexWrapper extends Block<TProps> {
       selectChats.forEach((chatNode) => chatNode.classList.remove('chat_selected'));
     }
     event.currentTarget.classList.toggle('chat_selected');
+
     store.dispatch({
       type: Actions.SET_ACTIVE_CHAT,
       data: { activeChatId: this.dataset.chatId },
     });
 
-    api.getChatToken(this.dataset.chatId).then((res) => {
-      if (res.ok) {
-        const { token } = res.json() as any;
-        console.log(token);
-        ws.socketInit(userData.id, this.dataset.chatId, token);
-        ws.socketOnOpen();
-        ws.socketOnClose();
-        ws.socketOnError();
-        ws.socketOnMessage();
-        // this.webSocketRun(userData.id, this.dataset.chatId, token);
-        router.go({ activeChatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
-      } else {
-        const { reason } = res.json();
-        console.log(reason);
-      }
-    });
-  }
-
-  webSocketRun(userId: number, chatId: number, token: string) {
-    const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
-
-    socket.addEventListener('open', () => {
-      console.log('Соединение установлено');
-
-      socket.send(
-        JSON.stringify({
-          content: 'Моё первое сообщение миру!',
-          type: 'message',
-        }),
-      );
-    });
-
-    socket.addEventListener('close', (event) => {
-      if (event.wasClean) {
-        console.log('Соединение закрыто чисто');
-      } else {
-        console.log('Обрыв соединения');
-      }
-
-      console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-    });
-
-    socket.addEventListener('message', (event) => {
-      console.log('Получены данные', event.data);
-    });
-
-    socket.addEventListener('error', (event) => {
-      console.log('Ошибка', event.message);
-    });
+    router.go({ activeChatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
+    IndexWrapper._instance.wsInit(this.dataset.chatId);
   }
 
   goProfile() {

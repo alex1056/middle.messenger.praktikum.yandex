@@ -24,14 +24,20 @@ export const mountIndexWrapper = () => {
     let activeChatIdLocal = activeChatId;
     if (!state) {
       activeChatIdLocal = null;
-      store.dispatch({
-        type: Actions.REMOVE_ACTIVE_CHAT_ID,
-        data: { activeChatId: null },
-      });
     }
+    // console.log('activeChatId, state=', activeChatId, state);
+    // console.log('router=', router);
+    // console.log('_currentRoute=', router._currentRoute);
+    // if (!state) {
+    //   activeChatIdLocal = null;
+    //   store.dispatch({
+    //     type: Actions.REMOVE_ACTIVE_CHAT_ID,
+    //     data: { activeChatId: null },
+    //   });
+    // }
 
     IndexWrapper._instance.setProps({
-      activeChatData,
+      activeChatData: activeChatIdLocal ? activeChatData : null,
       activeChatId: Number(activeChatIdLocal),
       ...IndexWrapper._instance.props,
       chatList: new ChatsListWrapper({
@@ -39,7 +45,11 @@ export const mountIndexWrapper = () => {
         activeChatId: Number(activeChatIdLocal),
         chatsData: chatsData.data,
       }),
-      msgs: new Msgs({ ...IndexWrapper._instance.props, activeChatId: Number(activeChatIdLocal), activeChatData }),
+      msgs: new Msgs({
+        ...IndexWrapper._instance.props,
+        activeChatId: Number(activeChatIdLocal),
+        activeChatData: activeChatIdLocal ? activeChatData : null,
+      }),
     });
   };
   store.subscribe(Actions.CHATS_UPDATE, handleIndexWrapper);
