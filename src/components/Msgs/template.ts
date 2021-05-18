@@ -4,7 +4,7 @@ div(class="msgs")
         div(class="msgs__container")
             div(class="msgs__head")
                 div(class="msgs__avatar-nick-cont")
-                    img(src="" alt="аватар")
+                    img(src=activeChatData.avatar alt="аватар" id="msgs-avatar")
                     span(class="msgs__nick-name-text") #{activeChatData.title}
                 div(class="msgs__add-remove-user" id="add-remove-user")    
             != feedComponent

@@ -69,6 +69,7 @@ export class IndexWrapper extends Block<TProps> {
         type: Actions.CHATS_UPDATE,
         data: chatsDataChanged,
       });
+
       const { chatsData, activeChatId } = store.getState();
       const activeChatData = chatsDataSelector(activeChatId);
 
@@ -158,7 +159,6 @@ export class IndexWrapper extends Block<TProps> {
       selectChats.forEach((chatNode) => chatNode.addEventListener('click', this.selectChat));
     }
 
-    // send-msg-form
     let sendMsgBtn = null;
 
     if (this._element) {
@@ -166,6 +166,15 @@ export class IndexWrapper extends Block<TProps> {
     }
     if (sendMsgBtn) {
       sendMsgBtn.addEventListener('submit', this.sendMsg);
+    }
+
+    let chngChatAvatar = null;
+
+    if (this._element) {
+      chngChatAvatar = this._element.querySelector<HTMLElement>('#msgs-avatar');
+    }
+    if (chngChatAvatar) {
+      chngChatAvatar.addEventListener('click', this.addChngMsgAvatar);
     }
 
     return true;
@@ -182,15 +191,21 @@ export class IndexWrapper extends Block<TProps> {
       } else {
         ws.socketSend(event.target.elements[0].value);
       }
+      event.target.elements[0].value = '';
     }
   }
 
   wsInit(activeChatId: number, msg?: string) {
+    if (ws.timerId) {
+      ws.socketStopPing();
+    }
+
     api.getChatToken(activeChatId).then((res) => {
       if (res.ok) {
         const { token } = res.json() as any;
-
         ws.socketInit(userData.id, activeChatId, token).then(() => {
+          ws.socketGetOldMsgs();
+          // ws.socketPing();
           if (msg) {
             ws.socketSend(msg);
           }
@@ -207,14 +222,51 @@ export class IndexWrapper extends Block<TProps> {
 
   publishMessage(data: string) {
     const msgObj = JSON.parse(data);
+
+    if (Array.isArray(msgObj)) {
+      // console.log('Пришел массив');
+      const msgObjReversed = msgObj.reverse();
+      msgObjReversed.forEach((msg) => IndexWrapper._instance.handleMsg(msg));
+    } else {
+      IndexWrapper._instance.handleMsg(msgObj);
+    }
+
+    const { activeChatId } = store.getState();
+    const activeChatData = chatsDataSelector(activeChatId);
+    const chatNode = document.querySelector(`[data-chat-id='${activeChatId}']`);
+    if (chatNode) {
+      if (activeChatData.unread_count < 20) {
+        const circleNode = chatNode.querySelector<HTMLDivElement>('.chat__unread-mess-numb');
+        if (circleNode) {
+          circleNode.style.display = 'none';
+        }
+      } else {
+        const circleNode = chatNode.querySelector<HTMLDivElement>('.circle-unread__text');
+        if (circleNode) {
+          circleNode.textContent = String(activeChatData.unread_count - 20);
+        }
+      }
+    }
+  }
+
+  handleMsg(msgObj: any) {
     let dataPublish = {};
 
-    if (msgObj.user_id) {
+    if (msgObj.user_id && msgObj.content) {
       if (userData.id === msgObj.user_id) {
-        console.log('Отправленное сообщение (Вы) =>', msgObj.content);
-        dataPublish = { incomingMsg: false, content: msgObj.content, time: timeParce(msgObj.time) };
+        dataPublish = {
+          incomingMsg: false,
+          content: msgObj.content,
+          time: timeParce(msgObj.time),
+          is_read: msgObj.is_read,
+        };
       } else {
-        dataPublish = { incomingMsg: true, content: msgObj.content, time: timeParce(msgObj.time) };
+        dataPublish = {
+          incomingMsg: true,
+          content: msgObj.content,
+          time: timeParce(msgObj.time),
+          is_read: msgObj.is_read,
+        };
       }
 
       const feedMsg = new FeedMsg({
@@ -223,7 +275,8 @@ export class IndexWrapper extends Block<TProps> {
 
       const feedNode = document.querySelector<HTMLDivElement>('.feed__container');
       if (feedNode) {
-        feedNode.appendChild(feedMsg.getContent());
+        const elem = feedNode.appendChild(feedMsg.getContent());
+        elem.scrollIntoView();
       }
     }
   }
@@ -241,8 +294,30 @@ export class IndexWrapper extends Block<TProps> {
       data: { activeChatId: this.dataset.chatId },
     });
 
+    IndexWrapper._instance.getChatsUpdateStore();
+
     router.go({ activeChatId: this.dataset.chatId }, `/chats/${this.dataset.chatId}`);
+    ws.socketClose();
     IndexWrapper._instance.wsInit(this.dataset.chatId);
+  }
+
+  getChatsUpdateStore() {
+    api.getChats().then((res) => {
+      const chatsDataReply = res.json() as any;
+      const chatsDataChanged = transfromChatsData(chatsDataReply);
+
+      store.dispatch({
+        type: Actions.CHATS_UPDATE,
+        data: chatsDataChanged,
+      });
+    });
+  }
+
+  addChngMsgAvatar() {
+    store.dispatch({
+      type: Actions.MSGS_CHNG_AVATAR_POPUP_SHOW,
+      data: { showPopup: true },
+    });
   }
 
   goProfile() {
@@ -278,7 +353,6 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   render(): string {
-    // console.log('IndexWrapper render this.props.msgs', this.props.msgs.render());
     const compiled = compile(tmplIndexWrapper);
     const html = compiled({
       ...this.props,

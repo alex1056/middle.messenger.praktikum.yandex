@@ -28,40 +28,49 @@ export class WebSocketRun {
   }
 
   socketInit(userId: number, chatId: number, token: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
       this.status = WSSTATUS.INIT;
       this.socket.addEventListener('open', () => resolve(this.socket));
     });
   }
 
-  // socketPing() {
-  //   this.timerId = setInterval(() => {
-  //     this.socket.send(
-  //       JSON.stringify({
-  //         content: '',
-  //         type: 'ping',
-  //       }),
-  //     );
-  //   }, 2000);
-  // }
-
-  // socketStopPing() {
-  //   if (this.timerId) {
-  //     clearInterval(Number(this.timerId));
-  //   }
-  // }
-
-  socketSend(textMsg: string) {
-    if (this.status !== WSSTATUS.ONLINE) {
+  socketPing() {
+    this.timerId = setInterval(() => {
+      console.log('socketPing');
       this.socket.send(
         JSON.stringify({
-          content: textMsg,
+          content: '',
           type: 'message',
         }),
       );
-      // console.log(`Сообщение "${textMsg}" отправлено`);
+    }, 10000);
+  }
+
+  socketStopPing() {
+    if (this.timerId) {
+      clearInterval(Number(this.timerId));
     }
+  }
+
+  socketSend(textMsg: string) {
+    this.socket.send(
+      JSON.stringify({
+        content: textMsg,
+        type: 'message',
+      }),
+    );
+    // console.log(`Сообщение "${textMsg}" отправлено`);
+  }
+
+  socketGetOldMsgs() {
+    this.socket.send(
+      JSON.stringify({
+        content: '0',
+        type: 'get old',
+      }),
+    );
+    // console.log(`Сообщение "${textMsg}" отправлено`);
   }
 
   socketOnOpen(callBack: Function) {
@@ -72,6 +81,11 @@ export class WebSocketRun {
     //   //   this.subscribers.open.forEach((subscriber: any) => subscriber());
     //   //   this.timerId = setInterval(() => this.socketSend(''), 3000);
     // });
+  }
+
+  socketClose(code = 1000) {
+    // code = 1000 нормальное закрытие
+    this.socket.close(code);
   }
 
   socketOnClose() {
@@ -90,7 +104,7 @@ export class WebSocketRun {
 
   socketOnMessage(callBack: Function) {
     this.socket.addEventListener('message', (event: any) => {
-      console.log('Получены данные', event.data);
+      // console.log('Получены данные', event.data);
       callBack(event.data);
       //   this.subscribers.message.forEach((subscriber: any) => subscriber(event.data));
     });

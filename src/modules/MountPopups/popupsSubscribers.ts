@@ -19,7 +19,7 @@ export function setPopupsSubscribers(): void {
     });
   }
 
-  store.subscribe(Actions.UPDATE_AVATAR, updateAvatar);
+  store.subscribe(Actions.UPDATE_USER_AVATAR, updateAvatar);
 }
 
 // export function mountPopups(): void {

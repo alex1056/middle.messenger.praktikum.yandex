@@ -42,8 +42,10 @@
   &__avatar-nick-cont {
     height: 34px;
     padding-bottom: 10px;
+    font-size: 10px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     img {
       width: 34px;

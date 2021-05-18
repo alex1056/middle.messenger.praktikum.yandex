@@ -70,6 +70,11 @@ export class Api {
     return this.api.put(`${urlApi}/user/profile/avatar`, { form });
   };
 
+  chngChatAvatar = (options: Options) => {
+    const { form } = options;
+    return this.api.put(`${urlApi}/chats/avatar`, { form });
+  };
+
   getChats = () => this.api.get(`${urlApi}/chats`, {});
 
   createChat = (title: string) => {

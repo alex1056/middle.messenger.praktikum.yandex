@@ -6,8 +6,8 @@ import { PopupAddMedia } from '../../components/Popup-add-media';
 import { PopupAddChat } from '../../components/Popup-add-chat';
 import { PopupDeleteChat } from '../../components/Popup-delete-chat';
 import { PopupUserMenu } from '../../components/Popup-user-menu';
+import { PopupMsgsChngAvatar } from '../../components/Popup-msgs-chng-avatar';
 
-// import { getEventBus, actions } from '../EventBusInstance';
 import { createStore, Actions } from '../Store';
 
 export function mountPopups(): void {
@@ -130,19 +130,6 @@ export function mountPopups(): void {
   }
   store.subscribe(Actions.ADD_MEDIA_POPUP_SHOW, popupAddMediaHandler);
 
-  // function popupDeleteUserHandler() {
-  //   const popupDeleteUser = new PopupDeleteUser();
-  //   renderDOM('.body', popupDeleteUser.getContent());
-  //   const deleteUserPopupState = store.getState().deleteUserPopup;
-
-  //   if (deleteUserPopupState.showPopup) {
-  //     popupDeleteUser.show('flex');
-  //   } else {
-  //     popupDeleteUser.hide();
-  //   }
-  // }
-  // store.subscribe(Actions.DELETE_USER_FROM_CHAT, popupDeleteUserHandler);
-
   function popupDeleteUserHandler() {
     let popup = null;
     const deleteUserPopupState = store.getState().deleteUserPopup;
@@ -183,7 +170,7 @@ export function mountPopups(): void {
     try {
       popup = document.body.querySelector<HTMLDivElement>('#chng-avatar-popup');
     } catch {
-      console.log('Popup add user не найден в DOM!');
+      console.log('Popup change avatar не найден в DOM!');
     }
 
     if (!popup) {
@@ -207,6 +194,38 @@ export function mountPopups(): void {
     }
   }
   store.subscribe(Actions.CHNG_AVATAR_POPUP_SHOW, popupChngAvatarHandler);
+
+  function popupMsgsChngAvatarHandler() {
+    let popup = null;
+    const msgsChngAvatarPopupState = store.getState().msgsChngAvatarPopup;
+    let popupMsgsChngAvatar = null;
+    try {
+      popup = document.body.querySelector<HTMLDivElement>('#msgs-chng-avatar-popup');
+    } catch {
+      console.log('Popup msgs change avatar не найден в DOM!');
+    }
+
+    if (!popup) {
+      popupMsgsChngAvatar = new PopupMsgsChngAvatar({});
+      popupMsgsChngAvatar.setProps({ ...popupMsgsChngAvatar.props });
+      renderDOM('.body', popupMsgsChngAvatar.getContent());
+
+      if (msgsChngAvatarPopupState.showPopup) {
+        popupMsgsChngAvatar.show('flex');
+      } else {
+        popupMsgsChngAvatar.hide();
+      }
+    } else if (msgsChngAvatarPopupState.showPopup) {
+      popupMsgsChngAvatar = new PopupMsgsChngAvatar({});
+      popupMsgsChngAvatar.setProps({ ...popupMsgsChngAvatar.props });
+      document.querySelector('#msgs-chng-avatar-popup')?.remove();
+      renderDOM('.body', popupMsgsChngAvatar.getContent());
+      popup.style.display = 'flex';
+    } else {
+      popup.style.display = 'none';
+    }
+  }
+  store.subscribe(Actions.MSGS_CHNG_AVATAR_POPUP_SHOW, popupMsgsChngAvatarHandler);
 
   function popupAddUserHandler() {
     let popup = null;

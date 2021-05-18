@@ -1,13 +1,8 @@
-import { urlApiResources } from '../modules/Api';
 import { lastMsgTimeToString } from './msg-time';
 
 export const transfromChatsData = (chatsDataReply: []) => {
   if (chatsDataReply && chatsDataReply.length) {
     return chatsDataReply.reduce((acc: any, item: any) => {
-      if (item.avatar) {
-        item.avatar = `${urlApiResources}${item.avatar}`;
-      }
-
       if (item.last_message) {
         item.last_message = JSON.parse(item.last_message);
         if (item.last_message) {

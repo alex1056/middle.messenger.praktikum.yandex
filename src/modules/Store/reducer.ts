@@ -61,6 +61,20 @@ export function reducer(state: TState, action: TAction): TState {
         chngAvatarPopup: { ...prevStateLocal, showPopup },
       };
 
+    case Actions.MSGS_CHNG_AVATAR_POPUP_SHOW:
+      prevStateLocal = state.msgsChngAvatarPopup || {};
+
+      if (!data) {
+        showPopup = false;
+      } else {
+        showPopup = data.showPopup;
+      }
+
+      return {
+        ...state,
+        msgsChngAvatarPopup: { ...prevStateLocal, showPopup },
+      };
+
     case Actions.USER_MENU_POPUP_SHOW:
       prevStateLocal = state.userMenuPopup || {};
 

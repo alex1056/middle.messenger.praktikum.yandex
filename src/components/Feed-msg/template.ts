@@ -6,4 +6,4 @@ else
     div(class="feed__answer-cont")
         p(class="feed__msg-text") #{data.content}
         div(class="feed__answer-time-cont")
-            span(class="time-status") #{data.time}`;
+            span(class="time-status" class= true ? "some-class-name" : "") #{data.time}`;

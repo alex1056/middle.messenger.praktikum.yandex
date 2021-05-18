@@ -11,8 +11,9 @@ ul(class="chats-list__chat-list")
                         span(class="chat__date")    #{item.last_message ? item.last_message.time : '1 Мая 2021'}
                         span(class="chat__delete-icon" data-chat-id= item.id data-chat-name= item.title) +
                 div(class="chat__bottom-wrapper")                    
-                    p(class="chat__last-message") #{item.last_message ? item.last_message.content : 'Однажды в студеную зимнюю пору я из лесу вышел был сильный мороз'}
-                    div(class="chat__unread-mess-numb")
-                        div(class="circle-unread")                                    
-                            div(class="circle-unread__wrapper")
-                                span(class="circle-unread__text")   #{item.unread_count}`;
+                    p(class="chat__last-message") #{item.last_message ? item.last_message.content : ''}
+                    if item.unread_count !== 0
+                        div(class="chat__unread-mess-numb")
+                            div(class="circle-unread")                                    
+                                div(class="circle-unread__wrapper")
+                                    span(class="circle-unread__text") #{item.unread_count}`;
