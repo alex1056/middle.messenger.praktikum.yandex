@@ -1,3 +1,5 @@
+import { sanitize } from '../../utils/sanitizeHtml';
+
 type Nullable<T> = T | null;
 
 export default class Form {
@@ -127,7 +129,7 @@ export default class Form {
     const inputsData = inputs.reduce((acc, item: HTMLInputElement) => {
       const { id, value } = item;
       if (id && id !== submit.id) {
-        return { ...acc, [id]: value };
+        return { ...acc, [id]: sanitize(value) };
       }
       return acc;
     }, {});

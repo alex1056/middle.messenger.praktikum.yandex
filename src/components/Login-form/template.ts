@@ -18,5 +18,5 @@ main(class="main")
                     span(id="error-server-reply") 
                 div(class="login-form__btn-cont") 
                     != buttonsubmit
-                    a(class="btn login-form__btn login-form__btn_white" href="./registr")
+                    a(class="btn login-form__btn login-form__btn_white" id="login-btn-redirect-registr-form")
                         span(class="btn__text login-form__btn-text") Нет аккаунта?`;

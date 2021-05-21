@@ -59,7 +59,7 @@ export class Route implements IRoute {
       // isRoute - результат распознавания pathname по шаблону pattern
       // console.log('isRoute, pathname', isRoute, pathname);
       if (isRoute) {
-        this._params = { activeChatId: isRoute[1] };
+        this._params = { activeChatId: Number(isRoute[1]) };
         return true;
       }
     }
@@ -68,6 +68,7 @@ export class Route implements IRoute {
   }
 
   render() {
+    // console.log('Render, this._block', this._block);
     if (!this._block) {
       this._block = new (this._blockClass as any)({ ...this._props, ...this._params });
 
@@ -80,15 +81,28 @@ export class Route implements IRoute {
       }
       return;
     }
-
-    // console.log('До set props this._block.props', { ...this._block.props });
+    // console.log('Render, this._block.props', { ...this._block.props });
+    // console.log('Render, this._props', { ...this._props });
+    // console.log('Render, this._params', { ...this._params });
+    // const date = new Date();
 
     this._block.setProps({
+      // date,
       ...this._block.props,
       ...this._props,
       ...this._params,
     });
+
+    const nodeToRemove = document.querySelector('.main');
+    if (nodeToRemove) {
+      nodeToRemove.remove();
+      const node: HTMLDivElement = this._block.getContent();
+      // console.log('node', node);
+      renderDOM(this._props?.rootQuery, node);
+    }
+
     // console.log('После set props, this._block.props', { ...this._block.props });
-    // this._block.show();
+    // console.log('После set props, this._block', this._block);
+    this._block.show('flex');
   }
 }

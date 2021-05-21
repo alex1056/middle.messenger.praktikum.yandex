@@ -33,7 +33,7 @@ export class Router implements IRouter {
 
   use(pathname: string, block: any) {
     const route: IRoute = new Route(pathname, block, { rootQuery: this._rootQuery });
-    // console.log('use, pathname', pathname);
+
     this.routes.push(route);
     return this;
   }
@@ -43,16 +43,22 @@ export class Router implements IRouter {
     window.onpopstate = (event: any) => {
       this._onRoute(event.currentTarget.location.pathname);
     };
-
+    // console.log('Route, start=window.location.pathname=', window.location.pathname);
     this._onRoute(window.location.pathname);
   }
 
   _onRoute(pathname: string) {
     const route: IRoute | undefined = this.getRoute(pathname);
+    if (this._currentRoute) {
+      console.log('this._currentRoute._pathname', this._currentRoute._pathname);
+    }
 
+    console.log('route._pathname', route?._pathname);
     if (this._currentRoute) {
       if (this._currentRoute._pathname !== '/' && route?._pathname !== '/chats/:chatId') {
-        this._currentRoute.leave();
+        if (this._currentRoute._pathname !== route?._pathname) {
+          this._currentRoute.leave();
+        }
       }
     }
 

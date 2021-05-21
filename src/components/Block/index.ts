@@ -94,7 +94,7 @@ export class Block<TProps> {
     if (!nextProps) {
       return;
     }
-    // console.log('Новые пропсы пришли');
+    // console.log('Новые пропсы пришли', nextProps);
     this.eventBus.emit(EVENTS.FLOW_CDU, this.props, nextProps);
     Object.assign(this.props, nextProps);
   };

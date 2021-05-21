@@ -1,6 +1,7 @@
 import { Actions } from './actions';
 import { TState, TAction } from './types';
 import { completeImgUrl } from './utils/completeImgUrl';
+import { updateUnreadCount } from './utils/updateUnreadCount';
 
 export function reducer(state: TState, action: TAction): TState {
   let prevStateLocal;
@@ -17,6 +18,13 @@ export function reducer(state: TState, action: TAction): TState {
         ...state,
         chatsData: { ...prevStateLocal, data: completeImgUrl(data) },
         // chatsData: {},
+      };
+
+    case Actions.SET_UNREAD_COUNT:
+      // console.log(updateUnreadCount(data.activeChatId, data.unread_count));
+      return {
+        ...state,
+        chatsData: updateUnreadCount(data.activeChatId, data.unread_count),
       };
 
     case Actions.SET_ACTIVE_CHAT:

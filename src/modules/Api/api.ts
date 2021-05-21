@@ -49,6 +49,8 @@ export class Api {
 
   getUserData = () => this.api.get(`${urlApi}/auth/user`, {});
 
+  getNewMsgCount = (chatId: string) => this.api.get(`${urlApi}/chats/new/${chatId}`, {});
+
   chngUserProfileData = (options: Options) => {
     const { data } = options;
     const headers = {

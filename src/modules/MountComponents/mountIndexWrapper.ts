@@ -35,18 +35,18 @@ export const mountIndexWrapper = () => {
     //     data: { activeChatId: null },
     //   });
     // }
-
+    console.log('mountWrapper');
     IndexWrapper._instance.setProps({
       activeChatData: activeChatIdLocal ? activeChatData : null,
       activeChatId: Number(activeChatIdLocal),
-      ...IndexWrapper._instance.props,
+      // ...IndexWrapper._instance.props,
       chatList: new ChatsListWrapper({
-        ...IndexWrapper._instance.props,
+        // ...IndexWrapper._instance.props,
         activeChatId: Number(activeChatIdLocal),
         chatsData: chatsData.data,
       }),
       msgs: new Msgs({
-        ...IndexWrapper._instance.props,
+        // ...IndexWrapper._instance.props,
         activeChatId: Number(activeChatIdLocal),
         activeChatData: activeChatIdLocal ? activeChatData : null,
       }),

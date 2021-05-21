@@ -8,7 +8,6 @@ type TReducer = Function;
 export class Store {
   private state: TState = {};
 
-  //   private subscribers: StoreSubscriberMethod[] = [];
   private subscribers: { [key: string]: any[] } = {};
 
   static _instance = {} as Store;
@@ -37,7 +36,7 @@ export class Store {
     this.state = this.reducer(this.state, action);
 
     if (!this.subscribers[action.type]) {
-      console.log(`Нет события: ${action.type}`);
+      // console.log(`Нет события: ${action.type}`);
     } else {
       this.subscribers[action.type].forEach((subscriber: StoreSubscriberMethod) => subscriber(this.state));
     }

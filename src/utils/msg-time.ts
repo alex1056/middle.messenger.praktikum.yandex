@@ -46,11 +46,16 @@ export const lastMsgTimeToString = (msgTime: string) => {
   const msgDate = new Date(msgTime);
   const nowDate = new Date();
   const duration = Number(nowDate) - Number(msgDate);
+
   const result = msToTime(duration);
   const { days } = result;
 
+  // const days = msgDate.getDate(); // 0-31
+
   if (days < 1) {
-    return `${msgDate.getHours()}:${msgDate.getMinutes()}`;
+    const minutes = msgDate.getMinutes() > 9 ? msgDate.getMinutes() : `0${msgDate.getMinutes()}`;
+
+    return `${msgDate.getHours()}:${minutes}`;
   }
 
   if (days <= 6) {

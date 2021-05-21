@@ -1,4 +1,5 @@
 import { compile } from 'pug';
+import { Router } from '../../modules/Router';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { tmplRegistr } from './template';
@@ -11,6 +12,7 @@ import { createStore, Actions } from '../../modules/Store';
 
 const api = new Api();
 const store = createStore();
+const router = new Router('.page');
 
 type TProps = {
   [propName: string]: any;
@@ -58,6 +60,7 @@ export class RegistrForm extends Block<TProps> {
             if (errSpan) {
               errSpan.textContent = '';
             }
+            window.location.href = '/';
           });
         } else if (errSpan) {
           const { reason } = res.json();
@@ -85,7 +88,19 @@ export class RegistrForm extends Block<TProps> {
     }
     this.form.setFormValidator(formValidator as any);
 
+    if (this._element) {
+      const loginBtnRedirect = this._element.querySelector('#registr-btn-redirect-login-form') as HTMLFormElement;
+
+      if (loginBtnRedirect) {
+        loginBtnRedirect.addEventListener('click', this.goLoginForm);
+      }
+    }
+
     return true;
+  }
+
+  goLoginForm() {
+    router.go({ redirect: true }, '/login');
   }
 
   componentDidUpdate() {

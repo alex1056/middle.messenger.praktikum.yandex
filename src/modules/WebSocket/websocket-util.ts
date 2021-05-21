@@ -1,9 +1,11 @@
-const enum WSSTATUS {
-  INIT = 'init',
-  ONLINE = 'ws-online',
-  DISCONNECTED = 'ws-disconnected',
-  ERROR = 'ws-error',
+const enum READY_STATE_STATUS {
+  CONNECTING = 0,
+  OPEN = 1,
+  CLOSING = 2,
+  CLOSED = 3,
 }
+
+const READY_STATE_STATUS_TEXT = ['0-CONNECTING', '1-OPEN', '2-CLOSING', '3-CLOSED'];
 
 export class WebSocketRun {
   socket: WebSocket;
@@ -11,8 +13,6 @@ export class WebSocketRun {
   private subscribers: { [key: string]: any[] } = {};
 
   timerId: unknown;
-
-  status: WSSTATUS;
 
   static _instance: WebSocketRun;
 
@@ -22,22 +22,32 @@ export class WebSocketRun {
     }
     this.timerId = null;
     this.socketSend = this.socketSend.bind(this);
-    this.status = WSSTATUS.INIT;
 
     WebSocketRun._instance = this;
   }
 
   socketInit(userId: number, chatId: number, token: string) {
-    return new Promise((resolve) => {
-      this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
-      this.status = WSSTATUS.INIT;
-      this.socket.addEventListener('open', () => resolve(this.socket));
-    });
+    if (!this.socket) {
+      return new Promise((resolve) => {
+        this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
+        this.socket.addEventListener('open', () => resolve(this.socket));
+      });
+    }
+    if (this.socket) {
+      if (WebSocketRun._instance.socket.readyState !== READY_STATE_STATUS.OPEN) {
+        return new Promise((resolve) => {
+          this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
+          this.socket.addEventListener('open', () => resolve(this.socket));
+        });
+      }
+    }
+
+    return new Promise((resolve) => resolve(WebSocketRun._instance.socket));
   }
 
   socketPing() {
     this.timerId = setInterval(() => {
-      console.log('socketPing');
+      // console.log('socketPing');
       this.socket.send(
         JSON.stringify({
           content: '',
@@ -54,28 +64,39 @@ export class WebSocketRun {
   }
 
   socketSend(textMsg: string) {
-    this.socket.send(
-      JSON.stringify({
-        content: textMsg,
-        type: 'message',
-      }),
-    );
-    // console.log(`Сообщение "${textMsg}" отправлено`);
+    const { readyState } = this.socket as any;
+    if (readyState === READY_STATE_STATUS.OPEN) {
+      this.socket.send(
+        JSON.stringify({
+          content: textMsg,
+          type: 'message',
+        }),
+      );
+    } else {
+      const rs: number = readyState;
+      console.log(`Статус соединения ${READY_STATE_STATUS_TEXT[rs]}`);
+    }
   }
 
   socketGetOldMsgs() {
-    this.socket.send(
-      JSON.stringify({
-        content: '0',
-        type: 'get old',
-      }),
-    );
-    // console.log(`Сообщение "${textMsg}" отправлено`);
+    const { readyState } = this.socket as any;
+
+    if (readyState === READY_STATE_STATUS.OPEN) {
+      this.socket.send(
+        JSON.stringify({
+          content: '0',
+          type: 'get old',
+        }),
+      );
+    } else {
+      const rs: number = readyState;
+      console.log(`Статус соединения ${READY_STATE_STATUS_TEXT[rs]}`);
+    }
   }
 
   socketOnOpen(callBack: Function) {
     this.socket.addEventListener('open', () => callBack());
-    this.status = WSSTATUS.ONLINE;
+
     // this.socket.addEventListener('open', () => {
     //   console.log('Соединение установлено');
     //   //   this.subscribers.open.forEach((subscriber: any) => subscriber());
@@ -85,12 +106,13 @@ export class WebSocketRun {
 
   socketClose(code = 1000) {
     // code = 1000 нормальное закрытие
-    this.socket.close(code);
+    if (this.socket) {
+      this.socket.close(code);
+    }
   }
 
   socketOnClose() {
     this.socket.addEventListener('close', (event: any) => {
-      this.status = WSSTATUS.DISCONNECTED;
       if (event.wasClean) {
         console.log('Соединение закрыто чисто');
       } else {
@@ -112,7 +134,6 @@ export class WebSocketRun {
 
   socketOnError() {
     this.socket.addEventListener('error', (event: any) => {
-      this.status = WSSTATUS.ERROR;
       console.log('Ошибка', event.message);
       //   this.subscribers.error.forEach((subscriber: any) => subscriber(event.message));
     });

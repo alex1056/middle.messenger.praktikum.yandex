@@ -7,63 +7,41 @@ import { LoginForm } from './components/Login-form';
 import { RegistrForm } from './components/Registr-form';
 import { mountPopups, setPopupsSubscribers } from './modules/MountPopups';
 import { mountIndexWrapper } from './modules/MountComponents';
-import { createStore, Actions } from './modules/Store';
+// import { createStore, Actions } from './modules/Store';
+import { Api } from './modules/Api';
 
-const store = createStore();
-store.subscribe(Actions.ANY_ACTION, (state: any) => {
-  localStorage.setItem('app-state', JSON.stringify(state));
-});
-
-// store.subscribe(Actions.CHATS_UPDATE, (state: any) => {
+// const store = createStore();
+const api = new Api();
+// store.subscribe(Actions.ANY_ACTION, (state: any) => {
 //   localStorage.setItem('app-state', JSON.stringify(state));
 // });
 
-// store.dispatch({
-//   type: Actions.CHATS_UPDATE,
-//   data: { val1: 'будет дата1' },
-// });
-
-// console.log(store.getState());
-
 const router = new Router('.page');
 
-router.use('/', IndexWrapper);
-router.use('/chats/:chatId', IndexWrapper);
-router.use('/profile', ProfileForm);
-router.use('/login', LoginForm);
-router.use('/registr', RegistrForm);
-router.use('/404', Page404);
-router.use('/500', Page500);
-router.start();
+let isLoggedIn = false;
 
-mountPopups();
-mountIndexWrapper();
-setPopupsSubscribers();
-// setTimeout(() => {
-//   router.go('/profile');
-// }, 1000);
+api.getUserData().then((res) => {
+  if (res.ok) {
+    isLoggedIn = true;
+    router.use('/', IndexWrapper);
+    router.use('/chats/:chatId', IndexWrapper);
+    router.use('/profile', ProfileForm);
+    router.use('/login', LoginForm);
+    router.use('/registr', RegistrForm);
+    router.use('/404', Page404);
+    router.use('/500', Page500);
+    router.start();
+  } else {
+    isLoggedIn = false;
+    router.use('/login', LoginForm);
+    router.use('/registr', RegistrForm);
+    router.start();
+  }
+  mountPopups();
+  mountIndexWrapper();
+  setPopupsSubscribers();
 
-// const popupChngAvatar = new PopupChngAvatar();
-// renderDOM('.page', popupChngAvatar.getContent());
-// popupChngAvatar.hide();
-// const data = {
-//   login: 'ABlogin',
-//   password: '123456',
-// };
-
-// const api = new Api();
-
-// api.signIn(data);
-// api.logOut();
-
-// testSignIn();
-
-// testLogOut();
-
-// api.getUserData();
-// testCreateChat('chat-1');
-// testDeleteChat('497');
-// testGetChatFiles(496);
-// api.getChatsToken(496);
-
-// api.getChats();
+  if (!isLoggedIn) {
+    router.go({}, '/login');
+  }
+});
