@@ -59,7 +59,7 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   componentDidMount(): boolean {
-    console.log('>>>>>!!! componentDidMount');
+    // console.log('>>>>>!!! componentDidMount');
     if (!userData || isEmpty(userData)) {
       api.getUserData().then((res) => {
         if (res.ok) {
@@ -116,9 +116,6 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   componentDidUpdate() {
-    // console.log('>>>>>!!! componentDidUpdate');
-    // console.log('this.props', { ...this.props });
-
     const { chatsData } = store.getState();
     const { activeChatId } = this.props;
     const activeChatDataPrevProps = this.props.activeChatData;
@@ -271,7 +268,7 @@ export class IndexWrapper extends Block<TProps> {
 
   sendMsg(event: any) {
     event.preventDefault();
-    console.log('sendMsg');
+
     if (event.target.elements[0].value.length) {
       const msg = sanitize(event.target.elements[0].value);
 
@@ -287,7 +284,7 @@ export class IndexWrapper extends Block<TProps> {
       ws.socketStopPing();
     }
     ws.socketClose();
-    // console.log('wsInit');
+
     api.getChatToken(activeChatId).then((res) => {
       if (res.ok) {
         const { token } = res.json() as any;

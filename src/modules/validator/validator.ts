@@ -6,11 +6,11 @@ type Nullable<T> = T | null;
 export class Validator {
   private form: Nullable<HTMLFormElement>;
 
-  private submit: Nullable<HTMLDivElement>;
-
   private inputs: HTMLInputElement[];
 
   private handleLabels: boolean;
+
+  private submit: HTMLButtonElement | null;
 
   private formId: string;
 

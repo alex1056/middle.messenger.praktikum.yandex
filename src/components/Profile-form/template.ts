@@ -27,7 +27,7 @@ main(class="main")
                                 span(id="errorname-form-profile") 
                         div(class="pform__fset")
                             label(for="surname-form-profile" class="pform__label" id="labelsurname-form-profile") Фамилия
-                            input(type="text" name="second_name" id="surname-form-profile" class="pform__input" value= data.second_name placeholder="Фамилия")/
+                            input(type="text" name="second_name" id="surname-form-profile" class="pform__input" value= data.second_name placeholder="")/
                             div(class="pform__err-message")
                                 span(id="errorsurname-form-profile")
                         div(class="pform__fset")

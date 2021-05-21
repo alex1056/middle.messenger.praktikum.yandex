@@ -50,10 +50,10 @@ export class Router implements IRouter {
   _onRoute(pathname: string) {
     const route: IRoute | undefined = this.getRoute(pathname);
     if (this._currentRoute) {
-      console.log('this._currentRoute._pathname', this._currentRoute._pathname);
+      // console.log('this._currentRoute._pathname', this._currentRoute._pathname);
     }
 
-    console.log('route._pathname', route?._pathname);
+    // console.log('route._pathname', route?._pathname);
     if (this._currentRoute) {
       if (this._currentRoute._pathname !== '/' && route?._pathname !== '/chats/:chatId') {
         if (this._currentRoute._pathname !== route?._pathname) {
@@ -72,11 +72,6 @@ export class Router implements IRouter {
     this.history.pushState(state, '', pathname);
     this._onRoute(pathname);
   }
-
-  // go(pathname: string) {
-  //   this.history.pushState({}, '', pathname);
-  //   this._onRoute(pathname);
-  // }
 
   back() {
     this.history.back();

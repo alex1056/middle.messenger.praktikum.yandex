@@ -5,8 +5,6 @@ type Nullable<T> = T | null;
 export default class Form {
   private validateForm: Function;
 
-  private validateInputElement: Function;
-
   private handlerFormOpen: Function;
 
   private form: HTMLFormElement;
@@ -14,6 +12,8 @@ export default class Form {
   private submit: HTMLButtonElement;
 
   private popup: HTMLDivElement;
+
+  private validateInputElement: unknown;
 
   private handlers: { [handlerName: string]: Function[] };
 

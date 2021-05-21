@@ -75,7 +75,7 @@ export class Block<TProps> {
     return true;
   }
 
-  _componentDidUpdate(oldProps: TProps, newProps: TProps) {
+  _componentDidUpdate(_oldProps: TProps, newProps: TProps) {
     this.props = this._makePropsProxy(newProps);
 
     const response = this.componentDidUpdate();
@@ -94,7 +94,7 @@ export class Block<TProps> {
     if (!nextProps) {
       return;
     }
-    // console.log('Новые пропсы пришли', nextProps);
+
     this.eventBus.emit(EVENTS.FLOW_CDU, this.props, nextProps);
     Object.assign(this.props, nextProps);
   };
@@ -152,7 +152,6 @@ export class Block<TProps> {
   }
 
   _render() {
-    // console.log('Пришли в рендер');
     let block: string = '';
     if (this.render()) {
       block = this.render() as string;

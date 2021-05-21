@@ -2,3 +2,5 @@
 dist
 .
 !.eslintrc.js
+*.spec.ts
+

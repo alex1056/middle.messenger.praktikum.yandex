@@ -1,11 +1,11 @@
-const enum READY_STATE_STATUS {
+enum READY_STATE_STATUS {
   CONNECTING = 0,
   OPEN = 1,
   CLOSING = 2,
   CLOSED = 3,
 }
 
-const READY_STATE_STATUS_TEXT = ['0-CONNECTING', '1-OPEN', '2-CLOSING', '3-CLOSED'];
+// const READY_STATE_STATUS_TEXT = ['0-CONNECTING', '1-OPEN', '2-CLOSING', '3-CLOSED'];
 
 export class WebSocketRun {
   socket: WebSocket;
@@ -13,6 +13,12 @@ export class WebSocketRun {
   private subscribers: { [key: string]: any[] } = {};
 
   timerId: unknown;
+
+  userId: number;
+
+  chatId: number;
+
+  token: string;
 
   static _instance: WebSocketRun;
 
@@ -27,14 +33,24 @@ export class WebSocketRun {
   }
 
   socketInit(userId: number, chatId: number, token: string) {
-    if (!this.socket) {
-      return new Promise((resolve) => {
-        this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
-        this.socket.addEventListener('open', () => resolve(this.socket));
-      });
+    if (this.userId !== userId && this.chatId !== chatId && this.token !== token) {
+      this.userId = userId;
+      this.chatId = chatId;
+      this.token = token;
+
+      if (!this.socket) {
+        return new Promise((resolve) => {
+          this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
+          this.socket.addEventListener('open', () => resolve(this.socket));
+        });
+      }
     }
+
     if (this.socket) {
-      if (WebSocketRun._instance.socket.readyState !== READY_STATE_STATUS.OPEN) {
+      if (
+        WebSocketRun._instance.socket.readyState !== READY_STATE_STATUS.OPEN &&
+        WebSocketRun._instance.socket.readyState !== READY_STATE_STATUS.CONNECTING
+      ) {
         return new Promise((resolve) => {
           this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
           this.socket.addEventListener('open', () => resolve(this.socket));
@@ -73,8 +89,8 @@ export class WebSocketRun {
         }),
       );
     } else {
-      const rs: number = readyState;
-      console.log(`Статус соединения ${READY_STATE_STATUS_TEXT[rs]}`);
+      // const rs: number = readyState;
+      // console.log(`Статус соединения ${READY_STATE_STATUS_TEXT[rs]}`);
     }
   }
 
@@ -89,23 +105,18 @@ export class WebSocketRun {
         }),
       );
     } else {
-      const rs: number = readyState;
-      console.log(`Статус соединения ${READY_STATE_STATUS_TEXT[rs]}`);
+      // const rs: number = readyState;
+      // console.log(`Статус соединения ${READY_STATE_STATUS_TEXT[rs]}`);
     }
   }
 
   socketOnOpen(callBack: Function) {
     this.socket.addEventListener('open', () => callBack());
-
-    // this.socket.addEventListener('open', () => {
-    //   console.log('Соединение установлено');
-    //   //   this.subscribers.open.forEach((subscriber: any) => subscriber());
-    //   //   this.timerId = setInterval(() => this.socketSend(''), 3000);
-    // });
   }
 
   socketClose(code = 1000) {
     // code = 1000 нормальное закрытие
+
     if (this.socket) {
       this.socket.close(code);
     }
@@ -114,13 +125,12 @@ export class WebSocketRun {
   socketOnClose() {
     this.socket.addEventListener('close', (event: any) => {
       if (event.wasClean) {
-        console.log('Соединение закрыто чисто');
+        // console.log('Соединение закрыто чисто');
       } else {
-        console.log('Обрыв соединения');
+        // console.log('Обрыв соединения');
       }
 
-      console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-      //   this.subscribers.close.forEach((subscriber: any) => subscriber(event.reason));
+      // console.log(`Код: ${event.code} | Причина: ${event.reason}`);
     });
   }
 
@@ -128,15 +138,13 @@ export class WebSocketRun {
     this.socket.addEventListener('message', (event: any) => {
       // console.log('Получены данные', event.data);
       callBack(event.data);
-      //   this.subscribers.message.forEach((subscriber: any) => subscriber(event.data));
     });
   }
 
   socketOnError() {
-    this.socket.addEventListener('error', (event: any) => {
-      console.log('Ошибка', event.message);
-      //   this.subscribers.error.forEach((subscriber: any) => subscriber(event.message));
-    });
+    // this.socket.addEventListener('error', (event: any) => {
+    //   // console.log('Ошибка', event.message);
+    // });
   }
 
   subscribe(eventName: string, callback: Function) {

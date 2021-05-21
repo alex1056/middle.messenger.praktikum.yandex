@@ -1,12 +1,10 @@
 import { createStore, Actions, chatsDataSelector } from '../Store';
-// import { Api } from '../Api';
-// import { transfromChatsData } from '../../utils/transfrom-chats-data';
+
 import { IndexWrapper } from '../../components/Index-wrapper';
 import { ChatsListWrapper } from '../../components/Chats-list-wrapper';
 import { Msgs } from '../../components/Msgs';
 import { Router } from '../Router';
 
-// const api = new Api();
 const store = createStore();
 const router = new Router('.page');
 
@@ -17,7 +15,6 @@ export const mountIndexWrapper = () => {
 
     const activeChatData = chatsDataSelector(activeChatId);
 
-    // console.log(router);
     const { history } = router;
     const { state } = history;
 
@@ -25,17 +22,7 @@ export const mountIndexWrapper = () => {
     if (!state) {
       activeChatIdLocal = null;
     }
-    // console.log('activeChatId, state=', activeChatId, state);
-    // console.log('router=', router);
-    // console.log('_currentRoute=', router._currentRoute);
-    // if (!state) {
-    //   activeChatIdLocal = null;
-    //   store.dispatch({
-    //     type: Actions.REMOVE_ACTIVE_CHAT_ID,
-    //     data: { activeChatId: null },
-    //   });
-    // }
-    console.log('mountWrapper');
+
     IndexWrapper._instance.setProps({
       activeChatData: activeChatIdLocal ? activeChatData : null,
       activeChatId: Number(activeChatIdLocal),

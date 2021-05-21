@@ -271,11 +271,16 @@ export class ProfileForm extends Block<TProps> {
           type: Actions.GET_USER_DATA,
           data: userDataFromServer,
         });
+        // console.log('До setProps: ProfileForm._instance.props', { ...ProfileForm._instance.props });
+        // console.log('До setProps: userDataFromServer', userDataFromServer);
         const avatarUrl = `${urlApiResources}${userDataFromServer.avatar}`;
         ProfileForm._instance.setProps({
+          // ...this.props,
           ...ProfileForm._instance.props,
+
           data: { ...userDataFromServer, avatar: avatarUrl },
         });
+        // console.log('После setProps: ProfileForm._instance.props', { ...ProfileForm._instance.props });
       }
     });
 

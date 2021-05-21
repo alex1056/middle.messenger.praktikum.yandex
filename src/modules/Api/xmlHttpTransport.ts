@@ -47,7 +47,7 @@ function errorResponse(xhr: XMLHttpRequest, message: string | null = null): Requ
   };
 }
 
-const enum METHODS {
+enum METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
