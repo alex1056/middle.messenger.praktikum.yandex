@@ -31,7 +31,7 @@ export class Block<TProps> {
 
   private _meta: { tagName: string; props: TProps };
 
-  constructor(tagName = 'div', props: TProps) {
+  constructor(tagName = 'div', props?: TProps) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,

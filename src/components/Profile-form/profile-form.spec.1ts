@@ -1,0 +1,11 @@
+import { expect } from 'chai';
+import { ProfileForm } from './index';
+
+describe('Тест render ф. в ProfileForm', () => {
+  it('должен быть возвращен html', () => {
+    const profileForm = new ProfileForm({});
+    // console.log(profileFormCtrls);
+    // console.log(profileFormCtrls.render());
+    expect(profileForm.render().indexOf('<div class="pform__ctrls-container">')).is.equal(0);
+  });
+});

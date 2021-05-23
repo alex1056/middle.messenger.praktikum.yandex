@@ -1,11 +1,9 @@
-// import { expect } from 'chai';
-
+import { expect } from 'chai';
 import { SendForm } from './index';
 
 describe('Тест render ф. в SendForm', () => {
-  it('должно быть возвращен html', () => {
-    // expect(hello('mocha'), 'Hello mocha');
+  it('должен быть возвращен html', () => {
     const sendForm = new SendForm();
-    expect(sendForm.render()).is.equal('');
+    expect(sendForm.render().indexOf('<form class="msgs__footer" id="send-msg-form">')).is.equal(0);
   });
 });

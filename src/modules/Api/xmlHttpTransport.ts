@@ -1,10 +1,16 @@
-function queryParams(params: any = {}) {
+export function queryParams(params: any = {}) {
   return Object.keys(params)
-    .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+    .map((k) => {
+      if (encodeURIComponent(params[k]) === 'undefined') {
+        return '';
+      }
+
+      return `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`;
+    })
     .join('&');
 }
 
-function withQuery(url: string, params: any = {}): string {
+export function withQuery(url: string, params: any = {}): string {
   const queryString = queryParams(params);
   return queryString ? url + (url.indexOf('?') === -1 ? '?' : '&') + queryString : url;
 }

@@ -6,6 +6,7 @@ import { Form } from '../../modules/form';
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
+// import { isEmpty } from '../../utils/is-empty';
 import './style.scss';
 
 type TProps = { [propName: string]: any };
@@ -31,12 +32,14 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
         disabled: true,
       }),
     });
+    // console.log('this.props из constructor', { ...this.props });
 
     if (PopupMsgsChngAvatar._instance) {
       return PopupMsgsChngAvatar._instance;
     }
 
     PopupMsgsChngAvatar._instance = this;
+    // console.log('this.props из constructor', { ...PopupMsgsChngAvatar._instance });
   }
 
   addEvents(): boolean {
@@ -68,9 +71,6 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
         const { activeChatId } = store.getState();
         formData.append('avatar', file, 'my-file-name');
         formData.append('chatId', activeChatId);
-        // console.log('formData', formData);
-        // console.log('formData.get("chatId")', formData.get('chatId'));
-        // console.log('formData.get("avatar")', formData.get('avatar'));
 
         api.chngChatAvatar({ form: formData }).then((res) => {
           console.log(res.json());
@@ -85,14 +85,6 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
               });
             });
 
-            // const userDataFromServer = res.json();
-            // store.dispatch({
-            //   type: Actions.GET_USER_DATA,
-            //   data: userDataFromServer,
-            // });
-            // store.dispatch({
-            //   type: Actions.UPDATE_USER_AVATAR,
-            // });
             store.dispatch({
               type: Actions.MSGS_CHNG_AVATAR_POPUP_SHOW,
               data: { showPopup: false },
@@ -159,6 +151,12 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
   }
 
   render(): string {
+    // console.log('this.props из render', { ...this.props });
+    // console.log('this.props из render _instance', { ...PopupMsgsChngAvatar._instance });
+    // if (isEmpty(this.props)) {
+    //   console.log('this.props из render isEmpty');
+    //   // return '';
+    // }
     const compiled = compile(tmplPopupChngAvatar);
     const html = compiled({
       ...this.props,
