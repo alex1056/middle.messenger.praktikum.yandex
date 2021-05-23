@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { Block } from './Block';
+// import { Block } from './Block';
 import TestBlock from '../../../test/testBlockHelper';
 // import DocumentMock from '../../../test/Mocks/documentMock';
 
