@@ -385,7 +385,7 @@ export class IndexWrapper extends Block<TProps> {
 
     IndexWrapper._instance.getChatsUpdateStore();
 
-    router.go({ activeChatId: Number(this.dataset.chatId) }, `/chats/${this.dataset.chatId}`);
+    router.go({ activeChatId: Number(this.dataset.chatId) }, '', `/chats/${this.dataset.chatId}`);
 
     IndexWrapper._instance.wsInit(Number(this.dataset.chatId));
   }
@@ -410,7 +410,7 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   goProfile() {
-    router.go({}, '/profile');
+    router.go({}, '', '/profile');
   }
 
   addMedia() {

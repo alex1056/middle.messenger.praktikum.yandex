@@ -1,7 +1,6 @@
 import { compile } from 'pug';
 import { Block } from '../Block';
 import { tmplFeedMsg } from './template';
-// import './style.scss';
 
 type TProps =
   | {

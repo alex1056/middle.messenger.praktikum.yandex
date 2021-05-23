@@ -13,68 +13,63 @@ describe('Router', () => {
     global.window = new WindowMock() as any;
     // global.document = new DocumentMock() as any;
     router = new Router('.page');
+    router.history = global.window.history;
 
     router.use('/', SendForm).use('/login', SendForm).use('/chat', SendForm).start();
-    // console.log('До вызова it');
   });
 
-  //   it('должен добавить в историю 2 рута', () => {
-  //     router.go({}, '/login');
-  //     router.go({}, '/chat');
-  //     // console.log(router);
-  //     expect(router.history.length).to.eq(3);
-  //   });
+  it('должен добавить в историю 2 рута', () => {
+    router.go({}, '', '/login');
+    router.go({}, '', '/chat');
 
-  //   it('тестируем back', () => {
-  //     router.go({}, '/login');
-  //     router.go({}, '/chat');
+    expect(router.history.length).to.eq(3);
+  });
 
-  //     expect(router.history.state.url).to.eq('/chat');
+  it('тестируем back - переход на нужный рут', () => {
+    router.go({}, '', '/login');
+    router.go({}, '', '/chat');
 
-  //     router.back();
-  //     router.back();
+    expect(router.history.state.url).to.eq('/chat');
 
-  //     expect(router.history.state.url).to.eq('/chat');
-  //   });
+    router.back();
+    router.back();
 
-  //   it('должен перейти вперед forward', () => {
-  //     router.go({}, '/login');
-  //     router.go({}, '/chat');
+    expect(router.history.state.url).to.eq('/');
+  });
 
-  //     expect(router.history.state.url).to.eq('/chat');
+  it('должен перейти вперед - forward', () => {
+    router.go({}, '', '/login');
+    router.go({}, '', '/chat');
+    expect(router.history.state.url).to.eq('/chat');
 
-  //     router.back();
+    router.back();
 
-  //     expect(router.history.state.url).to.eq('/login');
+    expect(router.history.state.url).to.eq('/login');
 
-  //     router.forward();
+    router.forward();
 
-  //     expect(router.history.state.url).to.eq('/chat');
-  //   });
+    expect(router.history.state.url).to.eq('/chat');
+  });
 
-  //   it('should error on back', () => {
-  //     router.go({}, '/login');
+  it('должна быть ошибка на back', () => {
+    router.go({}, '', '/login');
 
-  //     router.back();
-  //     expect(router.back).to.throw();
+    router.back();
+    expect(router.back).to.throw();
+    expect(router.history.state.url).to.eq('/');
+    expect(router.history.length).to.eq(2);
+  });
 
-  //     expect(router.history.state.url).to.eq('/');
-  //     expect(router.history.length).to.eq(2);
-  //   });
+  it('должна быть ошибка на forward', () => {
+    router.go({}, '', '/login');
 
-  //   it('should error on forward', () => {
-  //     router.go({}, '/login');
+    expect(router.forward).to.throw();
+    expect(router.history.state.url).to.eq('/login');
+    expect(router.history.length).to.eq(2);
+  });
 
-  //     expect(router.forward).to.throw();
-
-  //     expect(router.history.state.url).to.eq('/login');
-  //     expect(router.history.length).to.eq(2);
-  //   });
-
-  //   it('должен в url записать 404', () => {
-  //     router.go({}, '/some-route');
-  //     console.log(router);
-  //     console.log(global.window.history.state);
-  //     expect(global.window.history.state.url).to.eq('/404');
-  //   });
+  it('должен в url записать 404', () => {
+    router.go({}, '', '/some-route');
+    expect(global.window.history.state.url).to.eq('/404');
+  });
 });

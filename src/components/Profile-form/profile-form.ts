@@ -259,7 +259,7 @@ export class ProfileForm extends Block<TProps> {
         type: Actions.LOGOUT_CLEAN_DATA,
         data: {},
       });
-      router.go({}, '/login');
+      router.go({}, '', '/login');
     });
   }
 

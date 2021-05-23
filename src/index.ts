@@ -7,14 +7,10 @@ import { LoginForm } from './components/Login-form';
 import { RegistrForm } from './components/Registr-form';
 import { mountPopups, setPopupsSubscribers } from './modules/MountPopups';
 import { mountIndexWrapper } from './modules/MountComponents';
-// import { createStore, Actions } from './modules/Store';
+
 import { Api } from './modules/Api';
 
-// const store = createStore();
 const api = new Api();
-// store.subscribe(Actions.ANY_ACTION, (state: any) => {
-//   localStorage.setItem('app-state', JSON.stringify(state));
-// });
 
 const router = new Router('.page');
 
@@ -42,6 +38,6 @@ api.getUserData().then((res) => {
   setPopupsSubscribers();
 
   if (!isLoggedIn) {
-    router.go({}, '/login');
+    router.go({}, '', '/login');
   }
 });

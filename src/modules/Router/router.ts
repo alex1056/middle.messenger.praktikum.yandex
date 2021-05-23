@@ -63,8 +63,8 @@ export class Router implements IRouter {
     }
   }
 
-  go(state: {}, pathname: string) {
-    this.history.pushState(state, '', pathname);
+  go(state: {}, title: string, pathname: string) {
+    this.history.pushState(state, title, pathname);
     this._onRoute(pathname);
   }
 
@@ -82,7 +82,6 @@ export class Router implements IRouter {
     if (!route) {
       return this.routes.find((route1) => {
         this.history.pushState({ url: '/404' }, '', '/404');
-        console.log('Рут не найден, pathname=', pathname);
         return route1.match('/404');
       });
     }

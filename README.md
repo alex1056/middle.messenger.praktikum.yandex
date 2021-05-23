@@ -1,10 +1,8 @@
-
 ### Проектная работа «Мессенджер»
 
 - [Макеты проекта](https://www.figma.com/file/tvVRobUvTiGSkECLTFEmES/Chat-with-Additions)
 - [Ссылка Netlify](https://gifted-franklin-967a84.netlify.app/)
 - [Ссылка на реопзиторий](https://github.com/alex1056/middle.messenger.praktikum.yandex/tree/main)
-
 
 [Ссылка на pull request](https://github.com/alex1056/middle.messenger.praktikum.yandex/pull/1)
 
@@ -19,9 +17,11 @@
 
 На текущем этапе реализована верстка и сбор данных с форм с выводом в консоль.
 
-- Добавлен TypeScript
-- Добавлен компонентный подход
-- Добавлен класс для работы с запросами
+- Добавлен Роутер
+- Подключен WebSocket
+- Добавлен HTTP API чатов (авторизация, изменение информации пользователя, добавление/удаление чата)
+- Добавлена хащита от XSS и DOS
+- Добавлены тесты для роутера, компонента, модуля отправки запросов
 
 <h2 align="center">Установка</h2>
 

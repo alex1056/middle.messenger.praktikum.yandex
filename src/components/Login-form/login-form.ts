@@ -106,7 +106,7 @@ export class LoginForm extends Block<TProps> {
   }
 
   goRegistrForm() {
-    router.go({ redirect: true }, '/registr');
+    router.go({ redirect: true }, '', '/registr');
   }
 
   componentDidUpdate() {

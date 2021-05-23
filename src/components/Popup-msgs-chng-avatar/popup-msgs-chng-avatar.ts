@@ -151,12 +151,6 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
   }
 
   render(): string {
-    // console.log('this.props из render', { ...this.props });
-    // console.log('this.props из render _instance', { ...PopupMsgsChngAvatar._instance });
-    // if (isEmpty(this.props)) {
-    //   console.log('this.props из render isEmpty');
-    //   // return '';
-    // }
     const compiled = compile(tmplPopupChngAvatar);
     const html = compiled({
       ...this.props,

@@ -12,7 +12,6 @@ export class SendForm extends Block<TProps> {
   }
 
   render(): string {
-    // console.log('Send-form', { ...this.props });
     const compiled = compile(tmplSendForm);
     const html = compiled({});
     return html;

@@ -84,14 +84,9 @@ export class PopupDeleteChat extends Block<TProps> {
           });
 
           if (Number(chatId) === Number(activeChatId)) {
-            router.go({}, '/');
+            router.go({}, '', '/');
           }
         });
-        // const avatarUrl = `${urlApiResources}${userDataFromServer.avatar}`;
-        // ProfileForm._instance.setProps({
-        //   ...ProfileForm._instance.props,
-        //   data: { ...userDataFromServer, avatar: avatarUrl },
-        // });
       } else {
         console.log(res.json());
       }
