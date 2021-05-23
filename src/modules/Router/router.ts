@@ -51,7 +51,7 @@ export class Router implements IRouter {
 
     if (this._currentRoute) {
       if (this._currentRoute._pathname !== '/' && route?._pathname !== '/chats/:chatId') {
-        if (this._currentRoute._pathname !== route?._pathname) {
+        if (this._currentRoute._pathname !== route?._pathname && this._currentRoute._pathname !== '/404') {
           this._currentRoute.leave();
         }
       }
@@ -80,7 +80,11 @@ export class Router implements IRouter {
     // console.log(this.routes);
     const route: IRoute | undefined = this.routes.find((route1) => route1.match(pathname));
     if (!route) {
-      return this.routes.find((route1) => route1.match('/404'));
+      return this.routes.find((route1) => {
+        this.history.pushState({ url: '/404' }, '', '/404');
+        console.log('Рут не найден, pathname=', pathname);
+        return route1.match('/404');
+      });
     }
     return this.routes.find((route1) => route1.match(pathname));
   }

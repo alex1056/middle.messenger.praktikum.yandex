@@ -1,6 +1,8 @@
 import { JSDOM } from 'jsdom';
 
-const { window } = new JSDOM('<!doctype html><html><body></body></html>', { url: 'http://localhost' });
+const { window } = new JSDOM('<!doctype html><html><body><div class="page"></div></body></html>', {
+  url: 'http://localhost',
+});
 
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)

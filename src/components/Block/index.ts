@@ -31,7 +31,7 @@ export class Block<TProps> {
 
   private _meta: { tagName: string; props: TProps };
 
-  constructor(tagName = 'div', props?: TProps) {
+  constructor(tagName = 'div', props = {} as TProps) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -156,9 +156,10 @@ export class Block<TProps> {
     if (this.render()) {
       block = this.render() as string;
     }
-    // console.log('block=', block);
+
     if (this._element) {
       const template = document.createElement('template');
+
       template.insertAdjacentHTML('afterbegin', block);
       this._element = template.firstElementChild as HTMLElement;
     }
