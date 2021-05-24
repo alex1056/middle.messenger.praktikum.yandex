@@ -1,4 +1,5 @@
 dist
+lib
 .env
 # Logs
 logs
