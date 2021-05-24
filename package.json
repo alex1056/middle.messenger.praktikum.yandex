@@ -10,8 +10,8 @@
     "test": "./node_modules/.bin/mocha",
     "test-watch": "npm run test -- --watch",
     "dev": "npm run clear && parcel static/index.html",
-    "build": "parcel build static/*.html",
-    "start": "npm run clear && parcel build static/*.html && node ./server.js",
+    "build": "parcel build static/index.html",
+    "start": "npm run clear && parcel build static/index.html && node ./server.js",
     "stylelint": "npx stylelint **/*.scss",
     "eslint": "eslint . --ext .ts",
     "clear": "rm -rf ./dist/*"
