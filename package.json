@@ -6,7 +6,6 @@
   "scripts": {
     "check-types": "tsc",
     "compile": "babel src -d lib --extensions '.ts,.tsx'",
-    "prepublish": "npm run check-types && npm run compile",
     "test": "./node_modules/.bin/mocha",
     "test-watch": "npm run test -- --watch",
     "dev": "npm run clear && parcel static/index.html",
