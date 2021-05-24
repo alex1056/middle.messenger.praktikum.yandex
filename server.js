@@ -1,10 +1,14 @@
 const express = require('express');
 
-const PORT = 3000;
+const path = require('path');
+
 const app = express();
-
-app.use(express.static(`${__dirname}/dist`));
-
+const PORT = 3000;
+const distFolder = `${__dirname}/dist/`;
+app.use(express.static(distFolder));
+app.use((request, response) => {
+  response.sendFile(path.resolve(`${distFolder}index.html`));
+});
 app.listen(PORT, () => {
-  console.log(`Listening port ${PORT}!`);
+  console.log(`App listening on port ${PORT}!`);
 });
