@@ -1,4 +1,4 @@
-[Ссылка на pull request](https://github.com/alex1056/middle.messenger.praktikum.yandex/pull/1)
+[Ссылка на pull request](https://github.com/alex1056/middle.messenger.praktikum.yandex/pull/2)
 
 ### Ветка, в которой делаете задания спринта, должна называться sprint_i, где i - номер спринта. Не переименовывайте её.
 
