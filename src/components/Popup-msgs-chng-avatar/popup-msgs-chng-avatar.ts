@@ -6,7 +6,6 @@ import { Form } from '../../modules/form';
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
-// import { isEmpty } from '../../utils/is-empty';
 import './style.scss';
 
 type TProps = { [propName: string]: any };
@@ -32,14 +31,12 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
         disabled: true,
       }),
     });
-    // console.log('this.props из constructor', { ...this.props });
 
     if (PopupMsgsChngAvatar._instance) {
       return PopupMsgsChngAvatar._instance;
     }
 
     PopupMsgsChngAvatar._instance = this;
-    // console.log('this.props из constructor', { ...PopupMsgsChngAvatar._instance });
   }
 
   addEvents(): boolean {
@@ -72,10 +69,10 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
         formData.append('avatar', file, 'my-file-name');
         formData.append('chatId', activeChatId);
 
-        api.chngChatAvatar({ form: formData }).then((res) => {
+        api.chngChatAvatar({ form: formData }).then((res: any) => {
           console.log(res.json());
           if (res.ok) {
-            api.getChats().then((res1) => {
+            api.getChats().then((res1: any) => {
               const chatsDataReply = res1.json() as any;
               const chatsDataChanged = transfromChatsData(chatsDataReply);
 

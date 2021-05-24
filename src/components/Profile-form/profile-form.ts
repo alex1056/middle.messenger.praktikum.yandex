@@ -119,7 +119,7 @@ export class ProfileForm extends Block<TProps> {
     if (userData.id) {
       const { oldPassword, newPassword } = inputsDataMapped as any;
       if (oldPassword && newPassword) {
-        api.chngUserPassword({ data: inputsDataMapped }).then((res) => {
+        api.chngUserPassword({ data: inputsDataMapped }).then((res: any) => {
           if (res.ok) {
             if (errSpan) {
               errSpan.textContent = 'Изменения сохранены';
@@ -150,7 +150,7 @@ export class ProfileForm extends Block<TProps> {
           }
         });
       } else {
-        api.chngUserProfileData({ data: inputsDataMapped }).then((res) => {
+        api.chngUserProfileData({ data: inputsDataMapped }).then((res: any) => {
           if (res.ok) {
             const userDataFromServer = res.json() as any;
             if (errSpan) {
@@ -264,7 +264,7 @@ export class ProfileForm extends Block<TProps> {
   }
 
   componentDidMount(): boolean {
-    api.getUserData().then((res) => {
+    api.getUserData().then((res: any) => {
       if (res.ok) {
         const userDataFromServer = res.json() as any;
         store.dispatch({
@@ -274,7 +274,6 @@ export class ProfileForm extends Block<TProps> {
 
         const avatarUrl = `${urlApiResources}${userDataFromServer.avatar}`;
         ProfileForm._instance.setProps({
-          // ...this.props,
           ...ProfileForm._instance.props,
 
           data: { ...userDataFromServer, avatar: avatarUrl },

@@ -79,7 +79,7 @@ export class PopupAddUser extends Block<TProps> {
     const inputsData = onSubmitGetFormData(form, formId);
     const formData = mapInputsForSending(inputsData, formId) as { userLogin: string };
     const errSpan = document.querySelector('#add-user-popup #erroruserlogin-popup-add-user-form');
-    api.findUser(formData.userLogin).then((res) => {
+    api.findUser(formData.userLogin).then((res: any) => {
       if (res.ok) {
         const resArr = res.json() as Array<{}>;
 
@@ -101,7 +101,7 @@ export class PopupAddUser extends Block<TProps> {
           const users = [id];
           const { activeChatId } = store.getState();
 
-          api.addUsersToChat(users, activeChatId).then((res1) => {
+          api.addUsersToChat(users, activeChatId).then((res1: any) => {
             if (res1.ok && errSpan) {
               errSpan.textContent = `${formData.userLogin} добавлен в чат`;
             }

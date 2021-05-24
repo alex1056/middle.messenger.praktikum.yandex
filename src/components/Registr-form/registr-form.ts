@@ -49,9 +49,9 @@ export class RegistrForm extends Block<TProps> {
         type: Actions.LOGOUT_CLEAN_DATA,
         data: {},
       });
-      api.signUp({ data: inputsDataMapped }).then((res) => {
+      api.signUp({ data: inputsDataMapped }).then((res: any) => {
         if (res.ok) {
-          api.getUserData().then((res1) => {
+          api.getUserData().then((res1: any) => {
             const userData = res1.json();
             store.dispatch({
               type: Actions.GET_USER_DATA,

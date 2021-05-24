@@ -65,7 +65,7 @@ export class PopupChngAvatar extends Block<TProps> {
         // @ts-ignore: Object is possibly 'null'
         const file = uploadInput.files[0];
         formData.append('avatar', file, 'my-file-name');
-        api.chngUserAvatar({ form: formData }).then((res) => {
+        api.chngUserAvatar({ form: formData }).then((res: any) => {
           if (res.ok) {
             const userDataFromServer = res.json();
 

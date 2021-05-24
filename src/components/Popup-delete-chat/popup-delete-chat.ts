@@ -67,9 +67,9 @@ export class PopupDeleteChat extends Block<TProps> {
       activeChatIdLocal = activeChatId;
     }
 
-    api.deleteChat(chatId).then((res) => {
+    api.deleteChat(chatId).then((res: any) => {
       if (res.ok) {
-        api.getChats().then((res1) => {
+        api.getChats().then((res1: any) => {
           const chatsDataReply = res1.json() as any;
           const chatsDataChanged = transfromChatsData(chatsDataReply);
 

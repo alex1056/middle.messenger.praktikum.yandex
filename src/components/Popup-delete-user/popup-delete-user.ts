@@ -81,7 +81,7 @@ export class PopupDeleteUser extends Block<TProps> {
     const formData = mapInputsForSending(inputsData, formId) as { userLogin: string };
     const errSpan = document.querySelector('#delete-user-popup #erroruserlogin-delete-user-form');
     const { activeChatId } = store.getState();
-    api.getChatUsers(activeChatId).then((res) => {
+    api.getChatUsers(activeChatId).then((res: any) => {
       if (res.ok) {
         const resArr = res.json() as Array<{ [propName: string]: any; login: string }>;
         const arrFiltered = resArr.filter((item) => {
@@ -100,7 +100,7 @@ export class PopupDeleteUser extends Block<TProps> {
         const { id } = arrFiltered[0] as any;
         if (id) {
           const users = [id];
-          api.deleteUsersFromChat(users, activeChatId).then((res1) => {
+          api.deleteUsersFromChat(users, activeChatId).then((res1: any) => {
             if (res1.ok && errSpan) {
               errSpan.textContent = `${formData.userLogin} удален из чата`;
             }

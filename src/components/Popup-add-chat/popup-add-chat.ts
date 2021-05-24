@@ -47,9 +47,9 @@ export class PopupAddChat extends Block<TProps> {
     event.preventDefault();
     const inputsData = onSubmitGetFormData(form, formId);
     const formData = mapInputsForSending(inputsData, formId) as { chatName: string };
-    api.createChat(formData.chatName).then((res) => {
+    api.createChat(formData.chatName).then((res: any) => {
       if (res.ok) {
-        api.getChats().then((res1) => {
+        api.getChats().then((res1: any) => {
           const chatsData = res1.json();
           // console.log(chatsData);
           store.dispatch({

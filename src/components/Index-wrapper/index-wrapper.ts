@@ -61,7 +61,7 @@ export class IndexWrapper extends Block<TProps> {
   componentDidMount(): boolean {
     // console.log('>>>>>!!! componentDidMount');
     if (!userData || isEmpty(userData)) {
-      api.getUserData().then((res) => {
+      api.getUserData().then((res: any) => {
         if (res.ok) {
           const userDataFromServer = res.json() as any;
           store.dispatch({
@@ -73,7 +73,7 @@ export class IndexWrapper extends Block<TProps> {
       });
     }
 
-    api.getChats().then((res) => {
+    api.getChats().then((res: any) => {
       const chatsDataReply = res.json() as any;
       const chatsDataChanged = transfromChatsData(chatsDataReply);
 
@@ -180,7 +180,7 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   updateMsgCount(activeChatId: string) {
-    api.getNewMsgCount(activeChatId).then((res) => {
+    api.getNewMsgCount(activeChatId).then((res: any) => {
       if (res.ok) {
         const { unread_count } = res.json();
         // console.log('unread_count=', unread_count);
@@ -285,7 +285,7 @@ export class IndexWrapper extends Block<TProps> {
     }
     ws.socketClose();
 
-    api.getChatToken(activeChatId).then((res) => {
+    api.getChatToken(activeChatId).then((res: any) => {
       if (res.ok) {
         const { token } = res.json() as any;
         const userDataLocal = store.getState().userData;
@@ -391,7 +391,7 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   getChatsUpdateStore() {
-    api.getChats().then((res) => {
+    api.getChats().then((res: any) => {
       const chatsDataReply = res.json() as any;
       const chatsDataChanged = transfromChatsData(chatsDataReply);
 
