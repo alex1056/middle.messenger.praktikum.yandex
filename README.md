@@ -1,4 +1,3 @@
-
 ### Проектная работа «Мессенджер»
 
 - [Макеты проекта](https://www.figma.com/file/tvVRobUvTiGSkECLTFEmES/Chat-with-Additions)
