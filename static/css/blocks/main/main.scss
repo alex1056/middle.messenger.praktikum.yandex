@@ -1,0 +1,9 @@
+.main {
+  height: 100vh;
+  display: flex;
+  position: relative;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}

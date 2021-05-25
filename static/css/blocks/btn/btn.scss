@@ -1,0 +1,35 @@
+.btn {
+  width: 280px;
+  height: 37px;
+  padding: 0;
+  border: none;
+  background-color: #3369f3;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+  transition: background-color 0.1s linear;
+  opacity: 1;
+
+  &_disabled {
+    opacity: 0.5;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: #2253cd;
+    transition: background-color 0.1s linear;
+  }
+
+  &__text {
+    color: #fff;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    display: flex;
+    margin: auto;
+  }
+}

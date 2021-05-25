@@ -1,0 +1,34 @@
+.chats-list {
+  width: 310px;
+  position: relative;
+  height: 100vh;
+  background-color: #fbfbfb;
+  border-right: 1px solid #eaeaea;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &__user-list {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 17px 10px 0 10px;
+
+    /* overflow: hidden; */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  &__top-buttons {
+    width: 290px;
+    display: flex;
+    height: 20px;
+    justify-content: space-between;
+  }
+}
