@@ -89,7 +89,7 @@ export class PopupAddUser extends Block<TProps> {
           }
           return false;
         });
-        // console.log(arrFiltered);
+
         if (arrFiltered.length === 0) {
           if (errSpan) {
             errSpan.textContent = 'пользователь не найден';
@@ -106,12 +106,8 @@ export class PopupAddUser extends Block<TProps> {
               errSpan.textContent = `${formData.userLogin} добавлен в чат`;
             }
           });
-        } else {
-          const { reason } = res.json();
-
-          if (errSpan) {
-            errSpan.textContent = `${reason}`;
-          }
+        } else if (errSpan) {
+          errSpan.textContent = res.errorMessageText as string;
         }
       }
     });
@@ -130,7 +126,7 @@ export class PopupAddUser extends Block<TProps> {
     if (event.type === 'click') {
       if (popup) {
         if (popup === event.target) {
-          popup.style.display = 'none';
+          popup.classList.add('hidden');
           popup.removeEventListener('click', this.outsideClick);
           store.dispatch({
             type: Actions.ADD_USER_POPUP_SHOW,
@@ -141,7 +137,7 @@ export class PopupAddUser extends Block<TProps> {
     }
     if (event.key === 'Escape') {
       if (popup) {
-        popup.style.display = 'none';
+        popup.classList.add('hidden');
         document.removeEventListener('keydown', this.outsideClick);
         store.dispatch({
           type: Actions.ADD_USER_POPUP_SHOW,

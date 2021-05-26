@@ -63,8 +63,7 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
       const formData = new FormData();
       const uploadInput = formNode?.querySelector('#uploadInput-form-msgs-chng-avatar') as HTMLInputElement;
       if (uploadInput) {
-        // @ts-ignore: Object is possibly 'null'
-        const file = uploadInput.files[0];
+        const file = uploadInput?.files?.[0] as string | Blob;
         const { activeChatId } = store.getState();
         formData.append('avatar', file, 'my-file-name');
         formData.append('chatId', activeChatId);
@@ -87,9 +86,7 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
               data: { showPopup: false },
             });
           } else {
-            const { reason } = res.json();
-
-            console.log(reason);
+            console.log(res.errorMessageText);
           }
         });
       }
@@ -126,7 +123,7 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
     if (event.type === 'click') {
       if (popup) {
         if (popup === event.target) {
-          popup.style.display = 'none';
+          popup.classList.add('hidden');
           popup.removeEventListener('click', this.outsideClick);
           store.dispatch({
             type: Actions.CHNG_AVATAR_POPUP_SHOW,
@@ -137,7 +134,7 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
     }
     if (event.key === 'Escape') {
       if (popup) {
-        popup.style.display = 'none';
+        popup.classList.add('hidden');
         document.removeEventListener('keydown', this.outsideClick);
         store.dispatch({
           type: Actions.CHNG_AVATAR_POPUP_SHOW,

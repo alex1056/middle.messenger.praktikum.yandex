@@ -35,7 +35,7 @@ export class PopupAddMedia extends Block<TProps> {
     if (event.type === 'click') {
       if (popup) {
         if (popup === event.target) {
-          popup.style.display = 'none';
+          popup.classList.add('hidden');
           popup.removeEventListener('click', this.outsideClick);
           store.dispatch({
             type: Actions.ADD_MEDIA_POPUP_SHOW,
@@ -46,7 +46,7 @@ export class PopupAddMedia extends Block<TProps> {
     }
     if (event.key === 'Escape') {
       if (popup) {
-        popup.style.display = 'none';
+        popup.classList.add('hidden');
         document.removeEventListener('keydown', this.outsideClick);
         store.dispatch({
           type: Actions.ADD_MEDIA_POPUP_SHOW,

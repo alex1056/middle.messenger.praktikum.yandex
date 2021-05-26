@@ -77,7 +77,6 @@ export class Router implements IRouter {
   }
 
   getRoute(pathname: string) {
-    // console.log(this.routes);
     const route: IRoute | undefined = this.routes.find((route1) => route1.match(pathname));
     if (!route) {
       return this.routes.find((route1) => {

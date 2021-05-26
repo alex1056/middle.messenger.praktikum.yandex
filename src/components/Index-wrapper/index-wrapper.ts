@@ -32,13 +32,11 @@ export class IndexWrapper extends Block<TProps> {
   static _instance: IndexWrapper;
 
   constructor(props: TProps) {
-    // console.log('Index Wrapper', props);
     super('div', {
       chatList: new ChatsListWrapper({
         chatsData: [{ id: '', avatar: '', title: '', created_by: 0, last_message: null, unread_count: 0 }],
       }),
       msgs: new Msgs({
-        // activeChatData: { id: '', avatar: '', title: '', created_by: 0, last_message: null, unread_count: 0 },
         activeChatData: null,
       }),
     });
@@ -59,7 +57,6 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   componentDidMount(): boolean {
-    // console.log('>>>>>!!! componentDidMount');
     if (!userData || isEmpty(userData)) {
       api.getUserData().then((res: any) => {
         if (res.ok) {
@@ -124,14 +121,12 @@ export class IndexWrapper extends Block<TProps> {
     const { history } = router;
     const { state } = history;
 
-    // IndexWrapper._instance.updateMsgCount(activeChatId);
-
     if (!state || !activeChatId || !activeChatDataPrevProps) {
       return true;
     }
     if (activeChatId && activeChatDataPrevProps.id === activeChatId) {
       IndexWrapper._instance.wsInit(Number(activeChatId));
-      // console.log('activeChatId && activeChatDataPrevProps.id === activeChatId');
+
       return true;
     }
     let activeChatIdLocal = activeChatId;
@@ -183,7 +178,7 @@ export class IndexWrapper extends Block<TProps> {
     api.getNewMsgCount(activeChatId).then((res: any) => {
       if (res.ok) {
         const { unread_count } = res.json();
-        // console.log('unread_count=', unread_count);
+
         store.dispatch({
           type: Actions.SET_UNREAD_COUNT,
           data: { activeChatId, unread_count },
@@ -290,10 +285,10 @@ export class IndexWrapper extends Block<TProps> {
         const { token } = res.json() as any;
         const userDataLocal = store.getState().userData;
         const { id } = userDataLocal;
-        // console.log('userid, activeChatId, token', id, activeChatId, token);
+
         ws.socketInit(id, activeChatId, token).then(() => {
           ws.socketGetOldMsgs();
-          // ws.socketPing();
+
           if (msg) {
             ws.socketSend(msg);
           }
@@ -302,8 +297,7 @@ export class IndexWrapper extends Block<TProps> {
         ws.socketOnError();
         ws.socketOnMessage(IndexWrapper._instance.publishMessage);
       } else {
-        const { reason } = res.json();
-        console.log(reason);
+        console.log(res.errorMessageText);
       }
     });
   }
@@ -376,7 +370,6 @@ export class IndexWrapper extends Block<TProps> {
       selectChats.forEach((chatNode) => chatNode.classList.remove('chat_selected'));
     }
     event.currentTarget.classList.toggle('chat_selected');
-    // IndexWrapper._instance.updateMsgCount(this.dataset.chatId);
 
     store.dispatch({
       type: Actions.SET_ACTIVE_CHAT,
@@ -442,9 +435,6 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   render(): string {
-    // console.log('render, this.props=', { ...this.props });
-    // console.log('render, this.props.chatList.render()=', IndexWrapper._instance.props.chatList.render());
-    // console.log('render, IndexWrapper._instance.props.chatList=', { ...IndexWrapper._instance.props.chatList });
     const compiled = compile(tmplIndexWrapper);
     const html = compiled({
       ...this.props,

@@ -13,7 +13,7 @@
     "start": "npm run clear && parcel build static/index.html && node ./server.ts",
     "stylelint": "npx stylelint **/*.scss",
     "eslint": "eslint . --ext .ts",
-    "clear": "rm -rf ./dist/*"
+    "clear": "rimraf ./dist/*"
   },
   "directories": {
     "src": "./src",
@@ -64,6 +64,7 @@
     "path": "^0.12.7",
     "pirates": "^4.0.1",
     "pug": "^3.0.2",
+    "rimraf": "^3.0.2",
     "sanitize-html": "^2.3.3",
     "sinon": "^10.0.0",
     "validator": "^13.5.2"

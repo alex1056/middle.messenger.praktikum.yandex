@@ -32,14 +32,14 @@ export class Popup<TPopupBase> extends Block<TProps> {
     if (event.type === 'click') {
       if (popup) {
         if (popup === event.target) {
-          popup.style.display = 'none';
+          popup.classList.add('hidden');
           popup.removeEventListener('click', this.outsideClick);
         }
       }
     }
     if (event.key === 'Escape') {
       if (popup) {
-        popup.style.display = 'none';
+        popup.classList.add('hidden');
         document.removeEventListener('keydown', this.outsideClick);
       }
     }

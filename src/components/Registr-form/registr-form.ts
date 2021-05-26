@@ -63,8 +63,7 @@ export class RegistrForm extends Block<TProps> {
             window.location.href = '/';
           });
         } else if (errSpan) {
-          const { reason } = res.json();
-          errSpan.textContent = reason as string;
+          errSpan.textContent = res.errorMessageText as string;
         }
       });
     });

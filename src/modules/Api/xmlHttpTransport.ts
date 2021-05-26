@@ -28,10 +28,10 @@ export interface RequestResult {
   data: string;
   json: <T>() => T;
   headers: string;
+  errorMessageText?: string;
 }
 
 function parseXHRResult(xhr: XMLHttpRequest): RequestResult {
-  // console.log('xhr=', xhr);
   return {
     ok: xhr.status >= 200 && xhr.status < 300,
     status: xhr.status,
@@ -39,6 +39,7 @@ function parseXHRResult(xhr: XMLHttpRequest): RequestResult {
     headers: xhr.getAllResponseHeaders(),
     data: xhr.responseText,
     json: <T>() => JSON.parse(xhr.responseText) as T,
+    errorMessageText: parseErrMessage(xhr.responseText),
   };
 }
 
@@ -50,7 +51,19 @@ function errorResponse(xhr: XMLHttpRequest, message: string | null = null): Requ
     headers: xhr.getAllResponseHeaders(),
     data: message || xhr.statusText,
     json: <T>() => JSON.parse(message || xhr.statusText) as T,
+    errorMessageText: parseErrMessage(message || xhr.statusText),
   };
+}
+
+function parseErrMessage(message: string) {
+  let reason = null;
+
+  try {
+    reason = JSON.parse(message).reason;
+  } catch (err) {
+    return err;
+  }
+  return reason;
 }
 
 enum METHODS {

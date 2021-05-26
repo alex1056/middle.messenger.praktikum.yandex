@@ -133,7 +133,6 @@ export class Block<TProps> {
   }
 
   _renderDOM() {
-    // console.log('Из _renderDOM', this.rootQuery);
     if (this.rootQuery) {
       try {
         const root = document.querySelector(this.rootQuery);
@@ -188,7 +187,6 @@ export class Block<TProps> {
         return true;
       },
       deleteProperty() {
-        // args = target, prop
         throw new Error('Нет доступа');
       },
     });
@@ -200,11 +198,11 @@ export class Block<TProps> {
     return document.createElement(tagName);
   }
 
-  show(displayType: string = 'block') {
-    this.getContent().style.display = displayType;
+  show() {
+    this.getContent().classList.remove('hidden');
   }
 
   hide() {
-    this.getContent().style.display = 'none';
+    this.getContent().classList.add('hidden');
   }
 }

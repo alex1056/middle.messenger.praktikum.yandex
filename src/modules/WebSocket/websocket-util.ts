@@ -63,7 +63,6 @@ export class WebSocketRun {
 
   socketPing() {
     this.timerId = setInterval(() => {
-      // console.log('socketPing');
       this.socket.send(
         JSON.stringify({
           content: '',
@@ -88,9 +87,6 @@ export class WebSocketRun {
           type: 'message',
         }),
       );
-    } else {
-      // const rs: number = readyState;
-      // console.log(`Статус соединения ${READY_STATE_STATUS_TEXT[rs]}`);
     }
   }
 
@@ -104,9 +100,6 @@ export class WebSocketRun {
           type: 'get old',
         }),
       );
-    } else {
-      // const rs: number = readyState;
-      // console.log(`Статус соединения ${READY_STATE_STATUS_TEXT[rs]}`);
     }
   }
 

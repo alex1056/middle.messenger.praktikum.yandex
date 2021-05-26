@@ -105,12 +105,8 @@ export class PopupDeleteUser extends Block<TProps> {
               errSpan.textContent = `${formData.userLogin} удален из чата`;
             }
           });
-        } else {
-          const { reason } = res.json();
-
-          if (errSpan) {
-            errSpan.textContent = `${reason}`;
-          }
+        } else if (errSpan) {
+          errSpan.textContent = res.errorMessageText as string;
         }
       }
     });
@@ -129,7 +125,7 @@ export class PopupDeleteUser extends Block<TProps> {
 
     if (event.key === 'Escape') {
       if (popup) {
-        popup.style.display = 'none';
+        popup.classList.add('hidden');
         document.removeEventListener('keydown', this.outsideClick);
         store.dispatch({
           type: Actions.DELETE_USER_FROM_CHAT,

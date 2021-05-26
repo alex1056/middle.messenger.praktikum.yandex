@@ -51,16 +51,14 @@ export class PopupAddChat extends Block<TProps> {
       if (res.ok) {
         api.getChats().then((res1: any) => {
           const chatsData = res1.json();
-          // console.log(chatsData);
+
           store.dispatch({
             type: Actions.CHATS_UPDATE,
             data: chatsData,
           });
         });
       } else {
-        const { reason } = res.json();
-        console.log(reason);
-        // errSpan.textContent = reason as string;
+        console.log(res.errorMessageText);
       }
     });
   }
@@ -108,7 +106,7 @@ export class PopupAddChat extends Block<TProps> {
     if (event.type === 'click') {
       if (popup) {
         if (popup === event.target) {
-          popup.style.display = 'none';
+          popup.classList.add('hidden');
           popup.removeEventListener('click', this.outsideClick);
           store.dispatch({
             type: Actions.ADD_CHAT_POPUP_SHOW,
@@ -119,7 +117,7 @@ export class PopupAddChat extends Block<TProps> {
     }
     if (event.key === 'Escape') {
       if (popup) {
-        popup.style.display = 'none';
+        popup.classList.add('hidden');
         document.removeEventListener('keydown', this.outsideClick);
         store.dispatch({
           type: Actions.ADD_CHAT_POPUP_SHOW,

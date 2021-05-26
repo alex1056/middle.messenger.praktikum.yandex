@@ -13,7 +13,6 @@ export class Store {
   static _instance = {} as Store;
 
   constructor(private reducer: TReducer, private initialState: TState) {
-    //   constructor(private initialState: TState) {
     this.state = reducer({ ...this.initialState }, { type: '__INIT__' });
     this.reducer = reducer;
   }
@@ -40,11 +39,6 @@ export class Store {
     } else {
       this.subscribers[action.type].forEach((subscriber: StoreSubscriberMethod) => subscriber(this.state));
     }
-    // if (!this.subscribers[Actions.ANY_ACTION]) {
-    //   throw new Error(`Нет события: ${Actions.ANY_ACTION}`);
-    // } else {
-    //   this.subscribers[Actions.ANY_ACTION].forEach((subscriber: StoreSubscriberMethod) => subscriber(this.state));
-    // }
     localStorage.setItem('app-state', JSON.stringify(this.state));
   }
 

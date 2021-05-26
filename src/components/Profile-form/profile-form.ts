@@ -145,8 +145,7 @@ export class ProfileForm extends Block<TProps> {
               });
             }, 1000);
           } else if (errSpan) {
-            const { reason } = res.json();
-            errSpan.textContent = reason as string;
+            errSpan.textContent = res.errorMessageText as string;
           }
         });
       } else {
@@ -183,8 +182,7 @@ export class ProfileForm extends Block<TProps> {
               });
             }, 1000);
           } else if (errSpan) {
-            const { reason } = res.json();
-            errSpan.textContent = reason as string;
+            errSpan.textContent = res.errorMessageText as string;
           }
         });
       }

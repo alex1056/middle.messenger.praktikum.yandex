@@ -98,7 +98,7 @@ export class PopupDeleteChat extends Block<TProps> {
 
     if (event.key === 'Escape') {
       if (popup) {
-        popup.style.display = 'none';
+        popup.classList.add('hidden');
         document.removeEventListener('keydown', this.outsideClick);
         store.dispatch({
           type: Actions.DELETE_CHAT_POPUP_SHOW,

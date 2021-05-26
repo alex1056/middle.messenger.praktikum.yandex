@@ -30,7 +30,7 @@ export function mountPopups(): void {
       renderDOM('.body', popupUserMenu.getContent());
 
       if (userMenuPopupState.showPopup) {
-        popupUserMenu.show('flex');
+        popupUserMenu.show();
       } else {
         popupUserMenu.hide();
       }
@@ -39,12 +39,15 @@ export function mountPopups(): void {
       popupUserMenu.setProps({ ...popupUserMenu.props });
       document.querySelector('#user-menu-popup')?.remove();
       renderDOM('.body', popupUserMenu.getContent());
-      popup.style.display = 'flex';
+      // popup.style.display = 'flex';
+      popup.classList.remove('hidden');
     } else {
-      popup.style.display = 'none';
+      // popup.style.display = 'none';
+      popup.classList.add('hidden');
     }
     if (popup && userMenuPopupState.showPopup) {
-      popup.style.display = 'none';
+      // popup.style.display = 'none';
+      popup.classList.add('hidden');
     }
   }
 
@@ -67,7 +70,7 @@ export function mountPopups(): void {
       renderDOM('.body', popupAddChat.getContent());
 
       if (addChatPopupState.showPopup) {
-        popupAddChat.show('flex');
+        popupAddChat.show();
       } else {
         popupAddChat.hide();
       }
@@ -76,9 +79,11 @@ export function mountPopups(): void {
       popupAddChat.setProps({ ...popupAddChat.props });
       document.querySelector('#add-chat-popup')?.remove();
       renderDOM('.body', popupAddChat.getContent());
-      popup.style.display = 'flex';
+      // popup.style.display = 'flex';
+      popup.classList.remove('hidden');
     } else {
-      popup.style.display = 'none';
+      // popup.style.display = 'none';
+      popup.classList.add('hidden');
     }
   }
 
@@ -101,7 +106,7 @@ export function mountPopups(): void {
       renderDOM('.body', popupDeleteChat.getContent());
 
       if (deleteChatPopupState.showPopup) {
-        popupDeleteChat.show('flex');
+        popupDeleteChat.show();
       } else {
         popupDeleteChat.hide();
       }
@@ -110,9 +115,11 @@ export function mountPopups(): void {
       popupDeleteChat.setProps({ ...popupDeleteChat.props, chatId, chatName });
       document.querySelector('#delete-chat-popup')?.remove();
       renderDOM('.body', popupDeleteChat.getContent());
-      popup.style.display = 'flex';
+      // popup.style.display = 'flex';
+      popup.classList.remove('hidden');
     } else {
-      popup.style.display = 'none';
+      // popup.style.display = 'none';
+      popup.classList.add('hidden');
     }
   }
   store.subscribe(Actions.DELETE_CHAT_POPUP_SHOW, popupDeleteChatHandler);
@@ -123,7 +130,7 @@ export function mountPopups(): void {
     const addMediaPopupState = store.getState().addMediaPopup;
 
     if (addMediaPopupState.showPopup) {
-      popupAddMedia.show('flex');
+      popupAddMedia.show();
     } else {
       popupAddMedia.hide();
     }
@@ -147,7 +154,7 @@ export function mountPopups(): void {
       renderDOM('.body', popupDeleteUser.getContent());
 
       if (deleteUserPopupState.showPopup) {
-        popupDeleteUser.show('flex');
+        popupDeleteUser.show();
       } else {
         popupDeleteUser.hide();
       }
@@ -156,9 +163,11 @@ export function mountPopups(): void {
       popupDeleteUser.setProps({ ...popupDeleteUser.props, showPopup });
       document.querySelector('#delete-user-popup')?.remove();
       renderDOM('.body', popupDeleteUser.getContent());
-      popup.style.display = 'flex';
+      // popup.style.display = 'flex';
+      popup.classList.remove('hidden');
     } else {
-      popup.style.display = 'none';
+      // popup.style.display = 'none';
+      popup.classList.add('hidden');
     }
   }
   store.subscribe(Actions.DELETE_USER_FROM_CHAT, popupDeleteUserHandler);
@@ -179,7 +188,7 @@ export function mountPopups(): void {
       renderDOM('.body', popupChngAvatar.getContent());
 
       if (chngAvatarPopupState.showPopup) {
-        popupChngAvatar.show('flex');
+        popupChngAvatar.show();
       } else {
         popupChngAvatar.hide();
       }
@@ -188,9 +197,11 @@ export function mountPopups(): void {
       popupChngAvatar.setProps({ ...popupChngAvatar.props });
       document.querySelector('#chng-avatar-popup')?.remove();
       renderDOM('.body', popupChngAvatar.getContent());
-      popup.style.display = 'flex';
+      // popup.style.display = 'flex';
+      popup.classList.remove('hidden');
     } else {
-      popup.style.display = 'none';
+      // popup.style.display = 'none';
+      popup.classList.add('hidden');
     }
   }
   store.subscribe(Actions.CHNG_AVATAR_POPUP_SHOW, popupChngAvatarHandler);
@@ -211,7 +222,7 @@ export function mountPopups(): void {
       renderDOM('.body', popupMsgsChngAvatar.getContent());
 
       if (msgsChngAvatarPopupState.showPopup) {
-        popupMsgsChngAvatar.show('flex');
+        popupMsgsChngAvatar.show();
       } else {
         popupMsgsChngAvatar.hide();
       }
@@ -220,9 +231,11 @@ export function mountPopups(): void {
       popupMsgsChngAvatar.setProps({ ...popupMsgsChngAvatar.props });
       document.querySelector('#msgs-chng-avatar-popup')?.remove();
       renderDOM('.body', popupMsgsChngAvatar.getContent());
-      popup.style.display = 'flex';
+      // popup.style.display = 'flex';
+      popup.classList.remove('hidden');
     } else {
-      popup.style.display = 'none';
+      // popup.style.display = 'none';
+      popup.classList.add('hidden');
     }
   }
   store.subscribe(Actions.MSGS_CHNG_AVATAR_POPUP_SHOW, popupMsgsChngAvatarHandler);
@@ -230,7 +243,7 @@ export function mountPopups(): void {
   function popupAddUserHandler() {
     let popup = null;
     const addUserPopupState = store.getState().addUserPopup;
-    let popupAddChat = null;
+    let popupAddUser = null;
     try {
       popup = document.body.querySelector<HTMLDivElement>('#add-user-popup');
     } catch {
@@ -238,23 +251,23 @@ export function mountPopups(): void {
     }
 
     if (!popup) {
-      popupAddChat = new PopupAddUser({});
-      popupAddChat.setProps({ ...popupAddChat.props });
-      renderDOM('.body', popupAddChat.getContent());
+      popupAddUser = new PopupAddUser({});
+      popupAddUser.setProps({ ...popupAddUser.props });
+      renderDOM('.body', popupAddUser.getContent());
 
       if (addUserPopupState.showPopup) {
-        popupAddChat.show('flex');
+        popupAddUser.show();
       } else {
-        popupAddChat.hide();
+        popupAddUser.hide();
       }
     } else if (addUserPopupState.showPopup) {
-      popupAddChat = new PopupAddUser({});
-      popupAddChat.setProps({ ...popupAddChat.props });
+      popupAddUser = new PopupAddUser({});
+      popupAddUser.setProps({ ...popupAddUser.props });
       document.querySelector('#add-user-popup')?.remove();
-      renderDOM('.body', popupAddChat.getContent());
-      popup.style.display = 'flex';
+      renderDOM('.body', popupAddUser.getContent());
+      popup.classList.remove('hidden');
     } else {
-      popup.style.display = 'none';
+      popup.classList.add('hidden');
     }
   }
 

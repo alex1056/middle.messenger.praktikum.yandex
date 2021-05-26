@@ -25,7 +25,6 @@ export class LoginForm extends Block<TProps> {
   form: Form;
 
   constructor(props?: TProps) {
-    //
     super('div', {
       buttonsubmit: new Btn({
         ...props,
@@ -53,7 +52,6 @@ export class LoginForm extends Block<TProps> {
         data: {},
       });
       api.signIn({ data: inputsDataMapped }).then((res: any) => {
-        // console.log(res);
         if (res.ok) {
           api.getUserData().then((res1: any) => {
             const userData = res1.json();
@@ -66,11 +64,8 @@ export class LoginForm extends Block<TProps> {
             }
             window.location.href = '/';
           });
-
-          // router.go({}, '/');
         } else if (errSpan) {
-          const { reason } = res.json();
-          errSpan.textContent = reason as string;
+          errSpan.textContent = res.errorMessageText as string;
         }
       });
     });

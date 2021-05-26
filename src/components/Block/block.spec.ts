@@ -1,17 +1,11 @@
 import { expect } from 'chai';
 
-// import { Block } from './Block';
 import TestBlock from '../../../test/testBlockHelper';
-// import DocumentMock from '../../../test/Mocks/documentMock';
 
 describe('Block test', () => {
   const blockProps = { title: 1 };
 
   let block: any;
-
-  before(() => {
-    // global.document = new DocumentMock();
-  });
 
   beforeEach(function () {
     block = new TestBlock(blockProps);

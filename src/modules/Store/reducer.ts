@@ -9,7 +9,7 @@ export function reducer(state: TState, action: TAction): TState {
   let chatId;
   let chatName;
   const { data } = action;
-  // console.log(data);
+
   switch (action.type) {
     case Actions.CHATS_UPDATE:
       prevStateLocal = state.chatsData || {};
@@ -17,25 +17,21 @@ export function reducer(state: TState, action: TAction): TState {
       return {
         ...state,
         chatsData: { ...prevStateLocal, data: completeImgUrl(data) },
-        // chatsData: {},
       };
 
     case Actions.SET_UNREAD_COUNT:
-      // console.log(updateUnreadCount(data.activeChatId, data.unread_count));
       return {
         ...state,
         chatsData: updateUnreadCount(data.activeChatId, data.unread_count),
       };
 
     case Actions.SET_ACTIVE_CHAT:
-      // prevStateLocal = state.chatsData || {};
       return {
         ...state,
         activeChatId: data.activeChatId,
       };
 
     case Actions.REMOVE_ACTIVE_CHAT_ID:
-      // prevStateLocal = state.chatsData || {};
       return {
         ...state,
         activeChatId: data.activeChatId,
@@ -44,11 +40,7 @@ export function reducer(state: TState, action: TAction): TState {
     case Actions.ADD_USER_POPUP_SHOW:
       prevStateLocal = state.addUserPopup || {};
 
-      if (!data) {
-        showPopup = false;
-      } else {
-        showPopup = data.showPopup;
-      }
+      showPopup = data ? data.showPopup : false;
 
       return {
         ...state,
@@ -58,11 +50,7 @@ export function reducer(state: TState, action: TAction): TState {
     case Actions.CHNG_AVATAR_POPUP_SHOW:
       prevStateLocal = state.chngAvatarPopup || {};
 
-      if (!data) {
-        showPopup = false;
-      } else {
-        showPopup = data.showPopup;
-      }
+      showPopup = data ? data.showPopup : false;
 
       return {
         ...state,
@@ -72,11 +60,7 @@ export function reducer(state: TState, action: TAction): TState {
     case Actions.MSGS_CHNG_AVATAR_POPUP_SHOW:
       prevStateLocal = state.msgsChngAvatarPopup || {};
 
-      if (!data) {
-        showPopup = false;
-      } else {
-        showPopup = data.showPopup;
-      }
+      showPopup = data ? data.showPopup : false;
 
       return {
         ...state,
@@ -86,11 +70,7 @@ export function reducer(state: TState, action: TAction): TState {
     case Actions.USER_MENU_POPUP_SHOW:
       prevStateLocal = state.userMenuPopup || {};
 
-      if (!data) {
-        showPopup = false;
-      } else {
-        showPopup = data.showPopup;
-      }
+      showPopup = data ? data.showPopup : false;
 
       return {
         ...state,
@@ -100,11 +80,7 @@ export function reducer(state: TState, action: TAction): TState {
     case Actions.DELETE_USER_FROM_CHAT:
       prevStateLocal = state.deleteUserPopup || {};
 
-      if (!data) {
-        showPopup = false;
-      } else {
-        showPopup = data.showPopup;
-      }
+      showPopup = data ? data.showPopup : false;
 
       return {
         ...state,
@@ -114,11 +90,7 @@ export function reducer(state: TState, action: TAction): TState {
     case Actions.ADD_MEDIA_POPUP_SHOW:
       prevStateLocal = state.addMediaPopup || {};
 
-      if (!data) {
-        showPopup = false;
-      } else {
-        showPopup = data.showPopup;
-      }
+      showPopup = data ? data.showPopup : false;
 
       return {
         ...state,
@@ -128,11 +100,7 @@ export function reducer(state: TState, action: TAction): TState {
     case Actions.ADD_CHAT_POPUP_SHOW:
       prevStateLocal = state.addChatPopup || {};
 
-      if (!data) {
-        showPopup = false;
-      } else {
-        showPopup = data.showPopup;
-      }
+      showPopup = data ? data.showPopup : false;
 
       return {
         ...state,

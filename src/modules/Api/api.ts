@@ -1,17 +1,7 @@
 import { HTTPTransport } from './xmlHttpTransport';
 import { urlApi } from './config';
 
-// type TSignUp = {
-//   first_name: 'string';
-//   second_name: 'string';
-//   login: 'string';
-//   email: 'string';
-//   password: 'string';
-//   phone: 'string';
-// };
-
 type Options = {
-  // method?: METHODS;
   data?: any;
   timeout?: number;
   headers?: { [key: string]: string };
