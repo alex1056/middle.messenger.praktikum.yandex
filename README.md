@@ -4,7 +4,7 @@
 - [Ссылка Netlify](https://gifted-franklin-967a84.netlify.app/)
 - [Ссылка на реопзиторий](https://github.com/alex1056/middle.messenger.praktikum.yandex/tree/main)
 
-[Ссылка на pull request](https://github.com/alex1056/middle.messenger.praktikum.yandex/pull/1)
+[Ссылка на pull request](https://github.com/alex1056/middle.messenger.praktikum.yandex/pull/3)
 
 ### Планируется реализация чата с минимально достаточными функциями:
 
