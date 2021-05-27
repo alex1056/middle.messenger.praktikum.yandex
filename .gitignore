@@ -1,5 +1,5 @@
 dist
-
+lib
 .env
 logs
 *.log
