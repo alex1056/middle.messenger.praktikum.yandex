@@ -43,10 +43,15 @@
     border-radius: 50%;
     // background-size: 40px 40px;
     cursor: pointer;
-    background: #efefef url("../../../img/profile-avatar.svg") center no-repeat;
+    background-size: auto;
+    background-image: url('../../../img/profile-avatar.svg');
+    // background: #efefef url('../../../img/profile-avatar.svg') center no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #efefef;
 
     &:after {
-      content: "";
+      content: '';
       display: block;
       width: 130px;
       height: 130px;
@@ -68,7 +73,7 @@
       text-align: center;
       color: #fff;
       background-color: rgba(0, 0, 0, 0.5);
-      content: "Поменять аватар";
+      content: 'Поменять аватар';
       opacity: 1;
       transition: opacity 0.2s linear;
     }
