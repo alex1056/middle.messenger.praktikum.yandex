@@ -7,11 +7,11 @@
     <title>Chat Главная страницы</title>
     <meta name="author" content="Александр Бесов" />
     <meta name="description" content="Функциональность чата" />
-    <link rel="stylesheet" href="./css/style.scss" />
+    <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.css %>" />
   </head>
 
   <body class="body">
     <div class="page"></div>
-    <script src="../src/index.ts"></script>
+    <script src="<%= htmlWebpackPlugin.files.js %>"></script>
   </body>
 </html>

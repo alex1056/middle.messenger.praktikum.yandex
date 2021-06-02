@@ -10,6 +10,8 @@ import { mountIndexWrapper } from './modules/MountComponents';
 
 import { Api } from './modules/Api';
 
+import '../static/css/style.scss';
+
 const api = new Api();
 
 const router = new Router('.page');
