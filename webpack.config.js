@@ -1,16 +1,20 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const webpack = require('webpack');
+
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: 'development',
   entry: './src/index.ts',
+  //   target: 'node',
   resolve: {
     extensions: ['.ts', '.js'],
-    fallback: {
-      fs: false,
-    },
+    // fallback: {
+    //   fs: false,
+    // },
   },
   output: {
     filename: 'bundle.js',
@@ -21,10 +25,11 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {},
-          },
+          isDev
+            ? 'style-loader'
+            : {
+                loader: MiniCssExtractPlugin.loader,
+              },
           'css-loader',
           'postcss-loader',
           'sass-loader',
@@ -47,7 +52,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
@@ -55,6 +59,9 @@ module.exports = {
       template: 'static/index.html',
       filename: 'index.html',
       minify: false,
+    }),
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
     }),
   ],
 
