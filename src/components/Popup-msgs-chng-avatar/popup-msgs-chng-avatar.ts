@@ -1,7 +1,9 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplPopupChngAvatar } from './template';
+// import { tmplPopupChngAvatar } from './template';
+// @ts-ignore
+import template from './template.pug';
 import { Form } from '../../modules/form';
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
@@ -145,8 +147,8 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplPopupChngAvatar);
-    const html = compiled({
+    // const compiled = compile(tmplPopupChngAvatar);
+    const html = template({
       ...this.props,
       buttonChange: this.props.buttonChange.render(),
     });

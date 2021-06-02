@@ -1,11 +1,13 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { ProfileFormCtrls } from '../Profile-form-ctrls';
 import { PopupChngAvatar } from '../Popup-chng-avatar';
-import { tmplProfile } from './template';
+// import { tmplProfile } from './template';
+// @ts-ignore
+import template from './template.pug';
 import './style.scss';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import { Api, urlApiResources } from '../../modules/Api';
@@ -308,8 +310,8 @@ export class ProfileForm extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplProfile);
-    const html = compiled({
+    // const compiled = compile(tmplProfile);
+    const html = template({
       ...this.props,
       buttonsubmit: this.props ? this.props.buttonsubmit.render() : '',
       ctrls: this.props ? this.props.ctrls.render() : '',

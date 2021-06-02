@@ -1,8 +1,10 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Router } from '../../modules/Router';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplRegistr } from './template';
+// import { tmplRegistr } from './template';
+// @ts-ignore
+import template from './template.pug';
 import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
 import './style.scss';
@@ -110,8 +112,8 @@ export class RegistrForm extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplRegistr);
-    const html = compiled({
+    // const compiled = compile(tmplRegistr);
+    const html = template({
       buttonsubmit: this.props.buttonsubmit.render(),
     });
     return html;

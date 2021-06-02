@@ -49,6 +49,11 @@ module.exports = {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
       },
+      {
+        test: /\.pug?$/,
+        use: 'pug-loader',
+        exclude: /node_modules/,
+      },
     ],
   },
   plugins: [

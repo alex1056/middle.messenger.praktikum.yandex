@@ -1,6 +1,8 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Block } from '../Block';
-import { tmplChatList } from './template';
+// import { tmplChatList } from './template';
+// @ts-ignore
+import template from './template.pug';
 
 type TPropsChatsList = {
   [propName: string]: any;
@@ -22,8 +24,8 @@ export class ChatList extends Block<TPropsChatsList> {
   }
 
   render(): string {
-    const compiled = compile(tmplChatList);
-    const html = compiled(this.props);
+    // const compiled = compile(tmplChatList);
+    const html = template(this.props);
     return html;
   }
 }

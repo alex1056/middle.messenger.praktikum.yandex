@@ -1,9 +1,11 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Block } from '../Block';
 import { ChatsListWrapper } from '../Chats-list-wrapper';
 import { Msgs } from '../Msgs';
 import { FeedMsg } from '../Feed-msg';
-import { tmplIndexWrapper } from './template';
+// import { tmplIndexWrapper } from './template';
+// @ts-ignore
+import template from './template.pug';
 import './style.scss';
 import { isEmpty } from '../../utils/is-empty';
 import { createStore, Actions, chatsDataSelector } from '../../modules/Store';
@@ -435,8 +437,8 @@ export class IndexWrapper extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplIndexWrapper);
-    const html = compiled({
+    // const compiled = compile(tmplIndexWrapper);
+    const html = template({
       ...this.props,
       chatList: this.props.chatList.render(),
       msgs: this.props.msgs.render(),

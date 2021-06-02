@@ -1,6 +1,8 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Block } from '../Block';
-import { tmplMsgs } from './template';
+// import { tmplMsgs } from './template';
+// @ts-ignore
+import template from './template.pug';
 import { Feed } from '../Feed';
 import { SendForm } from '../Send-form';
 import { localsIndexPage } from '../../LocalsData';
@@ -19,8 +21,8 @@ export class Msgs extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplMsgs);
-    const html = compiled({
+    // const compiled = compile(tmplMsgs);
+    const html = template({
       ...this.props,
       ...localsIndexPage,
       sendForm: this.props.sendForm.render(),

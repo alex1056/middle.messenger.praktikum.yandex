@@ -1,10 +1,12 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Router } from '../../modules/Router';
 import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplLogin } from './template';
+// import { tmplLogin } from './template';
+// @ts-ignore
+import template from './template.pug';
 import './style.scss';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import { Api } from '../../modules/Api';
@@ -112,8 +114,8 @@ export class LoginForm extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplLogin);
-    const html = compiled({
+    // const compiled = compile(tmplLogin);
+    const html = template({
       buttonsubmit: this.props.buttonsubmit.render(),
     });
     return html;

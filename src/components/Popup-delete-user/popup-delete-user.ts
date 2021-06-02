@@ -1,7 +1,9 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplDeleteAddUser } from './template';
+// import { tmplDeleteAddUser } from './template';
+// @ts-ignore
+import template from './template.pug';
 import './style.scss';
 import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
@@ -150,8 +152,8 @@ export class PopupDeleteUser extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplDeleteAddUser);
-    const html = compiled({
+    // const compiled = compile(tmplDeleteAddUser);
+    const html = template({
       ...this.props,
       buttonCancel: this.props.buttonCancel.render(),
       buttonAdd: this.props.buttonAdd.render(),

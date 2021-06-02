@@ -1,6 +1,8 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Block } from '../Block';
-import { tmplUserMenu } from './template';
+// import { tmplUserMenu } from './template';
+// @ts-ignore
+import template from './template.pug';
 import './style.scss';
 import { createStore, Actions } from '../../modules/Store';
 
@@ -85,8 +87,8 @@ export class PopupUserMenu extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplUserMenu);
-    const html = compiled(this.props);
+    // const compiled = compile(tmplUserMenu);
+    const html = template(this.props);
     return html;
   }
 }

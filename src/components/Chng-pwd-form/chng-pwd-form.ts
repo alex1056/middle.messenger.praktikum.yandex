@@ -1,8 +1,10 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplChngPwd } from './template';
+// import { tmplChngPwd } from './template';
 import './style.scss';
+// @ts-ignore
+import template from './template.pug';
 
 type TProps = {
   [propName: string]: any;
@@ -22,8 +24,8 @@ export class ChngPwdForm extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplChngPwd);
-    const html = compiled({
+    // const compiled = compile(tmplChngPwd);
+    const html = template({
       buttonsubmit: this.props.buttonsubmit.render(),
     });
     return html;

@@ -1,7 +1,9 @@
-import { compile } from 'pug';
+// import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplPopupAddChat } from './template';
+// import { tmplPopupAddChat } from './template';
+// @ts-ignore
+import template from './template.pug';
 import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
 import { Form } from '../../modules/form';
@@ -128,8 +130,8 @@ export class PopupAddChat extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplPopupAddChat);
-    const html = compiled({
+    // const compiled = compile(tmplPopupAddChat);
+    const html = template({
       ...this.props,
       buttonCancel: this.props.buttonCancel.render(),
       buttonAdd: this.props.buttonAdd.render(),
