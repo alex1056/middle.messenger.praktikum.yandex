@@ -3,8 +3,8 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
-const HOSTNAME = '0.0.0.0';
+const HOSTNAME = process.env.HOSTNAME || '0.0.0.0';
+const PORT = process.env.PORT || 3000;
 const distFolder = `${__dirname}/dist/`;
 
 app.use(express.static(distFolder));
