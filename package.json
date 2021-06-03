@@ -16,9 +16,7 @@
     "clear": "rimraf ./dist/*",
     "devw": "NODE_ENV=development webpack serve --mode development --open",
     "buildw": "NODE_ENV=production rimraf dist && webpack --mode production",
-    "buildw1": "rimraf dist && webpack",
-    "startw": "npm run buildw && node server.ts",
-    "startw1": "npm run buildw1 && node server.ts"
+    "startw": "npm run buildw && node server.ts"
   },
   "directories": {
     "src": "./src",
