@@ -12,7 +12,7 @@ module.exports = {
     extensions: ['.ts', '.js', '.pug'],
   },
   output: {
-    filename: 'bundle.js',
+    filename: `bundle.js`,
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -78,7 +78,10 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 3000,
+    port: 3002,
     hot: true,
+    historyApiFallback: {
+      index: 'index.html',
+    },
   },
 };
