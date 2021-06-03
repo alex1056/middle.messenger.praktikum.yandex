@@ -8,15 +8,12 @@
     "compile": "babel src -d lib --extensions '.ts,.tsx'",
     "test": "./node_modules/.bin/mocha",
     "test-watch": "npm run test -- --watch",
-    "dev": "npm run clear && parcel src/index.html",
-    "build": "parcel build static/index.html",
-    "start": "npm run clear && parcel build static/index.html && node ./server.ts",
     "stylelint": "npx stylelint **/*.scss",
     "eslint": "eslint . --ext .ts",
     "clear": "rimraf ./dist/*",
-    "devw": "NODE_ENV=development webpack serve --mode development --open",
-    "buildw": "NODE_ENV=production rimraf dist && webpack --mode production",
-    "startw": "npm run buildw && node server.ts"
+    "dev": "NODE_ENV=development webpack serve --mode development --open",
+    "build": "NODE_ENV=production rimraf dist && webpack --mode production",
+    "start": "npm run build && node server.ts"
   },
   "directories": {
     "src": "./src",
