@@ -4,6 +4,8 @@ import { Block } from '../Block';
 // @ts-ignore
 import template from './template.pug';
 
+console.log('template', template);
+
 type TPropsChatsList = {
   [propName: string]: any;
   chatsData: {

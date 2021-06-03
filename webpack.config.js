@@ -11,7 +11,7 @@ module.exports = {
   entry: './src/index.ts',
   //   target: 'node',
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', '.pug'],
     // fallback: {
     //   fs: false,
     // },
@@ -30,8 +30,9 @@ module.exports = {
             : {
                 loader: MiniCssExtractPlugin.loader,
               },
+          // 'style-loader',
           'css-loader',
-          'postcss-loader',
+          //   'postcss-loader',
           'sass-loader',
         ],
         exclude: /node_modules/,
@@ -61,7 +62,7 @@ module.exports = {
       filename: 'style.css',
     }),
     new HtmlWebpackPlugin({
-      template: 'static/index.html',
+      template: './src/index.html',
       filename: 'index.html',
       minify: false,
     }),

@@ -15,7 +15,8 @@
     "eslint": "eslint . --ext .ts",
     "clear": "rimraf ./dist/*",
     "devw": "NODE_ENV=development webpack serve --mode development --open",
-    "buildw": "NODE_ENV=production rimraf dist && webpack --mode production"
+    "buildw": "NODE_ENV=production rimraf dist && webpack --mode production",
+    "startw": "npm run buildw && node server.ts"
   },
   "directories": {
     "src": "./src",
@@ -62,7 +63,9 @@
     "mocha": "^8.4.0",
     "parcel-bundler": "^1.12.5",
     "postcss-loader": "^5.3.0",
+    "pug": "^3.0.2",
     "pug-loader": "^2.4.0",
+    "resolve-url-loader": "^4.0.0",
     "sass": "^1.32.8",
     "sass-loader": "^12.0.0",
     "style-loader": "^2.0.0",
@@ -78,10 +81,10 @@
     "@types/pug": "^2.0.4",
     "path": "^0.12.7",
     "pirates": "^4.0.1",
-    "pug": "^3.0.2",
     "request": "^2.79.0",
     "rimraf": "^3.0.2",
     "sanitize-html": "^2.3.3",
+    "scss": "^0.2.4",
     "sinon": "^10.0.0",
     "validator": "^13.5.2"
   },
