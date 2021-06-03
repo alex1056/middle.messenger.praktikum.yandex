@@ -8,7 +8,7 @@
     "compile": "babel src -d lib --extensions '.ts,.tsx'",
     "test": "./node_modules/.bin/mocha",
     "test-watch": "npm run test -- --watch",
-    "dev": "npm run clear && parcel static/index.html",
+    "dev": "npm run clear && parcel src/index.html",
     "build": "parcel build static/index.html",
     "start": "npm run clear && parcel build static/index.html && node ./server.ts",
     "stylelint": "npx stylelint **/*.scss",
