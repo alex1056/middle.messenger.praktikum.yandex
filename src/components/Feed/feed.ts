@@ -1,9 +1,8 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 // import { tmplFeed } from './template';
 import './style.scss';
 // @ts-ignore
-import template from './template.pug';
+const template = require('./template.pug');
 
 type TProps =
   | {

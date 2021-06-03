@@ -1,14 +1,15 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 // import { tmplPopupChngAvatar } from './template';
-// @ts-ignore
-import template from './template.pug';
+
 import { Form } from '../../modules/form';
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
 import './style.scss';
+
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps = { [propName: string]: any };
 const api = new Api();

@@ -1,15 +1,15 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 // import { tmplPopupAddChat } from './template';
-// @ts-ignore
-import template from './template.pug';
+
 import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
 import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import './style.scss';
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps = { [propName: string]: any };
 const store = createStore();

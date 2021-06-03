@@ -1,49 +1,48 @@
 import { Router } from './modules/Router';
-// import { IndexWrapper } from './components/Index-wrapper';
-// import { ProfileForm } from './components/Profile-form';
+import { IndexWrapper } from './components/Index-wrapper';
+import { ProfileForm } from './components/Profile-form';
 import { Page404 } from './components/404';
-// import { Page500 } from './components/500';
-// import { LoginForm } from './components/Login-form';
-// import { RegistrForm } from './components/Registr-form';
-// import { mountPopups, setPopupsSubscribers } from './modules/MountPopups';
-// import { mountIndexWrapper } from './modules/MountComponents';
+import { Page500 } from './components/500';
+import { LoginForm } from './components/Login-form';
+import { RegistrForm } from './components/Registr-form';
+import { mountPopups, setPopupsSubscribers } from './modules/MountPopups';
+import { mountIndexWrapper } from './modules/MountComponents';
 
-// import './css/style.scss';
-// require('./css/style.scss');
+import './css/style.scss';
 
-// import { Api } from './modules/Api';
+import { Api } from './modules/Api';
 
-// const api = new Api();
+const api = new Api();
 
 const router = new Router('.page');
 
-// let isLoggedIn = false;
+let isLoggedIn = false;
 
-router.use('/', Page404);
-router.start();
+// router.use('/', Page404);
+// router.start();
 
-// api.getUserData().then((res) => {
-//   if (res.ok) {
-//     isLoggedIn = true;
-//     router.use('/', IndexWrapper);
-//     router.use('/chats/:chatId', IndexWrapper);
-//     router.use('/profile', ProfileForm);
-//     router.use('/login', LoginForm);
-//     router.use('/registr', RegistrForm);
-//     router.use('/404', Page404);
-//     router.use('/500', Page500);
-//     router.start();
-//   } else {
-//     isLoggedIn = false;
-//     router.use('/login', LoginForm);
-//     router.use('/registr', RegistrForm);
-//     router.start();
-//   }
-//   mountPopups();
-//   mountIndexWrapper();
-//   setPopupsSubscribers();
+api.getUserData().then((res) => {
+  if (res.ok) {
+    isLoggedIn = true;
+    router.use('/', IndexWrapper);
+    router.use('/chats/:chatId', IndexWrapper);
+    router.use('/profile', ProfileForm);
+    router.use('/login', LoginForm);
+    router.use('/registr', RegistrForm);
+    router.use('/404', Page404);
+    router.use('/500', Page500);
+    router.start();
+  } else {
+    isLoggedIn = false;
+    router.use('/login', LoginForm);
+    router.use('/registr', RegistrForm);
+    router.start();
+  }
+  mountPopups();
+  mountIndexWrapper();
+  setPopupsSubscribers();
 
-//   if (!isLoggedIn) {
-//     router.go({}, '', '/login');
-//   }
-// });
+  if (!isLoggedIn) {
+    router.go({}, '', '/login');
+  }
+});

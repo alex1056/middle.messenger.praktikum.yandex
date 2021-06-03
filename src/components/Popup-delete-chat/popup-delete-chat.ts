@@ -1,14 +1,15 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 // import { tmplDeleteChat } from './template';
-// @ts-ignore
-import template from './template.pug';
+
 import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
 import './style.scss';
 import { Router } from '../../modules/Router';
+
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps = { [propName: string]: any };
 const store = createStore();

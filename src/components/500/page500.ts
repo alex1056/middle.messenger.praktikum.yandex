@@ -1,7 +1,7 @@
-// import { compile } from 'pug';
-// @ts-ignore
-import template from './template.pug';
 import { Block } from '../Block';
+// @ts-ignore
+const template = require('./template.pug');
+
 // import { tmpl500 } from './template';
 
 type TProps = {};

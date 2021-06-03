@@ -1,4 +1,3 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 // import { Btn } from '../Button';
 // import { tmplPopupChngAvatar } from './template';

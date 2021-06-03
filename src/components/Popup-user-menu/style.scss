@@ -8,6 +8,13 @@
     position: absolute;
     right: 20px;
     top: 65px;
+    box-sizing: border-box;
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
   }
 
   &__user-btn {
@@ -30,6 +37,7 @@
       display: block;
       width: 22px;
       height: 22px;
+      // background: url('./img/plus-add-user.svg') no-repeat;
       background: url('./img/plus-add-user.svg') no-repeat;
       background-size: 22px 22px;
       position: absolute;

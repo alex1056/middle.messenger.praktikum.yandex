@@ -1,9 +1,10 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 // import { tmplAddMedia } from './template';
-// @ts-ignore
-import template from './template.pug';
+
 import { createStore, Actions } from '../../modules/Store';
+
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps = { [propName: string]: any };
 const store = createStore();

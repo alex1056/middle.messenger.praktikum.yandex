@@ -14,11 +14,11 @@
   text-decoration: none;
 
   &:before {
-    content: "";
+    content: '';
     display: block;
     width: 22px;
     height: 22px;
-    background: url("../../../img/add-media.svg") no-repeat;
+    background: url('../../../img/add-media.svg') no-repeat;
     background-size: 22px 22px;
     position: absolute;
     top: 0;
@@ -35,9 +35,9 @@
 }
 
 .add-media_file:before {
-  background: url("../../../img/add-file.svg") no-repeat;
+  background: url('../../../img/add-file.svg') no-repeat;
 }
 
 .add-media_location:before {
-  background: url("../../../img/add-location.svg") no-repeat;
+  background: url('../../../img/add-location.svg') no-repeat;
 }

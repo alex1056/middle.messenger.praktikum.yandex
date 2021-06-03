@@ -1,9 +1,8 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 import { ChatList } from '../Chat-list';
 // import { tmplChatList } from './template';
 // @ts-ignore
-import template from './template.pug';
+const template = require('./template.pug');
 
 type TPropsChatsList = {
   [propName: string]: any;

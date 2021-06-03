@@ -1,6 +1,5 @@
-// import { compile } from 'pug';
 // @ts-ignore
-// import template from './template.pug';
+// const template = require('./template.pug');
 
 import './styles.scss';
 

@@ -1,8 +1,7 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 // import { tmplSendForm } from './template';
 // @ts-ignore
-import template from './template.pug';
+const template = require('./template.pug');
 
 type TProps = { [propName: string]: any } | {};
 

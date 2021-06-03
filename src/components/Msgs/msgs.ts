@@ -1,11 +1,10 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 // import { tmplMsgs } from './template';
-// @ts-ignore
-import template from './template.pug';
 import { Feed } from '../Feed';
 import { SendForm } from '../Send-form';
 import { localsIndexPage } from '../../LocalsData';
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps = { [propName: string]: any };
 

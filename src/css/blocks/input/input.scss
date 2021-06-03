@@ -33,11 +33,11 @@
     cursor: pointer;
 
     &:before {
-      content: "";
+      content: '';
       display: block;
       width: 20px;
       height: 20px;
-      background: url("../../../img/loop.svg") no-repeat;
+      background: url('../../../img/loop.svg') no-repeat;
       background-size: 20px 20px;
       position: absolute;
       top: 0;

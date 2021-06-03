@@ -7,14 +7,9 @@ const webpack = require('webpack');
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.ts',
-  //   target: 'node',
   resolve: {
     extensions: ['.ts', '.js', '.pug'],
-    // fallback: {
-    //   fs: false,
-    // },
   },
   output: {
     filename: 'bundle.js',
@@ -30,10 +25,15 @@ module.exports = {
             : {
                 loader: MiniCssExtractPlugin.loader,
               },
-          // 'style-loader',
           'css-loader',
-          //   'postcss-loader',
-          'sass-loader',
+          'postcss-loader',
+          'resolve-url-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
         ],
         exclude: /node_modules/,
       },
@@ -43,11 +43,15 @@ module.exports = {
         exclude: [/node_modules/, /test/, /\.spec\.ts$/],
       },
       {
-        test: /\.(ttf|eot|svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
+        test: /\.(svg|woff|woff2|ttf|eot|otf)([\?]?.*)$/,
+        use: [
+          {
+            loader: 'file-loader?name=assets/fonts/[name].[ext]',
+          },
+        ],
       },
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
       },
       {

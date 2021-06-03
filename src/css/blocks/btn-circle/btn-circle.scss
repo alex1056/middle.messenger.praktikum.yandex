@@ -4,7 +4,7 @@
   padding: 0;
   border: none;
   cursor: pointer;
-  background: url("../../../img/send-msg.svg") no-repeat;
+  background: url('../../../img/send-msg.svg') no-repeat;
   transition: background 0.1s linear;
   transform: rotate(-180deg);
   display: flex;
@@ -15,7 +15,7 @@
   }
 
   &:hover {
-    background: url("../../../img/send-msg-hover.svg") no-repeat;
+    background: url('../../../img/send-msg-hover.svg') no-repeat;
     transition: background 0.1s linear;
   }
 }

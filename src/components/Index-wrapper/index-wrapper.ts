@@ -1,11 +1,8 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 import { ChatsListWrapper } from '../Chats-list-wrapper';
 import { Msgs } from '../Msgs';
 import { FeedMsg } from '../Feed-msg';
 // import { tmplIndexWrapper } from './template';
-// @ts-ignore
-import template from './template.pug';
 import './style.scss';
 import { isEmpty } from '../../utils/is-empty';
 import { createStore, Actions, chatsDataSelector } from '../../modules/Store';
@@ -15,6 +12,8 @@ import { transfromChatsData } from '../../utils/transfrom-chats-data';
 import { timeParce } from '../../utils/timeParse';
 import { Router } from '../../modules/Router';
 import { sanitize } from '../../utils/sanitizeHtml';
+// @ts-ignore
+const template = require('./template.pug');
 
 const api = new Api();
 const store = createStore();

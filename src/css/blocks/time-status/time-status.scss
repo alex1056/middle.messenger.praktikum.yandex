@@ -13,11 +13,11 @@
   cursor: pointer;
 
   &:before {
-    content: "";
+    content: '';
     display: block;
     width: 14px;
     height: 9px;
-    background: url("../../../img/read.svg") no-repeat;
+    background: url('../../../img/read.svg') no-repeat;
     background-size: 14px 9px;
     position: absolute;
     top: 0;

@@ -1,9 +1,10 @@
-// import { compile } from 'pug';
 import { Block } from '../Block';
 // import { tmplProfileCtrls } from './template';
-// @ts-ignore
-import template from './template.pug';
+
 import './style.scss';
+
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps = {
   [propName: string]: any;
