@@ -5,7 +5,7 @@
 - [Ссылка Heroku](https://my-heroku-app123456.herokuapp.com/)
 - [Ссылка на реопзиторий](https://github.com/alex1056/middle.messenger.praktikum.yandex/tree/main)
 
-[Ссылка на pull request](https://github.com/alex1056/middle.messenger.praktikum.yandex/pull/3)
+[Ссылка на pull request](https://github.com/alex1056/middle.messenger.praktikum.yandex/pull/4)
 
 ### Реализация чата с минимально достаточными функциями:
 
