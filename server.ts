@@ -7,6 +7,8 @@ const HOSTNAME = process.env.HOSTNAME || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
 const distFolder = `${__dirname}/dist/`;
 
+asdad;
+
 app.use(express.static(distFolder));
 
 app.use((request, response) => {
