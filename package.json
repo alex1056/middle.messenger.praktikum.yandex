@@ -91,6 +91,11 @@
     "sinon": "^10.0.0",
     "validator": "^13.5.2"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.{js,ts}": "eslint --quiet",
     "*.scss": "stylelint --syntax scss"
