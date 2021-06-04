@@ -1,8 +1,7 @@
 import { Block } from '../Block';
 import './style.scss';
-// import { btnTmpl } from './template';
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 type TProps =
   | {
@@ -26,7 +25,6 @@ export class Btn extends Block<TProps> {
   }
 
   render() {
-    // const compiled = compile(btnTmpl);
     const html = template(this.props);
     return html;
   }

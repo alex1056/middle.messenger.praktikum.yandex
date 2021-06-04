@@ -1,10 +1,9 @@
 import { Block } from '../Block';
-// import { tmplMsgs } from './template';
 import { Feed } from '../Feed';
 import { SendForm } from '../Send-form';
 import { localsIndexPage } from '../../LocalsData';
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 type TProps = { [propName: string]: any };
 
@@ -20,7 +19,6 @@ export class Msgs extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplMsgs);
     const html = template({
       ...this.props,
       ...localsIndexPage,

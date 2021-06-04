@@ -3,14 +3,12 @@ import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-// import { tmplLogin } from './template';
-
 import './style.scss';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 const api = new Api();
 const store = createStore();
@@ -114,7 +112,6 @@ export class LoginForm extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplLogin);
     const html = template({
       buttonsubmit: this.props.buttonsubmit.render(),
     });

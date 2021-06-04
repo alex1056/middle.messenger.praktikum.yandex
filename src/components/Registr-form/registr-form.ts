@@ -1,8 +1,6 @@
 import { Router } from '../../modules/Router';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-// import { tmplRegistr } from './template';
-
 import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
 import './style.scss';
@@ -11,7 +9,7 @@ import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 const api = new Api();
 const store = createStore();
@@ -113,7 +111,6 @@ export class RegistrForm extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplRegistr);
     const html = template({
       buttonsubmit: this.props.buttonsubmit.render(),
     });

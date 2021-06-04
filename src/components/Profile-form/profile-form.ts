@@ -4,8 +4,6 @@ import { Block } from '../Block';
 import { Btn } from '../Button';
 import { ProfileFormCtrls } from '../Profile-form-ctrls';
 import { PopupChngAvatar } from '../Popup-chng-avatar';
-// import { tmplProfile } from './template';
-
 import './style.scss';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import { Api, urlApiResources } from '../../modules/Api';
@@ -13,7 +11,7 @@ import { createStore, Actions } from '../../modules/Store';
 import { Router } from '../../modules/Router';
 
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 const api = new Api();
 const store = createStore();
@@ -311,7 +309,6 @@ export class ProfileForm extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplProfile);
     const html = template({
       ...this.props,
       buttonsubmit: this.props ? this.props.buttonsubmit.render() : '',

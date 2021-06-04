@@ -1,7 +1,6 @@
 import { Block } from '../Block';
-// import { tmplSendForm } from './template';
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 type TProps = { [propName: string]: any } | {};
 
@@ -13,7 +12,6 @@ export class SendForm extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplSendForm);
     const html = template({});
     return html;
   }
