@@ -15,7 +15,6 @@
     "build": "cross-env NODE_ENV=production rimraf dist && webpack --mode production",
     "start": "cross-env NODE_ENV=production rimraf dist && webpack --mode production && node server.ts",
     "pre-commit": "lint-staged --quiet",
-    "prepare": "husky install",
     "prepare": "husky install"
   },
   "directories": {
