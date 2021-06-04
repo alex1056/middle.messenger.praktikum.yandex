@@ -14,7 +14,7 @@
     "dev": "cross-env NODE_ENV=development webpack serve --mode development --open",
     "build": "cross-env NODE_ENV=production rimraf dist && webpack --mode production",
     "start": "npm run build && node server.ts",
-    "precommit": "lint-staged --quiet",
+    "precommit": "npm run eslint && npm run stylelint",
     "prepare": "husky install"
   },
   "directories": {
@@ -91,15 +91,6 @@
     "scss": "^0.2.4",
     "sinon": "^10.0.0",
     "validator": "^13.5.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts}": "eslint",
-    "*.scss": "stylelint --syntax scss"
   },
   "engines": {
     "node": ">=10.0.0"
