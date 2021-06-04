@@ -1,128 +1,124 @@
-function queryParams(params: any = {}) {
-  return Object.keys(params)
-    .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
-    .join('&');
-}
-
-function withQuery(url: string, params: any = {}): string {
-  const queryString = queryParams(params);
-  return queryString ? url + (url.indexOf('?') === -1 ? '?' : '&') + queryString : url;
-}
-
-export interface RequestOptions {
-  ignoreCache?: boolean;
-  headers?: { [key: string]: string };
-  timeout?: number;
-}
-
-export interface RequestResult {
-  ok: boolean;
-  status: number;
-  statusText: string;
-  data: string;
-  json: <T>() => T;
-  headers: string;
-}
-
-function parseXHRResult(xhr: XMLHttpRequest): RequestResult {
-  return {
-    ok: xhr.status >= 200 && xhr.status < 300,
-    status: xhr.status,
-    statusText: xhr.statusText,
-    headers: xhr.getAllResponseHeaders(),
-    data: xhr.responseText,
-    json: <T>() => JSON.parse(xhr.responseText) as T,
-  };
-}
-
-function errorResponse(xhr: XMLHttpRequest, message: string | null = null): RequestResult {
-  return {
-    ok: false,
-    status: xhr.status,
-    statusText: xhr.statusText,
-    headers: xhr.getAllResponseHeaders(),
-    data: message || xhr.statusText,
-    json: <T>() => JSON.parse(message || xhr.statusText) as T,
-  };
-}
-
-const enum METHODS {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
-}
+import { HTTPTransport } from './xmlHttpTransport';
+import { urlApi } from './config';
 
 type Options = {
-  method?: METHODS;
   data?: any;
   timeout?: number;
   headers?: { [key: string]: string };
+  form?: any;
 };
 
-export class HTTPTransport {
-  get = (url: string, options: Options = {}): Promise<RequestResult> => {
+export type TDataLogin = {
+  login: string;
+  password: string;
+};
+
+export class Api {
+  api: HTTPTransport;
+
+  constructor() {
+    this.api = new HTTPTransport();
+  }
+
+  signUp = (options: Options) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.post(`${urlApi}/auth/signup`, { ...options, headers });
+  };
+
+  signIn = (options: Options) => {
     const { data } = options;
-    if (data) {
-      return this.request(withQuery(url, data), { ...options, method: METHODS.GET }, options.timeout);
-    }
-    return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.post(`${urlApi}/auth/signin`, { data, headers });
   };
 
-  post = (url: string, options: Options = {}): Promise<RequestResult> =>
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+  logOut = () => this.api.post(`${urlApi}/auth/logout`, {});
 
-  put = (url: string, options: Options = {}): Promise<RequestResult> =>
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+  getUserData = () => this.api.get(`${urlApi}/auth/user`, {});
 
-  delete = (url: string, options: Options = {}): Promise<RequestResult> =>
-    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+  getNewMsgCount = (chatId: string) => this.api.get(`${urlApi}/chats/new/${chatId}`, {});
 
-  reject = (err: any) => {
-    throw new Error(err);
+  chngUserProfileData = (options: Options) => {
+    const { data } = options;
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.put(`${urlApi}/user/profile`, { data, headers });
   };
 
-  request = (url: string, options: Options, timeout: number = 5000): Promise<RequestResult> => {
-    const { method, headers, data } = options;
-
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.timeout = timeout;
-
-      try {
-        if (headers) {
-          Object.keys(headers).forEach((key) => xhr.setRequestHeader(key, headers[key]));
-        }
-      } catch (err) {
-        console.log('Ошибка во время установки заголовков', err);
-      }
-
-      xhr.open(method as string, url);
-
-      xhr.onload = () => {
-        resolve(parseXHRResult(xhr));
-      };
-
-      xhr.onerror = () => {
-        resolve(errorResponse(xhr, 'Невозможно сделать запрос'));
-      };
-
-      xhr.ontimeout = () => {
-        resolve(errorResponse(xhr, 'Время ожидания запроса истекло'));
-      };
-
-      xhr.onabort = (e) => {
-        reject(e);
-      };
-
-      if (method === METHODS.GET || method === METHODS.DELETE || !data) {
-        xhr.send();
-      } else if ((method === METHODS.POST || method === METHODS.PUT) && data) {
-        xhr.send(JSON.stringify(data));
-      } else {
-        xhr.send(data);
-      }
-    });
+  chngUserPassword = (options: Options) => {
+    const { data } = options;
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.put(`${urlApi}/user/password`, { data, headers });
   };
+
+  chngUserAvatar = (options: Options) => {
+    const { form } = options;
+    return this.api.put(`${urlApi}/user/profile/avatar`, { form });
+  };
+
+  chngChatAvatar = (options: Options) => {
+    const { form } = options;
+    return this.api.put(`${urlApi}/chats/avatar`, { form });
+  };
+
+  getChats = () => this.api.get(`${urlApi}/chats`, {});
+
+  createChat = (title: string) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.post(`${urlApi}/chats`, { data: { title }, headers });
+  };
+
+  addUsersToChat = (users: number[], chatId: number) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.put(`${urlApi}/chats/users`, { data: { users, chatId }, headers });
+  };
+
+  deleteUsersFromChat = (users: number[], chatId: number) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.delete(`${urlApi}/chats/users`, { data: { users, chatId }, headers });
+  };
+
+  findUser = (login: string) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.post(`${urlApi}/user/search`, { data: { login }, headers });
+  };
+
+  getChatToken = (chatId: number) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.post(`${urlApi}/chats/token/${chatId}`, { headers });
+  };
+
+  deleteChat = (chatId: string) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.delete(`${urlApi}/chats`, { data: { chatId }, headers });
+  };
+
+  getChatUsers = (chatId: string) => {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    return this.api.get(`${urlApi}/chats/${chatId}/users`, { headers });
+  };
+
+  getChatFiles = (chatId: number) => this.api.get(`${urlApi}/chats/${chatId}/files`);
+
+  getChatsToken = (chatId: number) => this.api.post(`${urlApi}/chats/token/${chatId}`);
 }

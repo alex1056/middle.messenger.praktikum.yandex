@@ -12,7 +12,12 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    radix: 'off',
+    'object-curly-newline': 'off',
+    camelcase: 'off',
+    'operator-linebreak': 'off',
     'implicit-arrow-linebreak': 'off',
+    'no-use-before-define': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     'import/no-unresolved': [2, { commonjs: true, amd: true, ignore: ['.jpeg$', '.jpg$', '.png$'] }],

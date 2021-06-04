@@ -1,22 +1,30 @@
-type Nullable<T> = T | null
+import { sanitize } from '../../utils/sanitizeHtml';
+
+type Nullable<T> = T | null;
 
 export default class Form {
-  private validateForm: Function
+  private validateForm: Function;
 
-  private validateInputElement: Function
+  private handlerFormOpen: Function;
 
-  private handlerFormOpen: Function
+  private form: HTMLFormElement;
 
-  private form: HTMLFormElement
+  private submit: HTMLButtonElement;
 
-  private submit: HTMLButtonElement
+  private popup: HTMLDivElement;
 
-  private popup: HTMLDivElement
+  private validateInputElement: unknown;
 
-  private handlers: { [handlerName: string]: Function[] }
+  private handlers: { [handlerName: string]: Function[] };
 
-  constructor() {
+  private formId: string;
+
+  constructor(formId: string) {
     this.handlers = {};
+    if (!formId) {
+      throw new Error('Не задан formId для валидации!');
+    }
+    this.formId = formId;
   }
 
   setFormValidator(validator: { validateForm(): boolean; validateInputElement(): boolean }) {
@@ -33,17 +41,32 @@ export default class Form {
 
   setPopup(popupElem: HTMLDivElement) {
     this.popup = popupElem;
-    this.form = popupElem.querySelector('#form') as HTMLFormElement;
-    this.submit = popupElem.querySelector('#submit') as HTMLButtonElement;
+    this.form = popupElem.querySelector(`#${this.formId}`) as HTMLFormElement;
+    this.submit = popupElem.querySelector(`#${this.formId} #submit-${this.formId}`) as HTMLButtonElement;
+  }
+
+  getForm() {
+    if (this.form) {
+      return this.form;
+    }
+    return null;
+  }
+
+  getSubmitBtn() {
+    if (this.submit) {
+      return this.submit;
+    }
+    return null;
   }
 
   setEventListeners() {
     this.handlerFormOpen = this.formHandler.bind(this);
-    const form: Nullable<HTMLFormElement> = this.popup.querySelector('#form');
+
+    const form: Nullable<HTMLFormElement> = this.popup.querySelector(`#${this.formId}`);
     if (form) {
       const inputs = Array.from(form.elements);
       inputs.forEach((elem) => {
-        if (elem.id !== 'submit') {
+        if (elem.id !== `submit-${this.formId}`) {
           elem.addEventListener(
             'focus',
             this.handlerFormOpen as EventListener, // eslint-disable-line no-undef
@@ -56,6 +79,7 @@ export default class Form {
           );
         }
       });
+
       form.addEventListener(
         'submit',
         this.handlerFormOpen as EventListener, // eslint-disable-line no-undef
@@ -65,7 +89,7 @@ export default class Form {
   }
 
   removeEventListeners() {
-    const form = this.popup.querySelector('#form') as HTMLFormElement;
+    const form = this.popup.querySelector(`#${this.formId}`) as HTMLFormElement;
     if (form) {
       const inputs = Array.from(form.elements) as HTMLInputElement[];
       inputs.forEach((elem) => {
@@ -92,7 +116,7 @@ export default class Form {
     if (event.type === 'submit') {
       if (this.handlers.submit) {
         this.handlers.submit.forEach((callback) => {
-          callback(this.form);
+          callback(event, this.form, this.formId);
         });
       }
     }
@@ -100,16 +124,15 @@ export default class Form {
 
   getFormData() {
     const inputs = Array.from(this.form.elements);
-    const submit = this.form.querySelector('#submit') as HTMLDivElement;
+    const submit = this.form.querySelector(`#${this.formId}`) as HTMLDivElement;
 
     const inputsData = inputs.reduce((acc, item: HTMLInputElement) => {
       const { id, value } = item;
       if (id && id !== submit.id) {
-        return { ...acc, [id]: value };
+        return { ...acc, [id]: sanitize(value) };
       }
       return acc;
     }, {});
-
     return inputsData;
   }
 }
