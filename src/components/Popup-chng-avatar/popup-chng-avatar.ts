@@ -1,11 +1,12 @@
-import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplPopupChngAvatar } from './template';
 import { Form } from '../../modules/form';
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 import './style.scss';
+
+// @ts-ignore
+import template from './template.pug';
 
 type TProps = { [propName: string]: any };
 const api = new Api();
@@ -140,8 +141,8 @@ export class PopupChngAvatar extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplPopupChngAvatar);
-    const html = compiled({
+    // const compiled = compile(tmplPopupChngAvatar);
+    const html = template({
       ...this.props,
       buttonChange: this.props.buttonChange.render(),
     });

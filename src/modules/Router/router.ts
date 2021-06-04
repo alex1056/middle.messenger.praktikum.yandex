@@ -48,6 +48,7 @@ export class Router implements IRouter {
 
   _onRoute(pathname: string) {
     const route: IRoute | undefined = this.getRoute(pathname);
+    // console.log('this=', this);
 
     if (this._currentRoute) {
       if (this._currentRoute._pathname !== '/' && route?._pathname !== '/chats/:chatId') {

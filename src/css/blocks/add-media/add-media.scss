@@ -1,0 +1,43 @@
+.add-media {
+  position: relative;
+  margin: 0;
+  margin-bottom: 18px;
+  padding-left: 37px;
+  display: block;
+  padding-top: 6px;
+  font-size: 12px;
+  line-height: 12px;
+  color: $text-general;
+  opacity: 0.9;
+  transition: opacity 0.1s linear;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 22px;
+    background: url('../../../img/add-media.svg') no-repeat;
+    background-size: 22px 22px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    transition: background 0.1s linear;
+  }
+
+  &:hover {
+    opacity: 1;
+    transition: opacity 0.2s linear;
+  }
+}
+
+.add-media_file:before {
+  background: url('../../../img/add-file.svg') no-repeat;
+}
+
+.add-media_location:before {
+  background: url('../../../img/add-location.svg') no-repeat;
+}

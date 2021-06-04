@@ -8,6 +8,8 @@ import { RegistrForm } from './components/Registr-form';
 import { mountPopups, setPopupsSubscribers } from './modules/MountPopups';
 import { mountIndexWrapper } from './modules/MountComponents';
 
+import './css/style.scss';
+
 import { Api } from './modules/Api';
 
 const api = new Api();

@@ -1,16 +1,17 @@
-import { compile } from 'pug';
 import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
 import { Block } from '../Block';
 import { Btn } from '../Button';
 import { ProfileFormCtrls } from '../Profile-form-ctrls';
 import { PopupChngAvatar } from '../Popup-chng-avatar';
-import { tmplProfile } from './template';
 import './style.scss';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import { Api, urlApiResources } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
 import { Router } from '../../modules/Router';
+
+// @ts-ignore
+import template from './template.pug';
 
 const api = new Api();
 const store = createStore();
@@ -270,7 +271,7 @@ export class ProfileForm extends Block<TProps> {
           data: userDataFromServer,
         });
 
-        const avatarUrl = `${urlApiResources}${userDataFromServer.avatar}`;
+        const avatarUrl = userDataFromServer.avatar ? `${urlApiResources}${userDataFromServer.avatar}` : null;
         ProfileForm._instance.setProps({
           ...ProfileForm._instance.props,
 
@@ -308,8 +309,7 @@ export class ProfileForm extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplProfile);
-    const html = compiled({
+    const html = template({
       ...this.props,
       buttonsubmit: this.props ? this.props.buttonsubmit.render() : '',
       ctrls: this.props ? this.props.ctrls.render() : '',

@@ -1,12 +1,13 @@
-import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplDeleteChat } from './template';
 import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
 import { transfromChatsData } from '../../utils/transfrom-chats-data';
 import './style.scss';
 import { Router } from '../../modules/Router';
+
+// @ts-ignore
+import template from './template.pug';
 
 type TProps = { [propName: string]: any };
 const store = createStore();
@@ -123,8 +124,7 @@ export class PopupDeleteChat extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplDeleteChat);
-    const html = compiled({
+    const html = template({
       ...this.props,
       buttonCancel: this.props.buttonCancel.render(),
       buttonAdd: this.props.buttonAdd.render(),
