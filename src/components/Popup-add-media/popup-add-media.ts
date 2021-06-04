@@ -1,8 +1,10 @@
-import { compile } from 'pug';
 import { Block } from '../Block';
-import { tmplAddMedia } from './template';
-// import './style.scss';
+// import { tmplAddMedia } from './template';
+
 import { createStore, Actions } from '../../modules/Store';
+
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps = { [propName: string]: any };
 const store = createStore();
@@ -57,8 +59,8 @@ export class PopupAddMedia extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplAddMedia);
-    const html = compiled(this.props);
+    // const compiled = compile(tmplAddMedia);
+    const html = template(this.props);
     return html;
   }
 }

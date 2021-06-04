@@ -1,7 +1,8 @@
-import { compile } from 'pug';
 import { Block } from '../Block';
-import { tmplFeed } from './template';
+// import { tmplFeed } from './template';
 import './style.scss';
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps =
   | {
@@ -18,8 +19,8 @@ export class Feed extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplFeed);
-    const html = compiled(this.props);
+    // const compiled = compile(tmplFeed);
+    const html = template(this.props);
     return html;
   }
 }

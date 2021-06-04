@@ -1,13 +1,15 @@
-import { compile } from 'pug';
 import { Block } from '../Block';
 import { Btn } from '../Button';
-import { tmplPopupAddChat } from './template';
+// import { tmplPopupAddChat } from './template';
+
 import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
 import { Form } from '../../modules/form';
 import { Validator } from '../../modules/validator';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 import './style.scss';
+// @ts-ignore
+const template = require('./template.pug');
 
 type TProps = { [propName: string]: any };
 const store = createStore();
@@ -128,8 +130,8 @@ export class PopupAddChat extends Block<TProps> {
   }
 
   render(): string {
-    const compiled = compile(tmplPopupAddChat);
-    const html = compiled({
+    // const compiled = compile(tmplPopupAddChat);
+    const html = template({
       ...this.props,
       buttonCancel: this.props.buttonCancel.render(),
       buttonAdd: this.props.buttonAdd.render(),
