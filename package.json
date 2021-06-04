@@ -97,7 +97,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": "eslint --quiet",
+    "*.{js,ts}": "eslint",
     "*.scss": "stylelint --syntax scss"
   },
   "engines": {
