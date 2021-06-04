@@ -3,7 +3,11 @@ FROM node:14
 WORKDIR /var/www
 # копируем весь исходный код
 COPY . .
-# на данном порте запускается наше приложение
-EXPOSE 3000
+# если делать установку зависимостей в CMD через npm ci 
+# - не хватает времени и падает с ошибкой Error R10 (Boot timeout)
+RUN npm install
+RUN npm run build
 
-CMD npm ci && npm run startw
+EXPOSE 3000
+# запускается приложение
+CMD [ "node", "server.ts" ]
