@@ -1,0 +1,6 @@
+{
+  "extension": ["ts"],
+  "spec": "src/**/*.spec.ts",
+  "require": ["test/babel-register.js", "./test/helpers.js", "./test/dom.js", "ignore-styles"],
+  "exclude": "src/**/*.pug/"
+}
