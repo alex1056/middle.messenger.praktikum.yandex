@@ -14,7 +14,7 @@
     "dev": "cross-env NODE_ENV=development webpack serve --mode development --open",
     "build": "cross-env NODE_ENV=production rimraf dist && webpack --mode production",
     "start": "npm run build && node server.ts",
-    "pre-commit": "npm run eslint && npm run stylelint",
+    "pre-commit": "lint-staged --quiet",
     "prepare": "husky install"
   },
   "directories": {
