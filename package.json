@@ -13,7 +13,7 @@
     "clear": "rimraf ./dist/*",
     "dev": "cross-env NODE_ENV=development webpack serve --mode development --open",
     "build": "cross-env NODE_ENV=production rimraf dist && webpack --mode production",
-    "start": "npm run build && node server.ts",
+    "start": "cross-env NODE_ENV=production rimraf dist && webpack --mode production && node server.ts",
     "pre-commit": "lint-staged --quiet",
     "prepare": "husky install"
   },
