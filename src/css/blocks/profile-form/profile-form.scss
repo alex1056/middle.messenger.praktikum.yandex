@@ -37,7 +37,7 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
-    color: #1e1e1e;
+    color: $title-main;
   }
 
   &__input {
@@ -47,7 +47,7 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
-    color: #999;
+    color: $text-time;
     text-align: right;
     border: none;
     z-index: 20;
@@ -61,7 +61,7 @@
   &__btn-cont {
     margin-top: 60px;
     width: 100%;
-    color: #3369f3;
+    color: $btn-text;
     display: flex;
     flex-direction: column;
   }
@@ -79,7 +79,7 @@
     line-height: 13px;
     border: none;
     text-decoration: none;
-    color: #3369f3;
+    color: $btn-text;
 
     &:focus {
       outline: none;

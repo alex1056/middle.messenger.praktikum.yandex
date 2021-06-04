@@ -1,10 +1,8 @@
 import { Block } from '../Block';
-// import { tmplProfileCtrls } from './template';
-
 import './style.scss';
 
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 type TProps = {
   [propName: string]: any;
@@ -18,7 +16,6 @@ export class ProfileFormCtrls extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplProfileCtrls);
     const html = template(this.props);
     return html;
   }

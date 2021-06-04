@@ -1,8 +1,6 @@
 import { Block } from '../Block';
 // @ts-ignore
-const template = require('./template.pug');
-
-// import { tmpl500 } from './template';
+import template from './template.pug';
 
 type TProps = {};
 
@@ -14,7 +12,6 @@ export class Page500 extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmpl500);
     const html = template();
     return html;
   }

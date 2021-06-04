@@ -1,10 +1,9 @@
 import { Block } from '../Block';
-// import { tmplUserMenu } from './template';
 import './style.scss';
 import { createStore, Actions } from '../../modules/Store';
 
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 type TProps = { [propName: string]: any };
 const store = createStore();
@@ -87,7 +86,6 @@ export class PopupUserMenu extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplUserMenu);
     const html = template(this.props);
     return html;
   }

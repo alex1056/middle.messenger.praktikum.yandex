@@ -18,10 +18,7 @@ const router = new Router('.page');
 
 let isLoggedIn = false;
 
-// router.use('/', Page404);
-// router.start();
-
-api.getUserData().then((res) => {
+api.getUserData().then((res: any) => {
   if (res.ok) {
     isLoggedIn = true;
     router.use('/', IndexWrapper);

@@ -62,7 +62,7 @@
     margin-left: 10px;
     font-size: 13px;
     line-height: 13px;
-    color: #1e1e1e;
+    color: $title-main;
     display: flex;
   }
 
@@ -140,13 +140,13 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
-    color: #4c4c4c;
+    color: $input-text;
 
     &::placeholder {
       font-weight: 500;
       font-size: 13px;
       line-height: 13px;
-      color: #4c4c4c;
+      color: $input-text;
     }
 
     &:focus {

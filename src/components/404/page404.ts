@@ -1,16 +1,9 @@
-// @ts-ignore
-// const template = require('./template.pug');
-
 import './styles.scss';
 
 import { Block } from '../Block';
 
-const template = require('./template.pug');
-
-// require('./styles.scss');
-
-// console.log('template=', template);
-// import { tmpl404 } from './template';
+// @ts-ignore
+import template from './template.pug';
 
 type TProps = {};
 
@@ -22,7 +15,6 @@ export class Page404 extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmpl404);
     const html = template();
     return html;
   }

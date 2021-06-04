@@ -12,14 +12,14 @@
     font-size: 15px;
     line-height: 20px;
     text-align: center;
-    color: #1e1e1e;
+    color: $title-main;
   }
 
   &__fset {
     width: 100%;
     margin-bottom: 8px;
     border: none;
-    border-bottom: 1px solid #3369f3;
+    border-bottom: 1px solid $btn-text;
     display: block;
     padding-bottom: 3px;
 
@@ -34,7 +34,7 @@
     font-weight: 500;
     font-size: 9px;
     line-height: 9px;
-    color: #999;
+    color: $text-time;
     opacity: 1;
 
     &_hide {
@@ -62,7 +62,7 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
-    color: #1e1e1e;
+    color: $title-main;
     text-align: left;
     border: none;
 
@@ -87,7 +87,7 @@
         background-color: rgba(255, 255, 255, 0.262);
 
         .login-form__btn-text {
-          color: #6485da;
+          color: $btn-text-forms;
           transition: color 0.1s linear;
         }
       }
@@ -97,14 +97,14 @@
   &__btn-text {
     font-size: 11px;
     line-height: 11px;
-    color: #3369f3;
+    color: $btn-text;
     transition: color 0.1s linear;
   }
 
   &__btn-cont {
     margin-top: 50px;
     width: 100%;
-    color: #3369f3;
+    color: $btn-text;
     display: flex;
     flex-direction: column;
   }
@@ -122,7 +122,7 @@
     line-height: 13px;
     border: none;
     text-decoration: none;
-    color: #3369f3;
+    color: $btn-text;
 
     &:focus {
       outline: none;

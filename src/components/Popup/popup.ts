@@ -1,13 +1,7 @@
 import { Block } from '../Block';
-// import { Btn } from '../Button';
-// import { tmplPopupChngAvatar } from './template';
-// interface TPopupBase {
-//   [propName: string]: any
-// }
 
 type TProps = { [propName: string]: any };
 
-// export class Popup<> extends Block<TProps> {
 export class Popup<TPopupBase> extends Block<TProps> {
   props: TPopupBase;
 
@@ -16,7 +10,6 @@ export class Popup<TPopupBase> extends Block<TProps> {
   }
 
   addEvents(): boolean {
-    // const popupAddUser = document.body.querySelector<HTMLElement>('#popup-add-user');
     const popup = this._element;
     if (popup) {
       popup.addEventListener('click', this.outsideClick);
@@ -26,7 +19,6 @@ export class Popup<TPopupBase> extends Block<TProps> {
   }
 
   outsideClick = (event: any) => {
-    // const popupAddUser = document.body.querySelector<HTMLElement>('#popup-add-user');
     const popup = this._element;
     if (event.type === 'click') {
       if (popup) {
@@ -45,12 +37,6 @@ export class Popup<TPopupBase> extends Block<TProps> {
   };
 
   render(): string {
-    // const compiled = compile(tmplPopupChngAvatar);
-    // const html = compiled({
-    //   ...this.props,
-    //   buttonChange: this.props.buttonChange.render(),
-    // });
-    // return html;
     return '';
   }
 }

@@ -24,7 +24,7 @@
     font-size: 12px;
     line-height: 12px;
     align-content: center;
-    color: #999;
+    color: $text-time;
   }
 
   &__msg-cont {
@@ -40,7 +40,7 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 15px;
-    color: #1e1e1e;
+    color: $title-main;
     padding-bottom: 8px;
 
     &:nth-child(1n) {
@@ -59,7 +59,7 @@
     font-weight: 500;
     font-size: 9px;
     line-height: 9px;
-    color: #999;
+    color: $text-time;
 
     &_img {
       padding: 2px 7px;
@@ -104,6 +104,6 @@
     font-weight: 500;
     font-size: 9px;
     line-height: 9px;
-    color: #999;
+    color: $text-time;
   }
 }

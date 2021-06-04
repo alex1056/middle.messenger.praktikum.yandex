@@ -1,7 +1,5 @@
 import { Block } from '../Block';
 import { Btn } from '../Button';
-// import { tmplDeleteAddUser } from './template';
-
 import './style.scss';
 import { createStore, Actions } from '../../modules/Store';
 import { Api } from '../../modules/Api';
@@ -10,7 +8,7 @@ import { Validator } from '../../modules/validator';
 import { onSubmitGetFormData, mapInputsForSending } from '../../modules/form/onSubmitHandlers';
 
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 type TProps = { [propName: string]: any };
 const store = createStore();
@@ -153,7 +151,6 @@ export class PopupDeleteUser extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplDeleteAddUser);
     const html = template({
       ...this.props,
       buttonCancel: this.props.buttonCancel.render(),

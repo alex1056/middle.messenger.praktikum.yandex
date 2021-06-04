@@ -1,7 +1,5 @@
 import { Block } from '../Block';
 import { Btn } from '../Button';
-// import { tmplPopupChngAvatar } from './template';
-
 import { Form } from '../../modules/form';
 import { Api } from '../../modules/Api';
 import { createStore, Actions } from '../../modules/Store';
@@ -9,7 +7,7 @@ import { transfromChatsData } from '../../utils/transfrom-chats-data';
 import './style.scss';
 
 // @ts-ignore
-const template = require('./template.pug');
+import template from './template.pug';
 
 type TProps = { [propName: string]: any };
 const api = new Api();
@@ -148,7 +146,6 @@ export class PopupMsgsChngAvatar extends Block<TProps> {
   }
 
   render(): string {
-    // const compiled = compile(tmplPopupChngAvatar);
     const html = template({
       ...this.props,
       buttonChange: this.props.buttonChange.render(),
